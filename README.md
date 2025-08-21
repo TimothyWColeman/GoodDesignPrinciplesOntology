@@ -1,0 +1,2 @@
+# GoodDesignPrinciplesOntology
+Good Design Principles
