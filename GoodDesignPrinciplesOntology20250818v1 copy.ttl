@@ -1,0 +1,393 @@
+@prefix : <http://www.semanticweb.org/timothyw.coleman-basispath/ontologies/2025/7/untitled-ontology-1041/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/timothyw.coleman-basispath/ontologies/2025/7/untitled-ontology-1041/> .
+
+<https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20250818> rdf:type owl:Ontology ;
+                                                                                   owl:versionIRI <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20250818v1Copy> ;
+                                                                                   owl:imports <https://www.commoncoreontologies.org/2024-11-05/AgentOntology> ,
+                                                                                               <https://www.commoncoreontologies.org/2024-11-06/ArtifactOntology> ;
+                                                                                   <http://purl.org/dc/terms/creator> "Timothy W. Coleman"@en ;
+                                                                                   rdfs:comment """The Good Design Principles Ontology (GDPO) formally represents Rams’ Ten Principles of Good Design as a hierarchy of classes within the framework of Basic Formal Ontology (BFO 2020) and aligned with the Common Core Ontologies (CCO 2.0).
+
+Core classes in the ontology include Design Principle (GDPO0000003), which is modeled as a directive information content entity that prescribes qualities and constraints for design practice. Good Design (GDPO0000001) represents the normative ideal of design according to Rams’ framework. Design (GDPO0000002) functions as the general class under which principles and practices are organized.
+
+Each of Rams’ ten principles is represented as a distinct class under Design Principle:
+
+1) Design Innovativeness – Good design is innovative.
+2) Design Usefulness – Good design makes a product useful.
+3) Design Aesthetic Quality – Good design is aesthetic.
+4) Design Understandability – Good design makes a product understandable.
+5) Design Unobtrusiveness – Good design is unobtrusive.
+6) Design Honesty – Good design is honest.
+7) Design Durability – Good design is long lasting.
+8) Design Thoroughness – Good design is thorough down to the last detail.
+9) Design Environmental Friendliness – Good design is environmentally friendly.
+10) Design Minimalism – Good design is as little design as possible.
+
+All ten principles are modeled as directive information content entities (DICE), which means they prescribe norms or constraints that design processes should follow. These classes are linked upward to Good Design, providing a unifying node for reasoning about Rams’ philosophy as a whole. Subclass axioms connect each principle to either qualities (such as aesthetic quality or durability) or roles and processes (such as understandability or usefulness)."""@en ;
+                                                                                   rdfs:label "Good Design Principles Ontology"@en ;
+                                                                                   rdfs:seeAlso """In the late 1970s, Dieter Rams (1932–), a legendary industrial designer from Wiesbaden, Germany, articulated a response to what he saw as the overwhelming proliferation of forms, colors, and noises in contemporary design. Having joined Braun in 1955, where he would contribute to over 500 products across four decades, Rams became increasingly concerned with the lack of clarity, honesty, and functionality in design practices of the time. Influenced by his grandfather, a carpenter, Rams sought a philosophy of design that balanced innovation with restraint.
+
+His critical question—What constitutes “good design”?—led to the development of the Ten Principles of Good Design, a framework that has shaped generations of designers and organizations worldwide. These principles emphasize that design should be innovative, useful, aesthetic, understandable, unobtrusive, honest, durable, thorough, environmentally friendly, and minimal. Together, they embody his famous maxim “Less, but better.”
+
+Rams’ principles not only guided Braun’s product legacy but also profoundly influenced Apple’s design philosophy, particularly under Chief Designer Jonathan Ive. The enduring relevance of Rams’ work demonstrates how ontological clarity about design principles can support both historical reflection and contemporary practice."""@en ;
+                                                                                   owl:versionInfo "Version 1.0"@en ;
+                                                                                   <http://www.w3.org/2004/02/skos/core#scopeNote> """Relationships and Usage
+
+The ontology enables modeling of how design principles prescribe, constrain, and evaluate design processes and artifacts.
+
+Each design principle is modeled as prescriptive, guiding design processes or constraining design decisions. For example, Design Innovativeness prescribes some innovation process, while Design Environmental Friendliness prescribes alignment with sustainability processes.
+
+Principles can be linked to artifacts (designed products) as the bearers of the qualities emphasized by Rams. For example, Design Aesthetic Quality is about some product form, while Design Usefulness is about some artifact function.
+
+The ontology can also be used for evaluation and annotation. Principles can serve as annotation points in assessing whether a product conforms to one or more aspects of good design. For example, a Braun SK4 record player may be annotated as conforming to Design Minimalism and Design Usefulness, while an iPhone may be annotated as conforming to Design Aesthetic Quality and Design Understandability.
+
+Applications of the Ontology
+
+This ontology can be used for design evaluation, enabling structured assessment of products or prototypes against Rams’ principles. It can support historical analysis by comparing design philosophies across time, such as mapping Rams’ principles against Apple’s design language or contemporary sustainability standards. It can also be used pedagogically, teaching design students how abstract principles are represented ontologically and applied to real-world cases. Finally, it can be integrated into digital design tools, where it can guide concept generation and ensure conformity with the principles of good design.
+
+The Good Design Principles Ontology (GDPO) preserves and formalizes the intellectual legacy of Dieter Rams, transforming his Ten Principles into machine-readable and logically coherent entities. By aligning with BFO 2020 and CCO 2.0, the ontology ensures interoperability with broader knowledge ecosystems, enabling designers, historians, educators, and technologists to apply Rams’ vision systematically.
+
+This ontology is not only a representation of Rams’ philosophy but also a living framework for modeling and evaluating design practices, ensuring that good design—innovative, useful, beautiful, honest, and sustainable—remains an enduring ideal."""@en .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000001
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000001> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
+                                                         rdfs:label "good design"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that organizes a set of design principles used to evaluate or guide design."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Use conforms to, satisfies, or is assessed by (whichever object property you standardize) to link artifacts or designs to this specification. Avoid making good design equivalent to the mere conjunction of all ten principles; allow graded, contextual assessment via data properties or annotations (e.g., conformity score, assessment method, assessor, date)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "good design"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "An evaluative specification denoting conformance of a designed artifact or design process to one or more design principles to a context-appropriate degree (“less, but better” as a summarizing maxim)."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000002
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000002> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
+                                                         rdfs:label "design"@en ;
+                                                         rdfs:seeAlso "Need to: Disambiguate three senses in your documentation, even if you keep a single “design” class: (a) design process (process), (b) design specification (ICE), and (c) designed artifact (material entity). In examples, be explicit about which sense you intend, and link with has specified output (spec → artifact), realizes (process → function/disposition), and bearer of (artifact → quality/disposition)"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that specifies structural, functional, and qualitative attributes of a target product."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Umbrella concept for design as an organized practice oriented toward producing artifacts that realize specified functions and exhibit target qualities."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000003
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000003> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
+                                                         rdfs:label "design principle"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that prescribes constraints or aims for artifacts or design processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Treat each of the ten principles as instances or subclasses linked via has component or organizes around to preserve the “set” character of Rams’ framework. Record provenance: creator “Dieter Rams,” original publication context, and historical note on the 1970s articulation. Use prescribes to point to design process specifications or to constraints on artifact qualities."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design principle"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Represents a directive information content entity that normatively prescribes properties, constraints, or aims for designed artifacts or for design processes, based on Dieter Rams’ ten principles."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000004
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000004> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000016> ,
+                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                                  owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000014>
+                                                                                                ]
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                                  owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                                ]
+                                                                                              ) ;
+                                                                           rdf:type owl:Class
+                                                                         ] ;
+                                                         rdfs:label "design innovativeness"@en ;
+                                                         rdfs:seeAlso "Need to: Disambiguate novelty-for-novelty’s-sake from value-creating novelty. Specify the comparison class (prior model, market category, internal baseline) via an annotation or object property such as innovates over. Distinguish design innovativeness (disposition) from innovation process (process) and from patentability (legal status)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A disposition that inheres in a material entity and tends, during design activity, to produce non-trivial novel features relative to a comparison class."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design innovativeness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A disposition of a design program or artifact lineage to introduce non-trivial improvements in function, usability, efficiency, sustainability, manufacturability, or user experience relative to a relevant comparison class."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000005
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000005> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000034> ,
+                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                                  owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000015>
+                                                                                                ]
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                                  owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                                ]
+                                                                                              ) ;
+                                                                           rdf:type owl:Class
+                                                                         ] ;
+                                                         rdfs:label "design usefulness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A function that inheres in a material entity and is directed toward achieving intended practical ends in typical contexts of use."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Pair with role assertions when usefulness is context- or user-role–dependent (e.g., medical role vs. hobbyist role). Tie evaluations to use scenario individuals with has intended use, evaluated in context, and realized in to link to successful use processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design usefulness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A function specifying the end-directed capacity of an artifact to fulfill intended practical purposes for target users in expected contexts of use."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000006
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000006> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ;
+                                                         rdfs:label "design aesthetic"@en ;
+                                                         rdfs:seeAlso "Need to: Model sub-qualities if needed (proportion, visual harmony, material finish). For assessments, record assessor, method (e.g., design review rubric), and cultural style references to handle variability across design languages."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A quality that inheres in a material entity and concerns the entity’s perceptual form (e.g., proportion, harmony, finish)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design aesthetic"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A quality of an artifact’s form and presentation contributing to perceived visual, tactile, or auditory appeal, harmony, and coherence, independent of its practical function."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000007
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000007> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000016> ,
+                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                                  owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000016>
+                                                                                                ]
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                                  owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                                ]
+                                                                                              ) ;
+                                                                           rdf:type owl:Class
+                                                                         ] ;
+                                                         rdfs:label "design understandability"@en ;
+                                                         rdfs:seeAlso "Need to: As a disposition, link to cognitive processes of typical users via is realized in comprehension episodes. Encode factors such as clear affordances, legible mapping, and feedback loops as contributing properties rather than conflating them with the disposition itself."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A disposition that inheres in a material entity and tends, in user cognition, to enable correct uptake of structure and function."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Retain both to prevent collapsing cognitive accessibility into functional adequacy. In evaluations, score separately and document trade-offs."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design understandability"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Understandability concerns cognitive uptake; usefulness concerns functional ends."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000008
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000008> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ;
+                                                         rdfs:label "design unobtrusiveness"@en ;
+                                                         rdfs:seeAlso "Need To: Keep as a quality distinct from minimalism. Document common confusions: unobtrusive does not imply austere when brand or safety signaling is required. Capture environmental fit via fits environment or minimizes visual salience relative to context, if you maintain such properties."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A quality that inheres in a material entity and concerns low salience of appearance/signals relative to its environment."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design unobtrusiveness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A quality whereby an artifact’s form and behavior refrain from dominating attention, visual field, or environment, supporting use without calling attention to itself."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000009
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000009> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000016> ,
+                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                                  owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000017>
+                                                                                                ]
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                                  owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                                ]
+                                                                                              ) ;
+                                                                           rdf:type owl:Class
+                                                                         ] ;
+                                                         rdfs:label "design honesty"@en ;
+                                                         rdfs:seeAlso "Need to: Clarify scope across three areas: material honesty (appearance tracks materials), functional honesty (controls reflect real capabilities), and communicative honesty (marketing claims match performance). Link violations to misrepresentation events rather than to the quality class itself."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A disposition that inheres in a material entity and tends, during agent–entity interaction, to align presented signals with actual capabilities."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A disposition to avoid deceptive signals in form, materials, or claims; the artifact’s presentation aligns with its actual function, performance, and construction."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000010
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000010> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000016> ,
+                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                                  owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000018>
+                                                                                                ]
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                                  owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                                ]
+                                                                                              ) ;
+                                                                           rdf:type owl:Class
+                                                                         ] ;
+                                                         rdfs:label "design durability"@en ;
+                                                         rdfs:seeAlso "Need to: Keep as a disposition. Tie to test protocols or standards via conforms to standard and to measured endurance results via realized in durability test process. Capture warranty or design life as annotations separate from the disposition."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A disposition that inheres in a material entity and tends, under load/exposure, to maintain structural and functional integrity over time."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design durability"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A disposition of an artifact to maintain integrity and function over expected life under defined loads, stresses, and environmental conditions."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000011
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000011> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ;
+                                                         rdfs:label "design thoroughness"@en ;
+                                                         rdfs:seeAlso "Need to: Treat thoroughness as a quality of the designed “system” rather than only the core artifact. Use has part/has component across the ecosystem to support reasoning that thoroughness extends “down to the last detail.”"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A quality that inheres in a material entity and concerns completeness and attention to detail across the entity and its parts."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design thoroughness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A quality of completeness and attention to detail evident in surface finish, tolerances, affordances, edge cases, and fit-and-finish across the product and its ecosystem (packaging, documentation, accessories)."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000012
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000012> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000016> ,
+                                                                         [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                                  owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000019>
+                                                                                                ]
+                                                                                                [ rdf:type owl:Restriction ;
+                                                                                                  owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                                  owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                                ]
+                                                                                              ) ;
+                                                                           rdf:type owl:Class
+                                                                         ] ;
+                                                         rdfs:label "design environmental friendliness"@en ;
+                                                         rdfs:seeAlso "Need to: Model lifecycle stages as processes and link via is realized in to verified outcomes (e.g., recycled content percentage, energy use class, repairability index). Distinguish claims (ICE) from verified performance (measurement data); record certification bodies and standards."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A disposition that inheres in a material entity and tends, across its lifecycle, to minimize adverse ecological impact."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design environmental friendliness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A disposition of an artifact and its lifecycle to minimize adverse environmental impact across sourcing, manufacturing, distribution, use, and end-of-life."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000013
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000013> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ;
+                                                         rdfs:label "design minimalism"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A quality that inheres in a material entity and concerns achieving intended purposes with the fewest necessary elements."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Differentiate minimalism from impoverished function. Use accompanies to indicate when minimalism co-occurs with understandability and unobtrusiveness without making them equivalent. Where complexity is necessary (e.g., safety cues), note justified exceptions in annotations."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design minimalism"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "A quality characterized by reduction to essential elements in form and function, eliminating superfluous ornamentation and unnecessary complexity in support of “less, but better.”"@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000014
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000014> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design innovation process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "innovation-in-design process"@en ,
+                                                                                                        "product innovation process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process that produces novel or non-trivial changes to a designed artifact’s features or functions relative to an appropriate prior state or comparison class."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Keep distinct from project management milestones; the focus is the technical/design change. Align the comparison class (e.g., prior model, category baseline) in annotations rather than in the definition."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design innovation process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Typical evidence: invention disclosures, patentable novelty assessments, design reviews showing substantial change."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000015
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000015> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design use process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "design operation process"@en ,
+                                                                                                        "user operation process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process in which an agent operates a designed artifact to achieve its intended end in a context of use."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Don’t conflate with testing; tests are separate processes whose aim is evaluation rather than accomplishing the artifact’s end."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design use process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Suitable for capturing outcomes, success/failure, and context constraints affecting performance."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000016
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000016> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design comprehension process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "design understanding process"@en ,
+                                                                                                        "user comprehension of design"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process in which an agent forms a correct understanding of a designed artifact’s structure, functions, or affordances."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Keep distinct from instruction delivery; instruction is another process that may enable comprehension but is not identical to it."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design comprehension process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Applicable to usability studies, onboarding, or training scenarios where comprehension is measured."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000017
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000017> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design interaction process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "human–artifact interaction process"@en ,
+                                                                                                        "interface interaction process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process comprising exchanges between an agent and a designed artifact in which controls, feedback, and signals correspond to the artifact’s actual capabilities."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Use this to ground assessments of “honesty” in interaction, not in marketing claims (which belong to communication processes)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design interaction process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Useful for logging mismatches between presented affordances and actual functions (false affordances vs. truthful signaling)."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000018
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000018> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design endurance process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "aging-under-load process"@en ,
+                                                                                                        "durability exposure process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process during which a designed artifact is subjected to loads, stresses, or environmental conditions over time while maintaining structural and functional integrity."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Distinguish routine service exposure from special test procedures; both may instantiate this class, but tests add evaluation aims."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design endurance process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Map to warranty life, design life, or standards-based endurance protocols where applicable."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000019
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000019> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design lifecycle process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#altLabel> "life-cycle process (design)"@en ,
+                                                                                                        "product lifecycle process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process that aggregates stages including sourcing, manufacturing, distribution, use, maintenance, and end-of-life handling of a designed artifact."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Define system boundaries explicitly in annotations (cradle-to-gate, cradle-to-grave, or cradle-to-cradle) to avoid ambiguity."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design lifecycle process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Use for environmental impact accounting, repairability, recyclability, and circularity analyses."@en .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
