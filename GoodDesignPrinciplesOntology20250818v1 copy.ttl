@@ -7,13 +7,22 @@
 @base <http://www.semanticweb.org/timothyw.coleman-basispath/ontologies/2025/7/untitled-ontology-1041/> .
 
 <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20250818> rdf:type owl:Ontology ;
-                                                                                   owl:versionIRI <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20250818v1Copy> ;
+                                                                                   owl:versionIRI <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20250821v1.1> ;
                                                                                    owl:imports <https://www.commoncoreontologies.org/2024-11-05/AgentOntology> ,
                                                                                                <https://www.commoncoreontologies.org/2024-11-06/ArtifactOntology> ;
                                                                                    <http://purl.org/dc/terms/creator> "Timothy W. Coleman"@en ;
                                                                                    rdfs:comment """The Good Design Principles Ontology (GDPO) formally represents Rams’ Ten Principles of Good Design as a hierarchy of classes within the framework of Basic Formal Ontology (BFO 2020) and aligned with the Common Core Ontologies (CCO 2.0).
 
-Core classes in the ontology include Design Principle (GDPO0000003), which is modeled as a directive information content entity that prescribes qualities and constraints for design practice. Good Design (GDPO0000001) represents the normative ideal of design according to Rams’ framework. Design (GDPO0000002) functions as the general class under which principles and practices are organized.
+Modeling approach 
+• Each of Rams’ principles is represented as a class under ‘design principle’ (a directive information content entity, DICE). 
+• Every principle prescribes one or more design process types (e.g., design innovation process, design use process, design interaction process, design lifecycle process). 
+• Process classes are occurrents that have participants: an Agent and a Material Entity (the designed artifact).
+• Realizable entities are modeled on the artifact side: functions and dispositions ‘inhere in’ a material entity and are ‘realized in’ the appropriate process types; qualities (e.g., aesthetic, unobtrusiveness, minimalism, thoroughness) are modeled as qualities that ‘inhere in’ a material entity (qualities are not realized).
+• The historically bounded set of the ten principles is captured by the class ‘rams ten principles specification’, a principle specification that ‘has continuant part’ each of the ten principle classes.
+
+Intended use: GDPO supports principled annotation and comparison of design practices and artifacts against Rams’ framework. Conformance scoring, assessment methods, and provenance may be added at the instance (ABox) level without altering the TBox: e.g., evaluation records, assessors, dates, and methods.
+
+Interoperability: All assertions use BFO 2020 relations (including ‘has continuant part’ for ICE–ICE mereology) and CCO classes for agents and artifacts, ensuring compatibility with adjacent ontologies and data pipelines.
 
 Each of Rams’ ten principles is represented as a distinct class under Design Principle:
 
@@ -36,51 +45,32 @@ His critical question—What constitutes “good design”?—led to the develop
 
 Rams’ principles not only guided Braun’s product legacy but also profoundly influenced Apple’s design philosophy, particularly under Chief Designer Jonathan Ive. The enduring relevance of Rams’ work demonstrates how ontological clarity about design principles can support both historical reflection and contemporary practice."""@en ;
                                                                                    owl:versionInfo "Version 1.0"@en ;
-                                                                                   <http://www.w3.org/2004/02/skos/core#scopeNote> """Relationships and Usage
+                                                                                   <http://www.w3.org/2004/02/skos/core#scopeNote> """Relationships and Usage: The ontology enables modeling of how design principles prescribe and evaluate design processes and artifacts.
 
-The ontology enables modeling of how design principles prescribe, constrain, and evaluate design processes and artifacts.
+Each design principle is modeled as prescriptive, guiding particular types of design processes. For example, Design Innovativeness prescribes design innovation processes, while Design Environmental Friendliness prescribes design lifecycle processes that minimize ecological impact.
 
-Each design principle is modeled as prescriptive, guiding design processes or constraining design decisions. For example, Design Innovativeness prescribes some innovation process, while Design Environmental Friendliness prescribes alignment with sustainability processes.
+Principles are tied to artifacts through the qualities, functions, or dispositions they emphasize. For example, Design Aesthetic Quality captures perceptual form, while Design Usefulness specifies the function an artifact fulfills in its context of use.
 
-Principles can be linked to artifacts (designed products) as the bearers of the qualities emphasized by Rams. For example, Design Aesthetic Quality is about some product form, while Design Usefulness is about some artifact function.
+The ontology can also be used for evaluation and annotation. Principles can serve as annotation points in assessing whether a product conforms to one or more aspects of Rams’ framework. For example, a Braun SK4 record player may be annotated as conforming to Design Minimalism and Design Usefulness, while an iPhone may be annotated as conforming to Design Aesthetic Quality and Design Understandability.
 
-The ontology can also be used for evaluation and annotation. Principles can serve as annotation points in assessing whether a product conforms to one or more aspects of good design. For example, a Braun SK4 record player may be annotated as conforming to Design Minimalism and Design Usefulness, while an iPhone may be annotated as conforming to Design Aesthetic Quality and Design Understandability.
-
-Applications of the Ontology
-
-This ontology can be used for design evaluation, enabling structured assessment of products or prototypes against Rams’ principles. It can support historical analysis by comparing design philosophies across time, such as mapping Rams’ principles against Apple’s design language or contemporary sustainability standards. It can also be used pedagogically, teaching design students how abstract principles are represented ontologically and applied to real-world cases. Finally, it can be integrated into digital design tools, where it can guide concept generation and ensure conformity with the principles of good design.
+Applications of the Ontology: This ontology can be used for design evaluation, enabling structured assessment of products or prototypes against Rams’ principles. It can support historical analysis by comparing design philosophies across time, such as mapping Rams’ principles against Apple’s design language or contemporary sustainability standards. It can also be used pedagogically, teaching design students how abstract principles are represented ontologically and applied to real-world cases. Finally, it can be integrated into digital design tools, where it can guide concept generation and ensure conformity with the principles of good design.
 
 The Good Design Principles Ontology (GDPO) preserves and formalizes the intellectual legacy of Dieter Rams, transforming his Ten Principles into machine-readable and logically coherent entities. By aligning with BFO 2020 and CCO 2.0, the ontology ensures interoperability with broader knowledge ecosystems, enabling designers, historians, educators, and technologists to apply Rams’ vision systematically.
 
-This ontology is not only a representation of Rams’ philosophy but also a living framework for modeling and evaluating design practices, ensuring that good design—innovative, useful, beautiful, honest, and sustainable—remains an enduring ideal."""@en .
+This ontology is not only a representation of Rams’ philosophy but also a living framework for modeling and evaluating design practices, ensuring that good design—innovative, useful, aesthetic, honest, and sustainable—remains an enduring ideal."""@en .
 
 #################################################################
 #    Classes
 #################################################################
 
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000001
-<https://www.ramsprinciplesofgooddesign.com/GDPO0000001> rdf:type owl:Class ;
-                                                         rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
-                                                         rdfs:label "good design"@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that organizes a set of design principles used to evaluate or guide design."@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Use conforms to, satisfies, or is assessed by (whichever object property you standardize) to link artifacts or designs to this specification. Avoid making good design equivalent to the mere conjunction of all ten principles; allow graded, contextual assessment via data properties or annotations (e.g., conformity score, assessment method, assessor, date)."@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "good design"@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "An evaluative specification denoting conformance of a designed artifact or design process to one or more design principles to a context-appropriate degree (“less, but better” as a summarizing maxim)."@en .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000002
-<https://www.ramsprinciplesofgooddesign.com/GDPO0000002> rdf:type owl:Class ;
-                                                         rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
-                                                         rdfs:label "design"@en ;
-                                                         rdfs:seeAlso "Need to: Disambiguate three senses in your documentation, even if you keep a single “design” class: (a) design process (process), (b) design specification (ICE), and (c) designed artifact (material entity). In examples, be explicit about which sense you intend, and link with has specified output (spec → artifact), realizes (process → function/disposition), and bearer of (artifact → quality/disposition)"@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that specifies structural, functional, and qualitative attributes of a target product."@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design"@en ;
-                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Umbrella concept for design as an organized practice oriented toward producing artifacts that realize specified functions and exhibit target qualities."@en .
+###  http://purl.obolibrary.org/obo/BFO_0000015
+<http://purl.obolibrary.org/obo/BFO_0000015> owl:disjointWith <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000003
 <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> rdf:type owl:Class ;
                                                          rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
+                                                         owl:disjointWith <https://www.ramsprinciplesofgooddesign.com/GDPO0000035> ;
                                                          rdfs:label "design principle"@en ;
                                                          <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that prescribes constraints or aims for artifacts or design processes."@en ;
                                                          <http://www.w3.org/2004/02/skos/core#editorialNote> "Treat each of the ten principles as instances or subclasses linked via has component or organizes around to preserve the “set” character of Rams’ framework. Record provenance: creator “Dieter Rams,” original publication context, and historical note on the 1970s articulation. Use prescribes to point to design process specifications or to constraints on artifact qualities."@en ;
@@ -388,6 +378,272 @@ This ontology is not only a representation of Rams’ philosophy but also a livi
                                                          <http://www.w3.org/2004/02/skos/core#editorialNote> "Define system boundaries explicitly in annotations (cradle-to-gate, cradle-to-grave, or cradle-to-cradle) to avoid ambiguity."@en ;
                                                          <http://www.w3.org/2004/02/skos/core#prefLabel> "design lifecycle process"@en ;
                                                          <http://www.w3.org/2004/02/skos/core#scopeNote> "Use for environmental impact accounting, repairability, recyclability, and circularity analyses."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000020
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000020> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000014>
+                                                                         ] ;
+                                                         rdfs:label "principle of innovativeness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design innovation processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Disambiguate “novelty for novelty’s sake” from novelty that produces functional or aesthetic value. Consider annotating the relevant comparison class (prior model, market baseline)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of innovativeness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Guides designers toward introducing non-trivial improvements in function, usability, or form relative to existing designs."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000021
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000021> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000015>
+                                                                         ] ;
+                                                         rdfs:label "principle of usefulness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design use processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Pair with user roles or contexts when usefulness depends on role (e.g., physician vs. hobbyist)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of usefulness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Directs design toward ensuring that artifacts fulfill intended purposes in their expected contexts of use."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000022
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000022> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000030>
+                                                                         ] ;
+                                                         rdfs:label "principle of aesthetic quality"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design aesthetic processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "May be specialized into proportion, harmony, or finish if needed; annotate cultural or stylistic context in assessments."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of aesthetic quality"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Guides design to achieve perceptual appeal and coherence in form independent of pure function."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000023
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000023> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000016>
+                                                                         ] ;
+                                                         rdfs:label "principle of understandability"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design comprehension processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Editorial note: Link to cognitive uptake processes of typical users; retain distinction from usefulness, which concerns end-directed adequacy."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of understandability"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Ensures artifacts are self-explanatory, with affordances and mappings that users can readily grasp."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000024
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000024> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000031>
+                                                                         ] ;
+                                                         rdfs:label "principle of unobtrusiveness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design environmental integration processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Editorial note: Keep distinct from minimalism; unobtrusive designs may still exhibit richness when the context requires (e.g., safety signaling)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of unobtrusiveness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Directs designers to create artifacts that blend harmoniously with their environment without dominating attention."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000025
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000025> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000017>
+                                                                         ] ;
+                                                         rdfs:label "principle of honesty"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design interaction processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Distinguish material honesty (true to materials), functional honesty (controls reflect real capabilities), and communicative honesty (marketing matches performance)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of honesty"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Encourages transparency such that the artifact’s appearance, signals, and claims accurately reflect its actual properties. Aligns signals/claims with actual capabilities."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000026
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000026> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000018>
+                                                                         ] ;
+                                                         rdfs:label "principle of durability"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design endurance processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Tie to conformance with test standards (e.g., durability test protocols); capture warranty or expected lifespan as annotations. Tie to standards/test protocols in evaluation data; keep warranty/design-life as annotations."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of durability"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Guides designers to ensure artifacts maintain integrity and function under normal conditions over an extended lifespan. Maintains integrity/function under expected loads over time."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000027
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000027> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000032>
+                                                                         ] ;
+                                                         rdfs:label "principle of thoroughness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design thoroughness assurance processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Apply to systems and ecosystems, not just the core artifact. Use part-whole reasoning across packaging, accessories, documentation."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of thoroughness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Scope note: Directs designers to attend to detail “down to the last” element of form, function, and integration."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000028
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000028> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000019>
+                                                                         ] ;
+                                                         rdfs:label "principle of environmental friendliness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design lifecycle processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Model lifecycle stages (sourcing, manufacture, distribution, use/maintenance, end-of-life) as subclasses of design lifecycle process. Distinguish claims (ICE) from verified measures/certifications."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of environmental friendliness"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Guides design to minimize adverse ecological impact across an artifact’s entire lifecycle. Minimizes adverse ecological impact across the lifecycle."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000029
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000029> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000003> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <https://www.commoncoreontologies.org/ont00001942> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000033>
+                                                                         ] ;
+                                                         rdfs:label "principle of minimalism"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A design principle that prescribes design reduction processes."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Distinguish from “impoverished function.” Allow justified exceptions where complexity is necessary (e.g., safety or accessibility cues)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle of minimalism"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Directs design to reduce artifacts to essential elements, eliminating superfluous features in support of “less, but better.”"@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000030
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000030> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design aesthetic process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process focused on form, proportion, harmony, material/finish decisions."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design aesthetic process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "Guides perceptual coherence/appeal without committing to a particular style."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000031
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000031> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design environmental integration process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process that integrates visual/signal salience of the artifact with its setting."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Distinguish from minimalism; unobtrusive ≠ austere when signaling (e.g., safety) is required."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design environmental integration process"@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000032
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000032> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design thoroughness assurance process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process that ensures completeness/fit-and-finish across parts and ecosystem (packaging, docs, accessories)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design thoroughness assurance process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "“Down to the last detail” across system components."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000033
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000033> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000057> ;
+                                                                           owl:someValuesFrom <https://www.commoncoreontologies.org/ont00001017>
+                                                                         ] ;
+                                                         rdfs:label "design reduction process"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A process that eliminates superfluous elements to achieve sufficiency with least complexity."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "Distinguish from impoverished function; allow justified exceptions for safety/accessibility cues."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "design reduction process"@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000034
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000034> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.ramsprinciplesofgooddesign.com/GDPO0000035> ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000020>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000021>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000022>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000023>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000024>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000025>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000026>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000027>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000028>
+                                                                         ] ,
+                                                                         [ rdf:type owl:Restriction ;
+                                                                           owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                                                                           owl:someValuesFrom <https://www.ramsprinciplesofgooddesign.com/GDPO0000029>
+                                                                         ] ;
+                                                         rdfs:label "rams ten principles specification"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A principle design specification that has part each of the ten principles articulated by Dieter Rams (Principle of Innovativeness, Principle of Usefulness, Principle of Aesthetic Quality, Principle of Understandability, Principle of Unobtrusiveness, Principle of Honesty, Principle of Durability, Principle of Thoroughness, Principle of Environmental Friendliness, and Principle of Minimalism)."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#editorialNote> "This class should be treated as a directive information content entity authored by Dieter Rams in the 1970s. It is not identical with “good design” in general, which remains a broader evaluative category. The specification serves as a historically bounded collection of ten principles and should be modeled using has part relations to the individual principle classes. It is not intended to be equivalent to the logical conjunction of all ten principles, since Rams’ framework functions as a normative guide that allows for graded and context-dependent conformity. Provenance should record Dieter Rams as creator, the decade of articulation, and the primary published sources."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "rams ten principles specification"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#scopeNote> "This class represents the historically bounded Ten Principles of Good Design articulated by Dieter Rams. It is intended to serve as a reference specification against which design artifacts or practices can be evaluated or annotated. The specification supports reasoning and comparison by providing a coherent set of principles that can be contrasted with alternative frameworks of design evaluation. It should be used when modeling Rams’ philosophy as a complete set, while the individual principle classes should be used when annotating specific features of artifacts or design processes."@en .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/GDPO0000035
+<https://www.ramsprinciplesofgooddesign.com/GDPO0000035> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000965> ;
+                                                         rdfs:label "principle specification"@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#definition> "A directive information content entity that organizes one or more design principles as components for evaluation or guidance."@en ;
+                                                         <http://www.w3.org/2004/02/skos/core#prefLabel> "principle specification"@en .
 
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
