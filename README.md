@@ -108,3 +108,19 @@ Applications of the Ontology: This ontology can be used for design evaluation, e
 The Good Design Principles Ontology (GDPO) preserves and formalizes the intellectual legacy of Dieter Rams, transforming his Ten Principles into machine-readable and logically coherent entities. By aligning with BFO 2020 and CCO 2.0, the ontology ensures interoperability with broader knowledge ecosystems, enabling designers, historians, educators, and technologists to apply Rams’ vision systematically.
 
 This ontology is not only a representation of Rams’ philosophy but also a living framework for modeling and evaluating design practices, ensuring that good design—innovative, useful, aesthetic, honest, and sustainable—remains an enduring ideal.
+
+## Figure 1. GDPO core pattern
+<img width="3840" height="1603" alt="GDPO core pattern" src="https://github.com/user-attachments/assets/5e6c96ef-1155-4f83-9ac8-04896556fff1" />
+
+Figure 1 (GDPO Core Pattern) shows Rams’ Ten Principles formalized as subclasses of Directive Information Content Entities (DICE) that prescribe design process types, with artifacts linked via bearer_of to qualities, dispositions, and functions that are realized_in those processes.
+
+## Figure 2. Principled evaluation pattern separating process
+<img width="3840" height="1720" alt="Principled evaluation pattern separating process" src="https://github.com/user-attachments/assets/b0552cbb-9fe2-40eb-b69d-65531f1207ed" />
+
+Figure 2 (Principled Evaluation Pattern) separates the Design Evaluation Process (a BFO Occurrent) from the resulting Design Evaluation record (a CCO Information Content Entity), capturing links to artifacts (evaluates), principles (against_principle), methods (using_method), agents (assessed_by), and datatypes such as has_score and assessed_on.
+
+## Figure 3. AI governance extension
+
+<img width="3840" height="2767" alt="AI governance extension" src="https://github.com/user-attachments/assets/743b11a0-0b27-425e-95db-fda5012a96db" />
+
+Figure 3 (AI Governance Extension) applies the same evaluation pattern to governance principles such as Transparency, modeled as DICE that prescribe provenance documentation and disclosure processes, with AI systems as the evaluated artifacts.
