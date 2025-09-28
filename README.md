@@ -109,18 +109,80 @@ The Good Design Principles Ontology (GDPO) preserves and formalizes the intellec
 
 This ontology is not only a representation of Rams’ philosophy but also a living framework for modeling and evaluating design practices, ensuring that good design—innovative, useful, aesthetic, honest, and sustainable—remains an enduring ideal.
 
-## Figure 1. GDPO core pattern
-<img width="3840" height="1603" alt="GDPO core pattern" src="https://github.com/user-attachments/assets/5e6c96ef-1155-4f83-9ac8-04896556fff1" />
+## 20 Competency Questions
 
-Figure 1 (GDPO Core Pattern) shows Rams’ Ten Principles formalized as subclasses of Directive Information Content Entities (DICE) that prescribe design process types, with artifacts linked via bearer_of to qualities, dispositions, and functions that are realized_in those processes.
+# About Principles and Processes
+1) Which design processes does the principle of innovativeness prescribe?
+2) Which principle of good design prescribes a design use process?
+3) Which design evaluation methods operationalize the principle of minimalism?
+4) Which design principles apply to a given design lifecycle process?
+5) Which qualities or dispositions are linked to a specific design principle?
 
-## Figure 2. Principled evaluation pattern separating process
-<img width="3840" height="1720" alt="Principled evaluation pattern separating process" src="https://github.com/user-attachments/assets/b0552cbb-9fe2-40eb-b69d-65531f1207ed" />
+# About Evaluations
+6) What artifacts (material entities) have been the subject of a design evaluation?
+7) Which principles was a particular artifact evaluated against?
+8) Which evaluation method specification was used in a given design evaluation?
+9) What numeric score was assigned to an artifact in its last design evaluation?
+10) On what date was an artifact last assessed for conformity to Rams’ principles?
 
-Figure 2 (Principled Evaluation Pattern) separates the Design Evaluation Process (a BFO Occurrent) from the resulting Design Evaluation record (a CCO Information Content Entity), capturing links to artifacts (evaluates), principles (against_principle), methods (using_method), agents (assessed_by), and datatypes such as has_score and assessed_on.
+# About Methods
+11) Which evaluation method specification prescribes a design evaluation process?
+12) Which principles does a given evaluation method specification operationalize?
+13) Are there multiple methods used to evaluate the same principle?
+14) Which principle is most frequently associated with evaluation methods in this ontology?
 
-## Figure 3. AI governance extension
+# About Qualities and Dispositions
+15) Which qualities (e.g., aesthetic quality, minimalism quality) inhere in a given artifact?
+16) Which dispositions (e.g., honesty, durability) of an artifact are realized in which processes?
+17) Which aspects of honesty (material, functional, communicative) does a given artifact exhibit?
 
-<img width="3840" height="2767" alt="AI governance extension" src="https://github.com/user-attachments/assets/743b11a0-0b27-425e-95db-fda5012a96db" />
+# Historical and Structural
+18) Which principles are part of the Rams ten principles specification?
+19) How does the ontology distinguish between qualities (e.g., aesthetic quality) and principles (e.g., principle of aesthetics)?
+20) Which agents carried out a design evaluation process for a given artifact?
 
-Figure 3 (AI Governance Extension) applies the same evaluation pattern to governance principles such as Transparency, modeled as DICE that prescribe provenance documentation and disclosure processes, with AI systems as the evaluated artifacts.
+## SPARQL Queries
+
+# CQ1. Which design processes does the principle of innovativeness prescribe?
+- Find processes prescribed by the "principle of innovativeness"
+  
+SELECT ?process ?processLabel WHERE {
+  ?principle rdfs:label "principle of innovativeness"@en .
+  ?principle <https://www.commoncoreontologies.org/ont00001942> ?process .
+  ?process rdfs:label ?processLabel .
+}
+
+# CQ7. Which principles was a particular artifact evaluated against?
+(Say the artifact is a Braun SK4 record player individual, labeled “Braun SK4”)
+- For a given artifact, list the principles it was evaluated against
+
+SELECT ?principle ?principleLabel WHERE {
+  ?artifact rdfs:label "Braun SK4"@en .
+  ?evaluation <https://www.ramsprinciplesofgooddesign.com/GDPO0000045> ?artifact .
+  ?evaluation <https://www.ramsprinciplesofgooddesign.com/GDPO0000046> ?principle .
+  ?principle rdfs:label ?principleLabel .
+}
+
+# CQ8. Which evaluation method specification was used in a given design evaluation?
+(Say evaluation record labeled “SK4 evaluation 1970”)
+- What method was used in a given design evaluation?
+
+SELECT ?method ?methodLabel WHERE {
+  ?evaluation rdfs:label "SK4 evaluation 1970"@en .
+  ?evaluation <https://www.ramsprinciplesofgooddesign.com/GDPO0000048> ?method .
+  ?method rdfs:label ?methodLabel .
+}
+
+# CQ9. What numeric score was assigned to an artifact in its last design evaluation?
+- Retrieve the score(s) given to an artifact in its evaluations
+
+SELECT ?evaluation ?date ?score WHERE {
+  ?artifact rdfs:label "Braun SK4"@en .
+  ?evaluation <https://www.ramsprinciplesofgooddesign.com/GDPO0000045> ?artifact .
+  ?evaluation <https://www.ramsprinciplesofgooddesign.com/GDPO0000050> ?date .
+  ?evaluation <https://www.ramsprinciplesofgooddesign.com/GDPO0000047> ?score .
+}
+ORDER BY DESC(?date)
+LIMIT 1
+
+
