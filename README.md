@@ -67,7 +67,8 @@ GoodDesignPrinciplesOntology/
 │       ├── GoodDesignPrinciplesOntology-v4.0.0.ttl
 │       └── RELEASE_NOTES_v4.0.0.md
 ├── docs/
-│   └── competency-questions.md
+│   ├── competency-questions.md
+│   └── design-pattern-diagrams.md
 └── examples/
     └── sparql-queries.md
 ```
