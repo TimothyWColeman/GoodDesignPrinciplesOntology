@@ -1,0 +1,220 @@
+@prefix : <https://www.ramsprinciplesofgooddesign.com/GDPO_SHACL_Shapes/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix gdpo: <https://www.ramsprinciplesofgooddesign.com/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <https://www.ramsprinciplesofgooddesign.com/GDPO_SHACL_Shapes/> .
+
+<https://www.ramsprinciplesofgooddesign.com/GDPO_SHACL_Shapes> rdf:type owl:Ontology ;
+                                                                dcterms:description "SHACL validation shapes for grounding and evaluation/score modeling in GDPO."@en ;
+                                                                dcterms:modified "2026-01-16"^^xsd:date ;
+                                                                dcterms:title "GDPO SHACL Shapes"@en ;
+                                                                rdfs:label "GDPO SHACL Shapes"@en ;
+                                                                owl:versionInfo "0.1.0"@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/modified
+dcterms:modified rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#class
+sh:class rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#datatype
+sh:datatype rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#inversePath
+sh:inversePath rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#maxCount
+sh:maxCount rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#message
+sh:message rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#minCount
+sh:minCount rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#node
+sh:node rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#path
+sh:path rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#property
+sh:property rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#severity
+sh:severity rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#targetClass
+sh:targetClass rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/shacl#targetSubjectsOf
+sh:targetSubjectsOf rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/ns/shacl#NodeShape
+sh:NodeShape rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://www.ramsprinciplesofgooddesign.com/CanonicalRamsStatementGroundingShape
+gdpo:CanonicalRamsStatementGroundingShape rdf:type owl:NamedIndividual ,
+                                                   sh:NodeShape ;
+                                          rdfs:label "Canonical Rams statement grounding shape"@en ;
+                                          sh:property [ sh:message "Recommended: include dcterms:creator for canonical principle statements (e.g., Dieter Rams)."@en ;
+                                                        sh:minCount 1 ;
+                                                        sh:path dcterms:creator ;
+                                                        sh:severity sh:Warning
+                                                      ] ,
+                                                      [ sh:class bfo:BFO_0000040 ;
+                                                        sh:message "A canonical Rams statement (has canonical statement text) must be grounded by at least one material bearer via 'is concretized by'."@en ;
+                                                        sh:minCount 1 ;
+                                                        sh:path gdpo:GDPO0000464
+                                                      ] ;
+                                          sh:targetSubjectsOf gdpo:GDPO0000453 .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/DesignEvaluationRecordShape
+gdpo:DesignEvaluationRecordShape rdf:type owl:NamedIndividual ,
+                                          sh:NodeShape ;
+                                 rdfs:label "Design evaluation record shape"@en ;
+                                 sh:property [ sh:class gdpo:GDPO0000052 ;
+                                               sh:maxCount 1 ;
+                                               sh:message "If specified, an evaluation record should reference at most one method specification."@en ;
+                                               sh:path gdpo:GDPO0000048
+                                             ] ,
+                                             [ sh:datatype xsd:decimal ;
+                                               sh:maxCount 1 ;
+                                               sh:message "Avoid attaching multiple raw 'has score' decimals to the evaluation record. Use reified score components (has score component → design evaluation score) to represent multi-criterion scoring and scale semantics."@en ;
+                                               sh:path gdpo:GDPO0000047 ;
+                                               sh:severity sh:Warning
+                                             ] ,
+                                             [ sh:class gdpo:GDPO0000003 ;
+                                               sh:message "A design evaluation record must specify at least one criterion via 'against principle'."@en ;
+                                               sh:minCount 1 ;
+                                               sh:path gdpo:GDPO0000046
+                                             ] ,
+                                             [ sh:datatype xsd:dateTime ;
+                                               sh:maxCount 1 ;
+                                               sh:message "A design evaluation record must have exactly one 'assessed on' timestamp (xsd:dateTime)."@en ;
+                                               sh:minCount 1 ;
+                                               sh:path gdpo:GDPO0000050
+                                             ] ,
+                                             [ sh:class bfo:BFO_0000040 ;
+                                               sh:message "Recommended: ground the evaluation record by linking it to at least one material bearer (is concretized by)."@en ;
+                                               sh:minCount 1 ;
+                                               sh:path gdpo:GDPO0000464 ;
+                                               sh:severity sh:Warning
+                                             ] ,
+                                             [ sh:class gdpo:GDPO0000456 ;
+                                               sh:message "Each score component linked from an evaluation record must be a design evaluation score that satisfies the score-component constraints (criterion, scale, value)."@en ;
+                                               sh:node gdpo:DesignEvaluationScoreShape ;
+                                               sh:path gdpo:GDPO0000457
+                                             ] ,
+                                             [ sh:class gdpo:GDPO0000055 ;
+                                               sh:maxCount 1 ;
+                                               sh:message "Recommended: link the evaluation record to the evaluation process that produced it (is evaluation record output of)."@en ;
+                                               sh:path gdpo:GDPO0000462 ;
+                                               sh:severity sh:Warning
+                                             ] ,
+                                             [ sh:class bfo:BFO_0000040 ;
+                                               sh:maxCount 1 ;
+                                               sh:message "A design evaluation record must be about exactly one evaluated artifact (material entity)."@en ;
+                                               sh:minCount 1 ;
+                                               sh:path gdpo:GDPO0000045
+                                             ] ;
+                                 sh:targetClass gdpo:GDPO0000044 .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/DesignEvaluationScoreShape
+gdpo:DesignEvaluationScoreShape rdf:type owl:NamedIndividual ,
+                                         sh:NodeShape ;
+                                rdfs:label "Design evaluation score shape"@en ;
+                                sh:property [ sh:class gdpo:GDPO0000003 ;
+                                              sh:maxCount 1 ;
+                                              sh:message "A design evaluation score must be linked to exactly one criterion principle (score for principle)."@en ;
+                                              sh:minCount 1 ;
+                                              sh:path gdpo:GDPO0000458
+                                            ] ,
+                                            [ sh:class gdpo:GDPO0000461 ;
+                                              sh:maxCount 1 ;
+                                              sh:message "A design evaluation score must have exactly one score scale specification (has score scale)."@en ;
+                                              sh:minCount 1 ;
+                                              sh:path gdpo:GDPO0000460
+                                            ] ,
+                                            [ sh:datatype xsd:decimal ;
+                                              sh:maxCount 1 ;
+                                              sh:message "A design evaluation score must have exactly one numeric score value (xsd:decimal)."@en ;
+                                              sh:minCount 1 ;
+                                              sh:path gdpo:GDPO0000459
+                                            ] ,
+                                            [ sh:class gdpo:GDPO0000044 ;
+                                              sh:maxCount 1 ;
+                                              sh:message "Recommended: a score component should be linked from exactly one evaluation record (inverse of has score component)."@en ;
+                                              sh:minCount 1 ;
+                                              sh:path [ sh:inversePath gdpo:GDPO0000457
+                                                      ] ;
+                                              sh:severity sh:Warning
+                                            ] ;
+                                sh:targetClass gdpo:GDPO0000456 .
+
+
+###  https://www.ramsprinciplesofgooddesign.com/EvaluationScoreScaleSpecificationShape
+gdpo:EvaluationScoreScaleSpecificationShape rdf:type owl:NamedIndividual ,
+                                                     sh:NodeShape ;
+                                            rdfs:label "Evaluation score scale specification shape"@en ;
+                                            sh:property [ sh:message "Recommended: provide a skos:definition describing how values on this scale are interpreted (e.g., bounds, type, meaning)."@en ;
+                                                          sh:minCount 1 ;
+                                                          sh:path skos:definition ;
+                                                          sh:severity sh:Warning
+                                                        ] ;
+                                            sh:targetClass gdpo:GDPO0000461 .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
