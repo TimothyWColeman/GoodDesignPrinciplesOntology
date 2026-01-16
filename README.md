@@ -76,6 +76,7 @@ GoodDesignPrinciplesOntology/
 
 - **[CHANGELOG.md](CHANGELOG.md)** — Full version history with migration notes
 - **[Competency Questions](docs/competency-questions.md)** — 20 questions GDPO answers
+- **[Design Pattern Diagrams](docs/design-pattern-diagrams.md)** — Mermaid visualizations for each CQ
 - **[SPARQL Examples](examples/sparql-queries.md)** — Ready-to-use queries
 
 ## Use Cases
