@@ -71,6 +71,8 @@ GoodDesignPrinciplesOntology/
 │   └── design-pattern-diagrams.md
 └── examples/
     └── sparql-queries.md
+    ├── gdpo-shapes.ttl       # SHACL validation shapes
+    └── gdpo-abox-examples.ttl # Example ABox instances
 ```
 
 ## Documentation
