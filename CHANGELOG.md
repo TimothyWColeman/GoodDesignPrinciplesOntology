@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [4.0.3] - 2026-01-17
+
+### Changed
+- **`is concretized by` (GDPO0000464)**: Renamed to `has material bearer` and restructured as a subproperty of BFO's `generically depends on` for better alignment with BFO 2020 generically dependent continuant modeling.
+
+### Notes
+- This change clarifies that the relation links an ICE to its material bearer (the entity that bears a concretization of the information content), consistent with BFO's treatment of generic dependence.
+
+---
+
 ## [4.0.2] - 2026-01-17
 
 ### Added
