@@ -233,8 +233,8 @@ principle of aesthetics
 8. Which evaluation method specification was used in a given design evaluation?
 9. What numeric score was assigned to an artifact in its last design evaluation?
 10. On what date was an artifact last assessed for conformity to Rams' principles?
-11. **During which temporal region was an evaluation conducted?** *(v4.0.2)*
-12. **What are all evaluations conducted within a specified temporal interval?** *(v4.0.2)*
+11. During which temporal region was an evaluation conducted? *(v4.0.2)*
+12. What are all evaluations conducted within a specified temporal interval? *(v4.0.2)*
 
 ### About Methods
 
@@ -254,8 +254,8 @@ principle of aesthetics
 20. Which principles are part of the Rams ten principles specification?
 21. How does the ontology distinguish between qualities and principles?
 22. Which agents carried out a design evaluation process for a given artifact?
-23. **Which prescriptions apply during a specified temporal region?** *(v4.0.2)*
-24. **What is the temporal scope of a design process prescription?** *(v4.0.2)*
+23. Which prescriptions apply during a specified temporal region? *(v4.0.2)*
+24. What is the temporal scope of a design process prescription? *(v4.0.2)*
 
 ---
 
