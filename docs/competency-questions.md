@@ -1,6 +1,6 @@
 # GDPO Competency Questions
 
-Version: 4.0.2  
+Version: 4.0.3  
 Last Updated: 2026-01-17
 
 This document lists the competency questions that GDPO is designed to answer. Each question demonstrates a specific reasoning capability enabled by the ontology.
@@ -33,9 +33,9 @@ CQ9. What numeric score was assigned to an artifact in its last design evaluatio
 
 CQ10. On what date was an artifact last assessed for conformity to Rams' principles?
 
-CQ11. During which temporal region was an evaluation conducted? *(v4.0.2)*
+CQ11. During which temporal region was an evaluation conducted? *(v4.0.3)*
 
-CQ12. What are all evaluations conducted within a specified temporal interval? *(v4.0.2)*
+CQ12. What are all evaluations conducted within a specified temporal interval? *(v4.0.3)*
 
 ---
 
@@ -69,9 +69,9 @@ CQ21. How does the ontology distinguish between qualities and principles?
 
 CQ22. Which agents carried out a design evaluation process for a given artifact?
 
-CQ23. Which prescriptions apply during a specified temporal region? *(v4.0.2)*
+CQ23. Which prescriptions apply during a specified temporal region? *(v4.0.3)*
 
-CQ24. What is the temporal scope of a design process prescription? *(v4.0.2)*
+CQ24. What is the temporal scope of a design process prescription? *(v4.0.3)*
 
 ---
 
@@ -100,4 +100,4 @@ CQ29. Does a given artifact have both interaction honesty and communicative hone
 | v1.4.7 | CQ1–CQ10 (core evaluation questions) |
 | v1.5.1 | CQ17–CQ22 (qualities, dispositions, lifecycle) |
 | v4.0.0 | CQ25–CQ29 (reified scores, communicative honesty) |
-| v4.0.2 | CQ11–CQ12, CQ23–CQ24 (temporal region indexing) |
+| v4.0.3 | CQ11–CQ12, CQ23–CQ24 (temporal region indexing) |

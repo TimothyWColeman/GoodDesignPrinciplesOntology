@@ -1,6 +1,6 @@
 # GDPO Design Patterns
 
-Version: 4.0.2  
+Version: 4.0.3  
 Last Updated: 2026-01-17
 
 This document describes the key design patterns used in GDPO, with Mermaid diagrams illustrating the relationships between classes and properties.
@@ -141,9 +141,9 @@ graph TB
 
 ---
 
-## 4. Temporal Region Indexing Pattern (v4.0.2)
+## 4. Temporal Region Indexing Pattern (v4.0.3)
 
-GDPO v4.0.2 introduces BFO 2020–compliant temporal indexing using temporal regions instead of (or in addition to) xsd:dateTime literals.
+GDPO v4.0.3 introduces BFO 2020–compliant temporal indexing using temporal regions instead of (or in addition to) xsd:dateTime literals.
 
 ```mermaid
 graph TB
@@ -191,7 +191,7 @@ graph TB
 
 ---
 
-## 5. Aims-At Pattern (v4.0.2)
+## 5. Aims-At Pattern (v4.0.3)
 
 Principles aim at artifact-side targets (qualities, functions, dispositions) using OWL2 punning.
 
@@ -223,7 +223,7 @@ graph LR
 
 **Implementation notes:**
 - Target values are punned individuals (classes treated as individuals)
-- OWL range restrictions intentionally omitted (v4.0.2) to avoid treating targets as instances of BFO categories
+- OWL range restrictions intentionally omitted (v4.0.3) to avoid treating targets as instances of BFO categories
 - Validate via SHACL: target must be an IRI and a subclass of quality/function/disposition
 
 **SHACL validation:**
@@ -396,4 +396,4 @@ graph TB
 | v1.5.1 | Lifecycle Stage Pattern |
 | v3.0.0 | Prescription Component Pattern |
 | v4.0.0 | Reified Score Pattern, Honesty Evaluation Patterns, Process–Record Linkage |
-| v4.0.2 | Temporal Region Indexing Pattern, Aims-At Pattern (range removal) |
+| v4.0.3 | Temporal Region Indexing Pattern, Aims-At Pattern (range removal) |

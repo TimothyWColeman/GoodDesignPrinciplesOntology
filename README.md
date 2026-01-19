@@ -143,7 +143,7 @@ design evaluation record
   └─ assessed during temporal region → BFO:temporal region
 ```
 
-### 3. Temporal Region Indexing Pattern (v4.0.2)
+### 3. Temporal Region Indexing Pattern (v4.0.3)
 
 GDPO v4.0.2 introduces BFO 2020–compliant temporal indexing:
 
@@ -160,7 +160,7 @@ Use temporal regions when you need:
 - Interval-based reasoning (evaluations spanning periods)
 - Full BFO 2020 continuant–occurrent discipline
 
-### 4. Aims-At Pattern (v4.0.2)
+### 4. Aims-At Pattern (v4.0.3)
 
 The `aims at artifact-side target` property links principles to their intended targets (quality/function/disposition types) using OWL2 punning:
 
@@ -173,7 +173,7 @@ principle of aesthetics
 
 ---
 
-## Class and Property Inventory (v4.0.2)
+## Class and Property Inventory (v4.0.3)
 
 ### Core Classes
 
@@ -207,10 +207,10 @@ principle of aesthetics
 |----------|--------|-------|-------------|
 | `has prescription component` | design principle | design process prescription | Links principle to its prescriptive clauses |
 | `applies during lifecycle stage` | design process prescription | design lifecycle stage process | Lifecycle-stage qualifier |
-| `applies during temporal region` | design process prescription | BFO:temporal region | Temporal scope (v4.0.2) |
+| `applies during temporal region` | design process prescription | BFO:temporal region | Temporal scope (v4.0.3) |
 | `against principle` | design evaluation record | design principle | Evaluation criterion |
 | `is about evaluated artifact` | design evaluation record | BFO:material entity | Evaluated artifact |
-| `assessed during temporal region` | design evaluation record | BFO:temporal region | When assessed (v4.0.2) |
+| `assessed during temporal region` | design evaluation record | BFO:temporal region | When assessed (v4.0.3) |
 | `has score component` | design evaluation record | design evaluation score | Reified score |
 | `aims at artifact-side target` | directive ICE | (punned class) | Principle's intended target |
 
@@ -233,8 +233,8 @@ principle of aesthetics
 8. Which evaluation method specification was used in a given design evaluation?
 9. What numeric score was assigned to an artifact in its last design evaluation?
 10. On what date was an artifact last assessed for conformity to Rams' principles?
-11. During which temporal region was an evaluation conducted? *(v4.0.2)*
-12. What are all evaluations conducted within a specified temporal interval? *(v4.0.2)*
+11. During which temporal region was an evaluation conducted? *(v4.0.3)*
+12. What are all evaluations conducted within a specified temporal interval? *(v4.0.3)*
 
 ### About Methods
 
@@ -254,8 +254,8 @@ principle of aesthetics
 20. Which principles are part of the Rams ten principles specification?
 21. How does the ontology distinguish between qualities and principles?
 22. Which agents carried out a design evaluation process for a given artifact?
-23. Which prescriptions apply during a specified temporal region? *(v4.0.2)*
-24. What is the temporal scope of a design process prescription? *(v4.0.2)*
+23. Which prescriptions apply during a specified temporal region? *(v4.0.3)*
+24. What is the temporal scope of a design process prescription? *(v4.0.3)*
 
 ---
 
@@ -339,7 +339,7 @@ SELECT ?artifact ?principle ?scoreValue ?scaleLabel WHERE {
 }
 ```
 
-### CQ11: During which temporal region was an evaluation conducted? (v4.0.2)
+### CQ11: During which temporal region was an evaluation conducted? (v4.0.3)
 
 ```sparql
 PREFIX gdpo: <https://www.ramsprinciplesofgooddesign.com/>
@@ -352,7 +352,7 @@ SELECT ?evaluation ?artifact ?temporalRegion WHERE {
 }
 ```
 
-### CQ12: All evaluations within a temporal interval (v4.0.2)
+### CQ12: All evaluations within a temporal interval (v4.0.3)
 
 ```sparql
 PREFIX gdpo: <https://www.ramsprinciplesofgooddesign.com/>
@@ -371,7 +371,7 @@ SELECT ?evaluation ?artifact ?principleLabel WHERE {
 }
 ```
 
-### CQ23: Which prescriptions apply during a specified temporal region? (v4.0.2)
+### CQ23: Which prescriptions apply during a specified temporal region? (v4.0.3)
 
 ```sparql
 PREFIX gdpo: <https://www.ramsprinciplesofgooddesign.com/>
@@ -414,7 +414,7 @@ GDPO includes SHACL shapes for validation. See `gdpo-shapes.ttl` for:
 
 | File | Description |
 |------|-------------|
-| `GoodDesignPrinciplesOntology20260116v4_0_2.ttl` | Current release (v4.0.2) |
+| `GoodDesignPrinciplesOntology20260116v4_0_2.ttl` | Current release (v4.0.3) |
 | `gdpo-shapes.ttl` | SHACL validation shapes |
 | `gdpo-example-abox.ttl` | Example instance data |
 | `CHANGELOG.md` | Version history |
