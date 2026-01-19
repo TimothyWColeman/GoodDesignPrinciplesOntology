@@ -1,4 +1,26 @@
-# The Good Design Principles Ontology (GDPO): Making Rams' Philosophy Actionable
+# Good Design Principles Ontology (GDPO)
+
+![version](https://img.shields.io/badge/version-4.0.2-blue)
+![BFO](https://img.shields.io/badge/BFO-2020-green)
+![CCO](https://img.shields.io/badge/CCO-2024--11-green)
+![OWL](https://img.shields.io/badge/OWL-2%20DL-orange)
+
+An applied ontology that formalizes Dieter Rams' *Ten Principles of Good Design* within a rigorous semantic framework (BFO 2020, CCO 2.0).
+
+## Quick Start
+
+**Current version:** [`current/gdpo.ttl`](current/gdpo.ttl)
+
+```turtle
+@prefix gdpo: <https://www.ramsprinciplesofgooddesign.com/> .
+
+# Import the ontology
+owl:imports <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20260116v4.0.2> .
+```
+
+---
+
+## Making Rams' Philosophy Actionable
 
 The **Good Design Principles Ontology (GDPO)** is an applied ontology that formalizes Dieter Rams' *Ten Principles of Good Design* within a rigorous semantic framework (**BFO 2020, CCO 2.0**).
 
