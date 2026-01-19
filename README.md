@@ -1,6 +1,6 @@
 # Good Design Principles Ontology (GDPO)
 
-![version](https://img.shields.io/badge/version-4.0.2-blue)
+![version](https://img.shields.io/badge/version-4.0.3-blue)
 ![BFO](https://img.shields.io/badge/BFO-2020-green)
 ![CCO](https://img.shields.io/badge/CCO-2024--11-green)
 ![OWL](https://img.shields.io/badge/OWL-2%20DL-orange)
@@ -15,7 +15,7 @@ An applied ontology that formalizes Dieter Rams' *Ten Principles of Good Design*
 @prefix gdpo: <https://www.ramsprinciplesofgooddesign.com/> .
 
 # Import the ontology
-owl:imports <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20260116v4.0.2> .
+owl:imports <https://www.ramsprinciplesofgooddesign.com/GoodDesignPrinciplesOntology20260116v4.0.3> .
 ```
 
 ---
