@@ -1,64 +1,103 @@
 # GDPO Competency Questions
 
-This document lists the 20 competency questions that the Good Design Principles Ontology (GDPO) is designed to answer.
+Version: 4.0.2  
+Last Updated: 2026-01-17
 
-## About Principles and Processes
-
-1. **Which design processes does the principle of innovativeness prescribe?**
-2. **Which principle of good design prescribes a design use process?**
-3. **Which design evaluation methods operationalize the principle of minimalism?**
-4. **Which design principles apply to a given design lifecycle process?**
-5. **Which qualities or dispositions are linked to a specific design principle?**
-
-## About Evaluations
-
-6. **What artifacts (material entities) have been the subject of a design evaluation?**
-7. **Which principles was a particular artifact evaluated against?**
-8. **Which evaluation method specification was used in a given design evaluation?**
-9. **What numeric score was assigned to an artifact in its last design evaluation?**
-10. **On what date was an artifact last assessed for conformity to Rams' principles?**
-
-## About Methods
-
-11. **Which evaluation method specification prescribes a design evaluation process?**
-12. **Which principles does a given evaluation method specification operationalize?**
-13. **Are there multiple methods used to evaluate the same principle?**
-14. **Which principle is most frequently associated with evaluation methods in this ontology?**
-
-## About Qualities and Dispositions
-
-15. **Which qualities (e.g., aesthetic quality, minimalism quality) inhere in a given artifact?**
-16. **Which dispositions (e.g., honesty, durability) of an artifact are realized in which processes?**
-17. **Which aspects of honesty (material, functional, communicative) does a given artifact exhibit?**
-
-## Historical and Structural
-
-18. **Which principles are part of the Rams ten principles specification?**
-19. **How does the ontology distinguish between qualities (e.g., aesthetic quality) and principles (e.g., principle of aesthetics)?**
-20. **Which agents carried out a design evaluation process for a given artifact?**
+This document lists the competency questions that GDPO is designed to answer. Each question demonstrates a specific reasoning capability enabled by the ontology.
 
 ---
 
-## Notes on Answering Competency Questions
+## About Principles and Processes
 
-### Principle vs. Quality Distinction (CQ19)
+**CQ1.** Which design processes does the principle of innovativeness prescribe?
 
-GDPO distinguishes:
-- **Principles** (directive ICEs): Prescribe what *should* be the case (e.g., `principle of aesthetics`)
-- **Qualities** (BFO qualities): Describe what *is* the case in an artifact (e.g., `design aesthetic quality`)
+**CQ2.** Which principle of good design prescribes a design use process?
 
-The principle `cco:is_about` the corresponding quality, creating a semantic bridge between normative and descriptive content.
+**CQ3.** Which design evaluation methods operationalize the principle of minimalism?
 
-### Honesty Facets (CQ17)
+**CQ4.** Which design principles apply to a given design lifecycle process?
 
-Three facets of honesty are modeled differently:
-- **Material honesty**: Disposition inhering in artifact (`design material honesty`)
-- **Functional honesty**: Disposition inhering in artifact (`design functional honesty`)
-- **Communicative honesty**: Evaluated via `design communicative honesty evaluation` records about communication artifacts
+**CQ5.** Which qualities or dispositions are linked to a specific design principle?
 
-### Evaluation vs. Process (CQ6, CQ20)
+---
 
-- `design evaluation` is an ICE (record/document)
-- `design evaluation process` is a BFO process (activity)
-- The process `has_output` the evaluation record
-- Agents participate in the process, not the record directly
+## About Evaluations
+
+**CQ6.** What artifacts (material entities) have been the subject of a design evaluation?
+
+**CQ7.** Which principles was a particular artifact evaluated against?
+
+**CQ8.** Which evaluation method specification was used in a given design evaluation?
+
+**CQ9.** What numeric score was assigned to an artifact in its last design evaluation?
+
+**CQ10.** On what date was an artifact last assessed for conformity to Rams' principles?
+
+**CQ11.** During which temporal region was an evaluation conducted? *(v4.0.2)*
+
+**CQ12.** What are all evaluations conducted within a specified temporal interval? *(v4.0.2)*
+
+---
+
+## About Methods
+
+**CQ13.** Which evaluation method specification prescribes a design evaluation process?
+
+**CQ14.** Which principles does a given evaluation method specification operationalize?
+
+**CQ15.** Are there multiple methods used to evaluate the same principle?
+
+**CQ16.** Which principle is most frequently associated with evaluation methods?
+
+---
+
+## About Qualities and Dispositions
+
+**CQ17.** Which qualities (e.g., aesthetic quality, minimalism quality) inhere in a given artifact?
+
+**CQ18.** Which dispositions (e.g., honesty, durability) of an artifact are realized in which processes?
+
+**CQ19.** Which aspects of honesty (material, functional, communicative) does a given artifact exhibit?
+
+---
+
+## About Prescriptions and Temporal Scope
+
+**CQ20.** Which principles are part of the Rams ten principles specification?
+
+**CQ21.** How does the ontology distinguish between qualities and principles?
+
+**CQ22.** Which agents carried out a design evaluation process for a given artifact?
+
+**CQ23.** Which prescriptions apply during a specified temporal region? *(v4.0.2)*
+
+**CQ24.** What is the temporal scope of a design process prescription? *(v4.0.2)*
+
+---
+
+## About Scores and Scales
+
+**CQ25.** What score scale was used for a particular evaluation score? *(v4.0.0+)*
+
+**CQ26.** What are all the per-principle scores for a given evaluation record? *(v4.0.0+)*
+
+**CQ27.** Which evaluations used a normalized (0–1) scoring scale? *(v4.0.0+)*
+
+---
+
+## About Communicative Honesty
+
+**CQ28.** Which communication content (manuals, labels, ads) was assessed in a communicative honesty evaluation? *(v4.0.0+)*
+
+**CQ29.** Does a given artifact have both interaction honesty and communicative honesty evaluations? *(v4.0.0+)*
+
+---
+
+## Version History
+
+| Version | Questions Added |
+|---------|-----------------|
+| v1.4.7 | CQ1–CQ10 (core evaluation questions) |
+| v1.5.1 | CQ17–CQ22 (qualities, dispositions, lifecycle) |
+| v4.0.0 | CQ25–CQ29 (reified scores, communicative honesty) |
+| v4.0.2 | CQ11–CQ12, CQ23–CQ24 (temporal region indexing) |

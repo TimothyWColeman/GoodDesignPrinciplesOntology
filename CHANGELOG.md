@@ -1,142 +1,149 @@
 # Changelog
 
-All notable changes to the Good Design Principles Ontology (GDPO) will be documented in this file.
+All notable changes to the Good Design Principles Ontology (GDPO) are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.0.0] - 2026-01-16
+---
+
+## [4.0.2] - 2026-01-17
 
 ### Added
-
-#### Named Individuals for Canonical Rams Statements
-- `GDPO0000065` - rams ten principles specification 001 (canonical instance)
-- `GDPO0000066` - principle of innovativeness 001 ("Good design is innovative.")
-- `GDPO0000067` - principle of usefulness 001 ("Good design makes a product useful.")
-- `GDPO0000068` - principle of aesthetics 001 ("Good design is aesthetic.")
-- `GDPO0000069` - principle of understandability 001 ("Good design makes a product understandable.")
-- `GDPO0000070` - principle of unobtrusiveness 001 ("Good design is unobtrusive.")
-- `GDPO0000071` - principle of honesty 001 ("Good design is honest.")
-- `GDPO0000072` - principle of durability 001 ("Good design is long-lasting.")
-- `GDPO0000073` - principle of thoroughness 001 ("Good design is thorough down to the last detail.")
-- `GDPO0000074` - principle of environmental friendliness 001 ("Good design is environmentally friendly.")
-- `GDPO0000075` - principle of minimalism 001 ("Good design is as little design as possible.")
-
-#### Annotation Properties
-- `GDPO0000453` - has canonical statement text (relates principle statement ICE to Rams' original wording)
-
-#### Design Communication Content Classes
-- `GDPO0000446` - design communication content entity (parent class for communicated claims/disclosures)
-- `GDPO0000447` - product manual content
-- `GDPO0000448` - product label content
-- `GDPO0000449` - product advertisement content
-
-#### Communicative Honesty Evaluation
-- `GDPO0000452` - design communicative honesty evaluation (evaluates communication artifacts against honesty principle)
-- `GDPO0000450` - is about communication content (links evaluation to communication artifact)
-
-#### Reified Prescription Architecture
-- `GDPO0000061` - design process prescription (reified directive for what processes principles prescribe)
-- `GDPO0000062` - has prescription component (links principle to its prescription components)
-- `GDPO0000063` - applies during lifecycle stage (temporal/lifecycle qualifier for prescriptions)
-- `GDPO0000064` - prescribes via prescription component (property chain for derived prescriptive semantics)
-
-#### Honesty Basis Classes
-- `GDPO0000056` - design honesty basis (material entity grounding honesty dispositions)
-- `GDPO0000057` - design material honesty basis
-- `GDPO0000058` - design functional honesty basis
-
-#### Derived Properties
-- `GDPO0000059` - has evaluation-relevant principle (property chain: evaluation → method → principle)
-- `GDPO0000445` - used in evaluation (inverse of is about using method)
+- **`assessed during temporal region` (GDPO0000468)**: New object property relating design evaluation records to BFO temporal regions for full BFO 2020–compliant temporal modeling. Complements the legacy `assessed_on` datatype property.
+- **`applies during temporal region` (GDPO0000467)**: New object property relating design process prescriptions to BFO temporal regions, enabling fine-grained temporal scoping beyond lifecycle-stage qualifiers.
 
 ### Changed
+- **`aims at artifact-side target` (GDPO0000454)**: Removed OWL range restrictions to avoid treating punned target classes as instances of BFO categories. Validation of target constraints (must be a class and subclass of quality/function/disposition) is now deferred to SHACL shapes.
 
-#### Modeling Architecture
-- Principle categories are now represented as classes; canonical Rams statements are named individuals with provenance
-- Prescriptive semantics moved from direct `cco:prescribes` assertions to reified `design process prescription` components
-- Universal ('only') restrictions replace existential restrictions where appropriate to avoid unwarranted commitments
-- `GDPO0000064` intentionally not a subproperty of `cco:prescribes` to avoid non-regular role hierarchy (HermiT compatibility)
+### Notes
+- These changes support advanced temporal reasoning and integration with time ontologies (e.g., OWL-Time) while maintaining backward compatibility with existing ABox data using `assessed_on` timestamps.
 
-#### Honesty Modeling
-- Communicative honesty now modeled via evaluation records of communication artifacts, not as product-borne disposition
-- Material and functional honesty remain as dispositions inhering in artifacts
-- Added `BFO_0000218` (has basis) axioms linking honesty dispositions to their structural grounds
+---
 
-#### Design Evaluation
-- `GDPO0000044` now has full equivalent class definition with required properties
-- Added `owl:AllDifferent` assertion for the ten principle statement individuals
+## [4.0.1] - 2026-01-16
 
-#### Editorial Notes
-- Extensive updates to `skos:editorialNote` across all principle and quality classes
-- Added modeling notes explaining prescription component architecture
-- Clarified scope notes for lifecycle stage processes
-
-### Deprecated
-- Direct use of `cco:prescribes` on principle classes (use prescription components instead)
-- Communicative honesty as a disposition class (use communicative honesty evaluation instead)
+### Added
+- **Truthmaker patch**: Implemented OWL2 punning solution for the "aboutness pattern" to avoid existential commitments generating "phantom entities." Principle classes are now treated as both classes and individuals where needed for definitional structure.
 
 ### Fixed
-- Property chain in `GDPO0000064` structured to avoid OWL 2 DL reasoning failures
-- Lifecycle stage process disjointness axioms properly scoped
+- Resolved reasoner failures caused by non-regular role hierarchies involving `cco:prescribes` and property chains.
+
+---
+
+## [4.0.0] - 2026-01-15
+
+### Added
+- **Reified scoring pattern**: New classes `design evaluation score` (GDPO0000456) and `evaluation score scale specification` (GDPO0000461) for multi-criterion, multi-scale evaluation records.
+- **Score-related properties**: `has score component` (GDPO0000457), `score for principle` (GDPO0000458), `score value` (GDPO0000459), `has score scale` (GDPO0000460).
+- **Process–record linkage**: `has evaluation record output` (GDPO0000463) and inverse `is evaluation record output of` (GDPO0000462) for explicit truthmaker/provenance connections.
+- **Evaluated artifact participant**: `has evaluated artifact participant` (GDPO0000465) for design evaluation processes.
+- **Concretization property**: `is concretized by` (GDPO0000464) relating ICEs to material bearers.
+- **Communicative honesty evaluation**: New class (GDPO0000452) and `is about communication content` property (GDPO0000450) for evaluating manuals, labels, and advertisements.
+- **Design interaction honesty evaluation**: New class (GDPO0000455) for artifact-borne honesty assessments.
+- **Communication content classes**: `design communication content entity` (GDPO0000446) with subclasses for manuals (GDPO0000447), labels (GDPO0000448), and advertisements (GDPO0000449).
+
+### Changed
+- **Principle definitions**: Refactored all ten principle classes to use `aims at artifact-side target` with punned individuals, replacing prior prescriptive-chain-based definitions.
+- **Evaluation record definition**: Now uses equivalentClass axiom requiring artifact, principle, and temporal region.
+- **Design honesty**: Restructured as parent class for material and functional honesty dispositions; communicative honesty moved to evaluation-based pattern.
+
+### Removed
+- Deprecated disposition-based modeling for communicative honesty (bearer participation constraint violations).
+
+---
 
 ## [3.0.0] - 2026-01-15
 
+### Added
+- **Prescription component pattern**: New class `design process prescription` (GDPO0000061) and properties `has prescription component` (GDPO0000062), `applies during lifecycle stage` (GDPO0000063).
+- **Property chain**: `prescribes via prescription component` (GDPO0000064) deriving prescriptive relations through prescription components.
+- **Named prescription individuals**: GDPO0000076–GDPO0000085 for each of the ten principles.
+- **Canonical statement text**: Annotation property `has canonical statement text` (GDPO0000453).
+
 ### Changed
-- Major restructuring of principle-to-process relationships
-- Updated CCO alignment to 2024-11 release
+- **Modeling shift**: Moved from direct `cco:prescribes` assertions on principles to reified prescription components, enabling temporal and conditional qualifiers.
+
+---
 
 ## [1.5.1] - 2025-12-29
 
 ### Added
-- Initial lifecycle stage process classes
-- Evaluation method specification class
+- **Lifecycle stage processes**: `design sourcing process` (GDPO0000036), `design manufacturing process` (GDPO0000037), `design distribution process` (GDPO0000038), `design use and maintenance process` (GDPO0000039), `design end-of-life handling process` (GDPO0000040).
+- **Has principle component**: Property (GDPO0000060) for Rams Ten Principles Specification composition.
+
+### Changed
+- Environmental friendliness reclassified from disposition to quality to resolve temporal contradictions.
+
+---
 
 ## [1.4.9] - 2025-08-21
 
 ### Added
-- Design evaluation record class
-- Evaluation properties (against principle, has score, assessed on)
+- **Honesty facets**: `design material honesty` (GDPO0000041), `design functional honesty` (GDPO0000042), `design honesty basis` (GDPO0000056) with subclasses.
+- **Evaluation method linkage**: `operationalizes principle` (GDPO0000054), `has evaluation-relevant principle` (GDPO0000059) with property chain.
+
+---
 
 ## [1.4.7] - 2025-08-21
 
-### Changed
-- Refined honesty disposition subclasses
+### Added
+- **Evaluation infrastructure**: `design evaluation record` (GDPO0000044), `design evaluation process` (GDPO0000055), `evaluation method specification` (GDPO0000052).
+- **Evaluation properties**: `is about evaluated artifact` (GDPO0000045), `against principle` (GDPO0000046), `has score` (GDPO0000047), `is about using method` (GDPO0000048), `assessed_on` (GDPO0000050), `evaluation carried out by` (GDPO0000051).
+
+---
 
 ## [1.4.6] - 2025-08-21
 
 ### Added
-- Material and functional honesty disposition classes
+- Initial process classes: `design use process`, `design comprehension process`, `design interaction process`, `design innovation process`, `design communication process`.
+
+---
 
 ## [1.4] - 2025-08-21
 
 ### Added
-- Initial design process types
-- Quality and disposition classes for artifacts
+- **Rams Ten Principles Specification** class (GDPO0000034) with composition axioms.
+- **Principle specification** class (GDPO0000035).
+- Named individuals for ten canonical Rams statements (GDPO0000066–GDPO0000075).
+- `owl:AllDifferent` assertion for principle statement individuals.
+
+---
 
 ## [1.3] - 2025-08-21
 
-### Changed
-- Principle class hierarchy refinements
+### Added
+- Artifact-side quality classes: `design aesthetic quality`, `design unobtrusiveness quality`, `design thoroughness quality`, `design minimalism quality`, `design environmental friendliness`.
+- Disposition classes: `design understandability`, `design honesty`, `design durability`.
+- Function class: `design usefulness`.
+- Relational quality: `design innovativeness`.
+
+---
 
 ## [1.2] - 2025-08-21
 
 ### Added
-- Initial ten principle classes
+- Initial ten principle classes under `design principle`.
+- Basic ontology metadata and imports.
+
+---
 
 ## [1.0] - 2025-08-18
 
 ### Added
-- Initial ontology release
-- BFO 2020 and CCO 2.0 imports
-- Core design principle class
-- Rams ten principles specification class
+- Initial ontology structure with BFO 2020 and CCO alignment.
+- `design principle` as subclass of `cco:directive information content entity`.
 
 ---
 
-## Version Numbering
-
-GDPO uses semantic versioning:
-- **Major** (X.0.0): Breaking changes to class IRIs, property semantics, or modeling patterns
-- **Minor** (0.X.0): New classes/properties that don't break existing usage
-- **Patch** (0.0.X): Bug fixes, annotation updates, editorial clarifications
+[4.0.2]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v4.0.1...v4.0.2
+[4.0.1]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v4.0.0...v4.0.1
+[4.0.0]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v3.0.0...v4.0.0
+[3.0.0]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.5.1...v3.0.0
+[1.5.1]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.4.9...v1.5.1
+[1.4.9]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.4.7...v1.4.9
+[1.4.7]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.4.6...v1.4.7
+[1.4.6]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.4...v1.4.6
+[1.4]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.3...v1.4
+[1.3]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.2...v1.3
+[1.2]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/compare/v1.0...v1.2
+[1.0]: https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology/releases/tag/v1.0

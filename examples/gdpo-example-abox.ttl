@@ -1,0 +1,261 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix gdpo: <https://www.ramsprinciplesofgooddesign.com/> .
+@prefix ex: <https://example.org/gdpo-instances/> .
+
+# =============================================================================
+# GDPO Example ABox
+# Version: 4.0.2
+# Date: 2026-01-17
+#
+# This file demonstrates instance-level usage of GDPO classes and properties,
+# including the new temporal region indexing pattern introduced in v4.0.2.
+# =============================================================================
+
+
+# -----------------------------------------------------------------------------
+# Example Artifacts
+# -----------------------------------------------------------------------------
+
+ex:BraunSK4 a bfo:BFO_0000040 ;
+    rdfs:label "Braun SK4"@en ;
+    rdfs:comment "The Braun SK4 record player designed by Dieter Rams and Hans Gugelot (1956)."@en .
+
+ex:BraunT3 a bfo:BFO_0000040 ;
+    rdfs:label "Braun T3"@en ;
+    rdfs:comment "The Braun T3 pocket radio designed by Dieter Rams (1958)."@en .
+
+ex:iPhone15Pro a bfo:BFO_0000040 ;
+    rdfs:label "iPhone 15 Pro"@en ;
+    rdfs:comment "Apple iPhone 15 Pro smartphone (2023)."@en .
+
+
+# -----------------------------------------------------------------------------
+# Example Agents
+# -----------------------------------------------------------------------------
+
+ex:DieterRams a cco:ont00001017 ;
+    rdfs:label "Dieter Rams"@en .
+
+ex:JaneDesignReviewer a cco:ont00001017 ;
+    rdfs:label "Jane Smith"@en ;
+    rdfs:comment "Senior design reviewer at Example Design Consultancy."@en .
+
+ex:AIEvaluationSystem a cco:ont00001017 ;
+    rdfs:label "AI Design Evaluation System v2.1"@en ;
+    rdfs:comment "Automated design evaluation system using GDPO criteria."@en .
+
+
+# -----------------------------------------------------------------------------
+# Example Temporal Regions (BFO 2020 Pattern)
+# -----------------------------------------------------------------------------
+
+ex:TemporalRegion_2025Q4 a bfo:BFO_0000008 ;
+    rdfs:label "Q4 2025"@en ;
+    rdfs:comment "Fourth quarter of 2025 (October–December)."@en .
+
+ex:TemporalRegion_20251215 a bfo:BFO_0000008 ;
+    rdfs:label "2025-12-15"@en ;
+    rdfs:comment "December 15, 2025."@en .
+
+ex:TemporalRegion_20260110 a bfo:BFO_0000008 ;
+    rdfs:label "2026-01-10"@en ;
+    rdfs:comment "January 10, 2026."@en .
+
+
+# -----------------------------------------------------------------------------
+# Example Score Scale Specifications
+# -----------------------------------------------------------------------------
+
+ex:RamsConformanceScale_0to5 a gdpo:GDPO0000461 ;
+    rdfs:label "Rams Conformance Scale (0–5)"@en ;
+    rdfs:comment "Likert-style scale: 0 = no conformance, 5 = full conformance."@en .
+
+ex:NormalizedRatioScale a gdpo:GDPO0000461 ;
+    rdfs:label "Normalized Ratio Scale (0–1)"@en ;
+    rdfs:comment "Continuous scale from 0.0 (none) to 1.0 (complete)."@en .
+
+
+# -----------------------------------------------------------------------------
+# Example Evaluation Method Specifications
+# -----------------------------------------------------------------------------
+
+ex:RamsRubricV1 a gdpo:GDPO0000052 ;
+    rdfs:label "Rams Conformance Rubric v1.1"@en ;
+    rdfs:comment "Manual rubric for evaluating artifacts against Rams' ten principles."@en ;
+    gdpo:GDPO0000054 gdpo:GDPO0000020,  # operationalizes innovativeness
+                      gdpo:GDPO0000021,  # operationalizes usefulness
+                      gdpo:GDPO0000022,  # operationalizes aesthetics
+                      gdpo:GDPO0000023,  # operationalizes understandability
+                      gdpo:GDPO0000024,  # operationalizes unobtrusiveness
+                      gdpo:GDPO0000025,  # operationalizes honesty
+                      gdpo:GDPO0000026,  # operationalizes durability
+                      gdpo:GDPO0000027,  # operationalizes thoroughness
+                      gdpo:GDPO0000028,  # operationalizes environmental friendliness
+                      gdpo:GDPO0000029 . # operationalizes minimalism
+
+ex:UsabilitySUSMethod a gdpo:GDPO0000052 ;
+    rdfs:label "System Usability Scale (SUS)"@en ;
+    rdfs:comment "Standardized usability questionnaire adapted for design understandability."@en ;
+    gdpo:GDPO0000054 gdpo:GDPO0000023 .  # operationalizes understandability
+
+
+# -----------------------------------------------------------------------------
+# Example Design Evaluation Records
+# -----------------------------------------------------------------------------
+
+# Example 1: Full evaluation with reified scores and BFO temporal region (v4.0.2 pattern)
+
+ex:SK4Evaluation_2025Q4 a gdpo:GDPO0000044 ;
+    rdfs:label "Braun SK4 Evaluation Q4 2025"@en ;
+    
+    # Required: artifact and principle(s)
+    gdpo:GDPO0000045 ex:BraunSK4 ;                    # is about evaluated artifact
+    gdpo:GDPO0000046 gdpo:GDPO0000022,                # against principle: aesthetics
+                     gdpo:GDPO0000029 ;               # against principle: minimalism
+    
+    # Temporal indexing (v4.0.2 BFO pattern)
+    gdpo:GDPO0000468 ex:TemporalRegion_20251215 ;    # assessed during temporal region
+    
+    # Method used
+    gdpo:GDPO0000048 ex:RamsRubricV1 ;               # is about using method
+    
+    # Reified score components (preferred for multi-criterion)
+    gdpo:GDPO0000457 ex:SK4Score_Aesthetics,
+                     ex:SK4Score_Minimalism ;
+    
+    # Provenance: link to producing process
+    gdpo:GDPO0000462 ex:SK4EvaluationProcess_2025Q4 .
+
+ex:SK4Score_Aesthetics a gdpo:GDPO0000456 ;
+    rdfs:label "SK4 Aesthetics Score"@en ;
+    gdpo:GDPO0000459 "4.8"^^xsd:decimal ;            # score value
+    gdpo:GDPO0000458 gdpo:GDPO0000022 ;              # score for principle: aesthetics
+    gdpo:GDPO0000460 ex:RamsConformanceScale_0to5 . # has score scale
+
+ex:SK4Score_Minimalism a gdpo:GDPO0000456 ;
+    rdfs:label "SK4 Minimalism Score"@en ;
+    gdpo:GDPO0000459 "5.0"^^xsd:decimal ;            # score value
+    gdpo:GDPO0000458 gdpo:GDPO0000029 ;              # score for principle: minimalism
+    gdpo:GDPO0000460 ex:RamsConformanceScale_0to5 . # has score scale
+
+
+# Example 2: Legacy pattern with xsd:dateTime (backward compatible)
+
+ex:iPhone15ProEvaluation_2026 a gdpo:GDPO0000044 ;
+    rdfs:label "iPhone 15 Pro Design Evaluation 2026"@en ;
+    
+    gdpo:GDPO0000045 ex:iPhone15Pro ;                # is about evaluated artifact
+    gdpo:GDPO0000046 gdpo:GDPO0000021,               # against principle: usefulness
+                     gdpo:GDPO0000023 ;              # against principle: understandability
+    
+    # Legacy timestamp (still valid)
+    gdpo:GDPO0000050 "2026-01-10T14:30:00Z"^^xsd:dateTime ;  # assessed_on
+    
+    # Can also include BFO temporal region for full compliance
+    gdpo:GDPO0000468 ex:TemporalRegion_20260110 ;
+    
+    gdpo:GDPO0000048 ex:UsabilitySUSMethod ;
+    
+    # Simple score (legacy shortcut for single-criterion)
+    gdpo:GDPO0000047 "0.85"^^xsd:decimal .           # has score
+
+
+# Example 3: Communicative honesty evaluation
+
+ex:T3ManualContent a gdpo:GDPO0000447 ;              # product manual content
+    rdfs:label "Braun T3 User Manual Content"@en ;
+    rdfs:comment "Content of the original T3 pocket radio instruction manual."@en .
+
+ex:T3CommunicativeHonestyEval a gdpo:GDPO0000452 ;   # communicative honesty evaluation
+    rdfs:label "Braun T3 Communicative Honesty Evaluation"@en ;
+    
+    gdpo:GDPO0000045 ex:BraunT3 ;                    # is about evaluated artifact
+    gdpo:GDPO0000046 gdpo:GDPO0000025 ;              # against principle: honesty
+    gdpo:GDPO0000450 ex:T3ManualContent ;            # is about communication content
+    gdpo:GDPO0000468 ex:TemporalRegion_2025Q4 ;
+    
+    gdpo:GDPO0000047 "0.95"^^xsd:decimal .
+
+
+# -----------------------------------------------------------------------------
+# Example Design Evaluation Processes
+# -----------------------------------------------------------------------------
+
+ex:SK4EvaluationProcess_2025Q4 a gdpo:GDPO0000055 ;
+    rdfs:label "SK4 Evaluation Process Q4 2025"@en ;
+    
+    # Participants
+    gdpo:GDPO0000051 ex:JaneDesignReviewer ;         # evaluation carried out by
+    gdpo:GDPO0000465 ex:BraunSK4 ;                   # has evaluated artifact participant
+    
+    # Output
+    gdpo:GDPO0000463 ex:SK4Evaluation_2025Q4 ;       # has evaluation record output
+    
+    # BFO temporal occupancy (if needed)
+    bfo:BFO_0000199 ex:TemporalRegion_20251215 .     # occupies temporal region
+
+
+# -----------------------------------------------------------------------------
+# Example Prescription with Temporal Region (v4.0.2 pattern)
+# -----------------------------------------------------------------------------
+
+ex:UsePhaseUsefulnessPrescription a gdpo:GDPO0000061 ;
+    rdfs:label "Use-Phase Usefulness Prescription"@en ;
+    rdfs:comment "Prescription specifying that design use processes should be optimized for usefulness during the use and maintenance lifecycle stage."@en ;
+    
+    cco:ont00001942 gdpo:GDPO0000015 ;               # prescribes: design use process
+    gdpo:GDPO0000063 gdpo:GDPO0000039 ;              # applies during lifecycle stage: use and maintenance
+    
+    # Temporal scope (v4.0.2) - optional fine-grained temporal qualifier
+    gdpo:GDPO0000467 ex:TemporalRegion_2025Q4 .     # applies during temporal region
+
+
+# -----------------------------------------------------------------------------
+# Example: Linking Principle Statement to Prescription Component
+# (Demonstrating the prescription component pattern)
+# -----------------------------------------------------------------------------
+
+# The canonical usefulness statement links to its prescription component
+# (This complements the TBox assertions; shown here for completeness)
+
+gdpo:GDPO0000067 gdpo:GDPO0000062 gdpo:GDPO0000077 .  # usefulness statement → prescription
+
+
+# -----------------------------------------------------------------------------
+# SPARQL Query Examples (as comments)
+# -----------------------------------------------------------------------------
+
+# Query 1: Find all evaluations conducted during Q4 2025
+#
+# SELECT ?evaluation ?artifact ?principleLabel WHERE {
+#   ?evaluation gdpo:GDPO0000468 ex:TemporalRegion_2025Q4 .
+#   ?evaluation gdpo:GDPO0000045 ?artifact .
+#   ?evaluation gdpo:GDPO0000046 ?principle .
+#   ?principle rdfs:label ?principleLabel .
+# }
+
+# Query 2: Retrieve reified scores for a specific evaluation
+#
+# SELECT ?principle ?score ?scaleName WHERE {
+#   ex:SK4Evaluation_2025Q4 gdpo:GDPO0000457 ?scoreComponent .
+#   ?scoreComponent gdpo:GDPO0000459 ?score .
+#   ?scoreComponent gdpo:GDPO0000458 ?principle .
+#   OPTIONAL {
+#     ?scoreComponent gdpo:GDPO0000460 ?scale .
+#     ?scale rdfs:label ?scaleName .
+#   }
+# }
+
+# Query 3: Find evaluation processes and their agents
+#
+# SELECT ?process ?agent ?artifact ?record WHERE {
+#   ?process a gdpo:GDPO0000055 .
+#   ?process gdpo:GDPO0000051 ?agent .
+#   ?process gdpo:GDPO0000465 ?artifact .
+#   ?process gdpo:GDPO0000463 ?record .
+# }

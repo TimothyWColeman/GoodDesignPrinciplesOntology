@@ -1,580 +1,399 @@
-# GDPO Design Pattern Diagrams
+# GDPO Design Patterns
 
-Mermaid diagrams illustrating the ontological design patterns that answer each competency question.
+Version: 4.0.2  
+Last Updated: 2026-01-17
+
+This document describes the key design patterns used in GDPO, with Mermaid diagrams illustrating the relationships between classes and properties.
 
 ---
 
-## CQ1: Which design processes does the principle of innovativeness prescribe?
+## Table of Contents
 
-**Pattern:** Principle → Prescription Component → Process
+1. [Prescription Component Pattern](#1-prescription-component-pattern)
+2. [Evaluation Record Pattern](#2-evaluation-record-pattern)
+3. [Reified Score Pattern](#3-reified-score-pattern)
+4. [Temporal Region Indexing Pattern](#4-temporal-region-indexing-pattern-v402)
+5. [Aims-At Pattern](#5-aims-at-pattern-v402)
+6. [Process–Record Linkage Pattern](#6-processrecord-linkage-pattern)
+7. [Honesty Evaluation Patterns](#7-honesty-evaluation-patterns)
+8. [Lifecycle Stage Pattern](#8-lifecycle-stage-pattern)
+
+---
+
+## 1. Prescription Component Pattern
+
+Principles prescribe processes via reified prescription components, enabling temporal and conditional qualifiers.
 
 ```mermaid
 graph LR
-    subgraph "Directive ICE Layer"
-        P[principle of innovativeness<br/><i>gdpo:GDPO0000020</i>]
-        DPP[design process prescription<br/><i>gdpo:GDPO0000061</i>]
+    subgraph ICE["Information Content Entities"]
+        P[design principle]
+        DPP[design process prescription]
     end
     
-    subgraph "Process Layer"
-        DIP[design innovation process<br/><i>gdpo:GDPO0000014</i>]
+    subgraph Processes["Process Types"]
+        PROC[design process]
+        LCS[design lifecycle stage process]
     end
     
-    P -->|has prescription component<br/><i>gdpo:GDPO0000062</i>| DPP
-    DPP -->|prescribes<br/><i>cco:ont00001942</i>| DIP
+    P -->|has prescription component| DPP
+    DPP -->|cco:prescribes| PROC
+    DPP -->|applies during lifecycle stage| LCS
     
     style P fill:#e1f5fe
-    style DPP fill:#fff3e0
-    style DIP fill:#f3e5f5
+    style DPP fill:#e1f5fe
+    style PROC fill:#fff3e0
+    style LCS fill:#fff3e0
 ```
+
+**Example:**
+```turtle
+gdpo:GDPO0000067  # principle of usefulness statement
+    gdpo:GDPO0000062 gdpo:GDPO0000077 .  # has prescription component
+
+gdpo:GDPO0000077  # usefulness prescription
+    cco:ont00001942 gdpo:GDPO0000015 ;   # prescribes: design use process
+    gdpo:GDPO0000063 gdpo:GDPO0000039 .  # applies during: use and maintenance
+```
+
+**When to use:** When you need to specify what processes a principle prescribes and under what conditions (lifecycle stage, temporal scope).
 
 ---
 
-## CQ2: Which principle of good design prescribes a design use process?
+## 2. Evaluation Record Pattern
 
-**Pattern:** Reverse lookup from Process → Prescription → Principle
-
-```mermaid
-graph RL
-    subgraph "Process Layer"
-        DUP[design use process<br/><i>gdpo:GDPO0000015</i>]
-    end
-    
-    subgraph "Directive ICE Layer"
-        DPP[design process prescription<br/><i>gdpo:GDPO0000061</i>]
-        PU[principle of usefulness<br/><i>gdpo:GDPO0000021</i>]
-    end
-    
-    DUP -.->|prescribed by| DPP
-    DPP -.->|prescription component of| PU
-    
-    style PU fill:#e1f5fe
-    style DPP fill:#fff3e0
-    style DUP fill:#f3e5f5
-```
-
----
-
-## CQ3: Which design evaluation methods operationalize the principle of minimalism?
-
-**Pattern:** Method → operationalizes → Principle
-
-```mermaid
-graph LR
-    subgraph "Method Layer"
-        EMS[evaluation method specification<br/><i>gdpo:GDPO0000052</i>]
-    end
-    
-    subgraph "Principle Layer"
-        PM[principle of minimalism<br/><i>gdpo:GDPO0000029</i>]
-    end
-    
-    EMS -->|operationalizes principle<br/><i>gdpo:GDPO0000054</i>| PM
-    
-    style EMS fill:#fff3e0
-    style PM fill:#e1f5fe
-```
-
----
-
-## CQ4: Which design principles apply to a given design lifecycle process?
-
-**Pattern:** Principle → Prescription → applies during → Lifecycle Stage
+Evaluation records capture assessments with full provenance linking artifact, principle(s), method, and temporal context.
 
 ```mermaid
 graph TB
-    subgraph "Principle Layer"
-        PEF[principle of environmental friendliness<br/><i>gdpo:GDPO0000028</i>]
+    subgraph Record["Design Evaluation Record (ICE)"]
+        DER[design evaluation record]
     end
     
-    subgraph "Prescription Layer"
-        DPP1[design process prescription]
-        DPP2[design process prescription]
+    subgraph Targets["What is Evaluated"]
+        ART[material entity<br/>artifact]
+        PRIN[design principle]
     end
     
-    subgraph "Lifecycle Stage Layer"
-        DUM[design use and maintenance process<br/><i>gdpo:GDPO0000039</i>]
-        DEL[design end-of-life handling process<br/><i>gdpo:GDPO0000040</i>]
+    subgraph Context["Evaluation Context"]
+        METH[evaluation method<br/>specification]
+        TR[temporal region]
     end
     
-    PEF -->|has prescription component| DPP1
-    PEF -->|has prescription component| DPP2
-    DPP1 -->|applies during lifecycle stage<br/><i>gdpo:GDPO0000063</i>| DUM
-    DPP2 -->|applies during lifecycle stage<br/><i>gdpo:GDPO0000063</i>| DEL
+    DER -->|is about evaluated artifact| ART
+    DER -->|against principle| PRIN
+    DER -->|is about using method| METH
+    DER -->|assessed during temporal region| TR
+    
+    style DER fill:#e8f5e9
+    style ART fill:#fce4ec
+    style PRIN fill:#e1f5fe
+    style METH fill:#e1f5fe
+    style TR fill:#f3e5f5
+```
+
+**Necessary conditions (equivalentClass):**
+- `is about evaluated artifact` some `material entity`
+- `against principle` some `design principle`
+- `assessed during temporal region` some `temporal region`
+
+---
+
+## 3. Reified Score Pattern
+
+For multi-criterion evaluations, scores are reified as separate entities with principle and scale context.
+
+```mermaid
+graph TB
+    subgraph Evaluation
+        DER[design evaluation record]
+    end
+    
+    subgraph Scores["Score Components"]
+        SC1[design evaluation score]
+        SC2[design evaluation score]
+    end
+    
+    subgraph Context
+        P1[principle 1]
+        P2[principle 2]
+        SCALE[score scale specification]
+    end
+    
+    DER -->|has score component| SC1
+    DER -->|has score component| SC2
+    SC1 -->|score value| V1["4.8 (xsd:decimal)"]
+    SC1 -->|score for principle| P1
+    SC1 -->|has score scale| SCALE
+    SC2 -->|score value| V2["5.0 (xsd:decimal)"]
+    SC2 -->|score for principle| P2
+    SC2 -->|has score scale| SCALE
+    
+    style DER fill:#e8f5e9
+    style SC1 fill:#fff8e1
+    style SC2 fill:#fff8e1
+    style SCALE fill:#e1f5fe
+```
+
+**When to use:** When evaluating against multiple principles or using multiple scoring scales. Prefer this over multiple `has score` literals directly on the record.
+
+**Legacy shortcut:** For single-criterion evaluations, `has score` (xsd:decimal) directly on the record is acceptable.
+
+---
+
+## 4. Temporal Region Indexing Pattern (v4.0.2)
+
+GDPO v4.0.2 introduces BFO 2020–compliant temporal indexing using temporal regions instead of (or in addition to) xsd:dateTime literals.
+
+```mermaid
+graph TB
+    subgraph Continuants["Continuant Entities"]
+        DER[design evaluation record]
+        DPP[design process prescription]
+    end
+    
+    subgraph Temporal["BFO Temporal Regions"]
+        TR1[temporal region<br/>e.g., Q4 2025]
+        TR2[temporal region<br/>e.g., 2025-12-15]
+    end
+    
+    DER -->|assessed during temporal region| TR2
+    DPP -->|applies during temporal region| TR1
+    
+    subgraph Legacy["Legacy Pattern"]
+        DER -.->|assessed_on| DT["xsd:dateTime"]
+    end
+    
+    style DER fill:#e8f5e9
+    style DPP fill:#e1f5fe
+    style TR1 fill:#f3e5f5
+    style TR2 fill:#f3e5f5
+    style DT fill:#eeeeee
+```
+
+**Properties:**
+
+| Property | Domain | Range | Use |
+|----------|--------|-------|-----|
+| `assessed during temporal region` (GDPO0000468) | evaluation record | BFO:temporal region | When evaluation occurred |
+| `applies during temporal region` (GDPO0000467) | process prescription | BFO:temporal region | When prescription applies |
+| `assessed_on` (GDPO0000050) | evaluation record | xsd:dateTime | Legacy timestamp |
+
+**When to use temporal regions:**
+- Integration with time ontologies (OWL-Time)
+- Interval-based reasoning (periods, not instants)
+- Full BFO 2020 compliance
+
+**When legacy xsd:dateTime is acceptable:**
+- Lightweight timestamping
+- Point-in-time records
+- Systems not requiring temporal region modeling
+
+---
+
+## 5. Aims-At Pattern (v4.0.2)
+
+Principles aim at artifact-side targets (qualities, functions, dispositions) using OWL2 punning.
+
+```mermaid
+graph LR
+    subgraph Principles["Principle Classes"]
+        PA[principle of aesthetics]
+        PU[principle of usefulness]
+        PH[principle of honesty]
+    end
+    
+    subgraph Targets["Artifact-Side Targets (Punned)"]
+        AQ[design aesthetic quality]
+        UF[design usefulness]
+        DH[design honesty]
+    end
+    
+    PA -->|aims at artifact-side target| AQ
+    PU -->|aims at artifact-side target| UF
+    PH -->|aims at artifact-side target| DH
+    
+    style PA fill:#e1f5fe
+    style PU fill:#e1f5fe
+    style PH fill:#e1f5fe
+    style AQ fill:#fff3e0
+    style UF fill:#fff3e0
+    style DH fill:#fff3e0
+```
+
+**Implementation notes:**
+- Target values are punned individuals (classes treated as individuals)
+- OWL range restrictions intentionally omitted (v4.0.2) to avoid treating targets as instances of BFO categories
+- Validate via SHACL: target must be an IRI and a subclass of quality/function/disposition
+
+**SHACL validation:**
+```turtle
+gdpo-shapes:AimsAtTargetShape a sh:NodeShape ;
+    sh:targetSubjectsOf gdpo:GDPO0000454 ;
+    sh:property [
+        sh:path gdpo:GDPO0000454 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Target must be an IRI (punned class)"
+    ] .
+```
+
+---
+
+## 6. Process–Record Linkage Pattern
+
+Evaluation processes produce evaluation records, establishing truthmaker provenance.
+
+```mermaid
+graph LR
+    subgraph Process["Occurrent"]
+        DEP[design evaluation process]
+    end
+    
+    subgraph Record["ICE"]
+        DER[design evaluation record]
+    end
+    
+    subgraph Participants
+        AGENT[agent]
+        ART[artifact]
+    end
+    
+    DEP -->|has evaluation record output| DER
+    DER -->|is evaluation record output of| DEP
+    DEP -->|evaluation carried out by| AGENT
+    DEP -->|has evaluated artifact participant| ART
+    
+    style DEP fill:#fff3e0
+    style DER fill:#e8f5e9
+    style AGENT fill:#fce4ec
+    style ART fill:#fce4ec
+```
+
+**Truthmaker grounding:** The evaluation record's assertions are grounded in:
+1. The evaluation process that produced it
+2. The outcome-bearing configuration measured during that process
+
+---
+
+## 7. Honesty Evaluation Patterns
+
+GDPO distinguishes interaction honesty (artifact-borne) from communicative honesty (claims/marketing).
+
+### 7a. Interaction Honesty Evaluation
+
+```mermaid
+graph TB
+    IHE[design interaction<br/>honesty evaluation]
+    ART[artifact]
+    POH[principle of honesty]
+    
+    IHE -->|is about evaluated artifact| ART
+    IHE -->|against principle| POH
+    
+    style IHE fill:#e8f5e9
+    style ART fill:#fce4ec
+    style POH fill:#e1f5fe
+```
+
+**Use for:** Evaluating whether controls, affordances, and perceptible cues align with actual functions.
+
+### 7b. Communicative Honesty Evaluation
+
+```mermaid
+graph TB
+    CHE[design communicative<br/>honesty evaluation]
+    ART[artifact]
+    POH[principle of honesty]
+    CC[communication content<br/>manual / label / ad]
+    
+    CHE -->|is about evaluated artifact| ART
+    CHE -->|against principle| POH
+    CHE -->|is about communication content| CC
+    
+    style CHE fill:#e8f5e9
+    style ART fill:#fce4ec
+    style POH fill:#e1f5fe
+    style CC fill:#e1f5fe
+```
+
+**Use for:** Evaluating whether manuals, labels, or advertisements truthfully represent the artifact.
+
+**Communication content subclasses:**
+- `product manual content` (GDPO0000447)
+- `product label content` (GDPO0000448)
+- `product advertisement content` (GDPO0000449)
+
+---
+
+## 8. Lifecycle Stage Pattern
+
+Environmental friendliness and other lifecycle-dependent principles use lifecycle stage processes.
+
+```mermaid
+graph TB
+    subgraph Principle
+        PEF[principle of<br/>environmental friendliness]
+    end
+    
+    subgraph Prescription
+        DPP[design process prescription]
+    end
+    
+    subgraph Stages["Lifecycle Stage Processes"]
+        SRC[sourcing]
+        MFG[manufacturing]
+        DST[distribution]
+        USE[use & maintenance]
+        EOL[end-of-life]
+    end
+    
+    PEF -->|has prescription component| DPP
+    DPP -->|applies during lifecycle stage| SRC
+    DPP -->|applies during lifecycle stage| MFG
+    DPP -->|applies during lifecycle stage| DST
+    DPP -->|applies during lifecycle stage| USE
+    DPP -->|applies during lifecycle stage| EOL
     
     style PEF fill:#e1f5fe
-    style DPP1 fill:#fff3e0
-    style DPP2 fill:#fff3e0
-    style DUM fill:#f3e5f5
-    style DEL fill:#f3e5f5
+    style DPP fill:#e1f5fe
+    style SRC fill:#fff3e0
+    style MFG fill:#fff3e0
+    style DST fill:#fff3e0
+    style USE fill:#fff3e0
+    style EOL fill:#fff3e0
 ```
+
+**Lifecycle stage classes:**
+| Class | Description |
+|-------|-------------|
+| `design sourcing process` | Material/component acquisition |
+| `design manufacturing process` | Artifact production |
+| `design distribution process` | Delivery to end users |
+| `design use and maintenance process` | Normal operation and upkeep |
+| `design end-of-life handling process` | Disposal, recycling, reuse |
 
 ---
 
-## CQ5: Which qualities or dispositions are linked to a specific design principle?
-
-**Pattern:** Principle ←is about→ Quality/Disposition (via equivalent class)
-
-```mermaid
-graph LR
-    subgraph "Principle Layer"
-        PH[principle of honesty<br/><i>gdpo:GDPO0000025</i>]
-        PU[principle of usefulness<br/><i>gdpo:GDPO0000021</i>]
-        PA[principle of aesthetics<br/><i>gdpo:GDPO0000022</i>]
-    end
-    
-    subgraph "Artifact Target Layer"
-        DH[design honesty<br/><i>Disposition</i>]
-        DU[design usefulness<br/><i>Function</i>]
-        DAQ[design aesthetic quality<br/><i>Quality</i>]
-    end
-    
-    PH -->|is about<br/><i>cco:ont00001808</i>| DH
-    PU -->|is about<br/><i>cco:ont00001808</i>| DU
-    PA -->|is about<br/><i>cco:ont00001808</i>| DAQ
-    
-    style PH fill:#e1f5fe
-    style PU fill:#e1f5fe
-    style PA fill:#e1f5fe
-    style DH fill:#c8e6c9
-    style DU fill:#c8e6c9
-    style DAQ fill:#c8e6c9
-```
-
----
-
-## CQ6 & CQ7: What artifacts have been evaluated, and against which principles?
-
-**Pattern:** Evaluation Record → Artifact + Principle
-
-```mermaid
-graph TB
-    subgraph "Evaluation Record Layer"
-        DE[design evaluation<br/><i>gdpo:GDPO0000044</i>]
-    end
-    
-    subgraph "Artifact Layer"
-        ME[material entity<br/><i>e.g., Braun SK4</i>]
-    end
-    
-    subgraph "Principle Layer"
-        DP[design principle<br/><i>e.g., principle of minimalism</i>]
-    end
-    
-    DE -->|is about evaluated artifact<br/><i>gdpo:GDPO0000045</i>| ME
-    DE -->|against principle<br/><i>gdpo:GDPO0000046</i>| DP
-    
-    style DE fill:#fff3e0
-    style ME fill:#ffcdd2
-    style DP fill:#e1f5fe
-```
-
----
-
-## CQ8 & CQ9 & CQ10: Evaluation details (method, score, date)
-
-**Pattern:** Evaluation Record with Method, Score, and Timestamp
-
-```mermaid
-graph TB
-    subgraph "Evaluation Record"
-        DE[design evaluation<br/><i>gdpo:GDPO0000044</i>]
-    end
-    
-    subgraph "Evaluation Metadata"
-        EMS[evaluation method specification<br/><i>gdpo:GDPO0000052</i>]
-        SC["score<br/><i>xsd:decimal</i>"]
-        DT["assessed on<br/><i>xsd:dateTime</i>"]
-    end
-    
-    subgraph "Targets"
-        ME[material entity]
-        DP[design principle]
-    end
-    
-    DE -->|is about using method<br/><i>gdpo:GDPO0000048</i>| EMS
-    DE -->|has score<br/><i>gdpo:GDPO0000047</i>| SC
-    DE -->|assessed on<br/><i>gdpo:GDPO0000050</i>| DT
-    DE -->|is about evaluated artifact| ME
-    DE -->|against principle| DP
-    
-    style DE fill:#fff3e0
-    style EMS fill:#e8eaf6
-    style SC fill:#f5f5f5
-    style DT fill:#f5f5f5
-    style ME fill:#ffcdd2
-    style DP fill:#e1f5fe
-```
-
----
-
-## CQ11 & CQ12: Evaluation method prescribes process, operationalizes principle
-
-**Pattern:** Method ↔ Process ↔ Principle
-
-```mermaid
-graph LR
-    subgraph "Method Layer"
-        EMS[evaluation method specification<br/><i>gdpo:GDPO0000052</i>]
-    end
-    
-    subgraph "Process Layer"
-        DEP[design evaluation process<br/><i>gdpo:GDPO0000055</i>]
-    end
-    
-    subgraph "Principle Layer"
-        DP[design principle<br/><i>gdpo:GDPO0000003</i>]
-    end
-    
-    EMS -->|prescribes<br/><i>cco:ont00001942</i>| DEP
-    EMS -->|operationalizes principle<br/><i>gdpo:GDPO0000054</i>| DP
-    
-    style EMS fill:#e8eaf6
-    style DEP fill:#f3e5f5
-    style DP fill:#e1f5fe
-```
-
----
-
-## CQ15: Which qualities inhere in a given artifact?
-
-**Pattern:** Quality → inheres in → Material Entity
-
-```mermaid
-graph RL
-    subgraph "Artifact Layer"
-        ME[material entity<br/><i>e.g., iPhone 14</i>]
-    end
-    
-    subgraph "Quality Layer"
-        DAQ[design aesthetic quality<br/><i>gdpo:GDPO0000006</i>]
-        DMQ[design minimalism quality<br/><i>gdpo:GDPO0000013</i>]
-        DTQ[design thoroughness quality<br/><i>gdpo:GDPO0000011</i>]
-    end
-    
-    DAQ -->|inheres in<br/><i>bfo:BFO_0000197</i>| ME
-    DMQ -->|inheres in<br/><i>bfo:BFO_0000197</i>| ME
-    DTQ -->|inheres in<br/><i>bfo:BFO_0000197</i>| ME
-    
-    style ME fill:#ffcdd2
-    style DAQ fill:#c8e6c9
-    style DMQ fill:#c8e6c9
-    style DTQ fill:#c8e6c9
-```
-
----
-
-## CQ16: Which dispositions are realized in which processes?
-
-**Pattern:** Disposition → realized in → Process
-
-```mermaid
-graph LR
-    subgraph "Artifact Layer"
-        ME[material entity]
-    end
-    
-    subgraph "Disposition Layer"
-        DH[design honesty<br/><i>gdpo:GDPO0000009</i>]
-        DU[design understandability<br/><i>gdpo:GDPO0000007</i>]
-        DD[design durability<br/><i>gdpo:GDPO0000010</i>]
-    end
-    
-    subgraph "Process Layer"
-        DIP[design interaction process<br/><i>gdpo:GDPO0000017</i>]
-        DCP[design comprehension process<br/><i>gdpo:GDPO0000016</i>]
-        DEP[design endurance process<br/><i>gdpo:GDPO0000018</i>]
-    end
-    
-    DH -->|inheres in| ME
-    DU -->|inheres in| ME
-    DD -->|inheres in| ME
-    
-    DH -->|realized in<br/><i>bfo:BFO_0000054</i>| DIP
-    DU -->|realized in<br/><i>bfo:BFO_0000054</i>| DCP
-    DD -->|realized in<br/><i>bfo:BFO_0000054</i>| DEP
-    
-    style ME fill:#ffcdd2
-    style DH fill:#c8e6c9
-    style DU fill:#c8e6c9
-    style DD fill:#c8e6c9
-    style DIP fill:#f3e5f5
-    style DCP fill:#f3e5f5
-    style DEP fill:#f3e5f5
-```
-
----
-
-## CQ17: Which aspects of honesty does an artifact exhibit?
-
-**Pattern:** Honesty Facets with Basis and Realization
-
-```mermaid
-graph TB
-    subgraph "Artifact Layer"
-        ME[material entity]
-    end
-    
-    subgraph "Honesty Disposition Layer"
-        DH[design honesty<br/><i>gdpo:GDPO0000009</i>]
-        DMH[design material honesty<br/><i>gdpo:GDPO0000041</i>]
-        DFH[design functional honesty<br/><i>gdpo:GDPO0000042</i>]
-    end
-    
-    subgraph "Basis Layer"
-        MHB[design material honesty basis<br/><i>gdpo:GDPO0000057</i>]
-        FHB[design functional honesty basis<br/><i>gdpo:GDPO0000058</i>]
-    end
-    
-    subgraph "Evaluation Layer"
-        DCHE[design communicative<br/>honesty evaluation<br/><i>gdpo:GDPO0000452</i>]
-        DCCE[design communication<br/>content entity<br/><i>gdpo:GDPO0000446</i>]
-    end
-    
-    DMH -->|rdfs:subClassOf| DH
-    DFH -->|rdfs:subClassOf| DH
-    
-    DMH -->|inheres in| ME
-    DFH -->|inheres in| ME
-    
-    DMH -->|has basis<br/><i>bfo:BFO_0000218</i>| MHB
-    DFH -->|has basis<br/><i>bfo:BFO_0000218</i>| FHB
-    
-    MHB -->|continuant part of| ME
-    FHB -->|continuant part of| ME
-    
-    DCHE -->|is about evaluated artifact| ME
-    DCHE -->|is about communication content<br/><i>gdpo:GDPO0000450</i>| DCCE
-    
-    style ME fill:#ffcdd2
-    style DH fill:#c8e6c9
-    style DMH fill:#c8e6c9
-    style DFH fill:#c8e6c9
-    style MHB fill:#ffe0b2
-    style FHB fill:#ffe0b2
-    style DCHE fill:#fff3e0
-    style DCCE fill:#e8eaf6
-```
-
----
-
-## CQ18: Which principles are part of the Rams ten principles specification?
-
-**Pattern:** Specification → has principle component → Principle Statements
-
-```mermaid
-graph TB
-    subgraph "Specification Layer"
-        RTS[rams ten principles specification 001<br/><i>gdpo:GDPO0000065</i>]
-    end
-    
-    subgraph "Principle Statement Individuals"
-        P1[principle of innovativeness 001<br/><i>gdpo:GDPO0000066</i>]
-        P2[principle of usefulness 001<br/><i>gdpo:GDPO0000067</i>]
-        P3[principle of aesthetics 001<br/><i>gdpo:GDPO0000068</i>]
-        P4[principle of understandability 001<br/><i>gdpo:GDPO0000069</i>]
-        P5[principle of unobtrusiveness 001<br/><i>gdpo:GDPO0000070</i>]
-        P6[principle of honesty 001<br/><i>gdpo:GDPO0000071</i>]
-        P7[principle of durability 001<br/><i>gdpo:GDPO0000072</i>]
-        P8[principle of thoroughness 001<br/><i>gdpo:GDPO0000073</i>]
-        P9[principle of env. friendliness 001<br/><i>gdpo:GDPO0000074</i>]
-        P10[principle of minimalism 001<br/><i>gdpo:GDPO0000075</i>]
-    end
-    
-    RTS -->|has principle component<br/><i>gdpo:GDPO0000060</i>| P1
-    RTS -->|has principle component| P2
-    RTS -->|has principle component| P3
-    RTS -->|has principle component| P4
-    RTS -->|has principle component| P5
-    RTS -->|has principle component| P6
-    RTS -->|has principle component| P7
-    RTS -->|has principle component| P8
-    RTS -->|has principle component| P9
-    RTS -->|has principle component| P10
-    
-    style RTS fill:#bbdefb
-    style P1 fill:#e1f5fe
-    style P2 fill:#e1f5fe
-    style P3 fill:#e1f5fe
-    style P4 fill:#e1f5fe
-    style P5 fill:#e1f5fe
-    style P6 fill:#e1f5fe
-    style P7 fill:#e1f5fe
-    style P8 fill:#e1f5fe
-    style P9 fill:#e1f5fe
-    style P10 fill:#e1f5fe
-```
-
----
-
-## CQ19: How does the ontology distinguish qualities from principles?
-
-**Pattern:** Principle (Directive ICE) ↔ Quality/Disposition/Function (BFO Continuant)
-
-```mermaid
-graph TB
-    subgraph "BFO Upper Ontology"
-        SDC[specifically dependent continuant<br/><i>bfo:BFO_0000020</i>]
-        ICE[information content entity<br/><i>cco:ont00000958</i>]
-    end
-    
-    subgraph "Artifact-Side Targets<br/>(What IS the case)"
-        Q[quality<br/><i>bfo:BFO_0000019</i>]
-        D[disposition<br/><i>bfo:BFO_0000016</i>]
-        F[function<br/><i>bfo:BFO_0000034</i>]
-        DAQ[design aesthetic quality]
-        DH[design honesty]
-        DU[design usefulness]
-    end
-    
-    subgraph "Principle Layer<br/>(What SHOULD be the case)"
-        DICE[directive ICE<br/><i>cco:ont00000965</i>]
-        DP[design principle<br/><i>gdpo:GDPO0000003</i>]
-        PA[principle of aesthetics]
-        PH[principle of honesty]
-        PU[principle of usefulness]
-    end
-    
-    SDC --> Q
-    SDC --> D
-    D --> F
-    ICE --> DICE
-    DICE --> DP
-    
-    Q --> DAQ
-    D --> DH
-    F --> DU
-    DP --> PA
-    DP --> PH
-    DP --> PU
-    
-    PA -.->|is about| DAQ
-    PH -.->|is about| DH
-    PU -.->|is about| DU
-    
-    style SDC fill:#f5f5f5
-    style ICE fill:#f5f5f5
-    style Q fill:#c8e6c9
-    style D fill:#c8e6c9
-    style F fill:#c8e6c9
-    style DICE fill:#e1f5fe
-    style DP fill:#e1f5fe
-    style DAQ fill:#c8e6c9
-    style DH fill:#c8e6c9
-    style DU fill:#c8e6c9
-    style PA fill:#e1f5fe
-    style PH fill:#e1f5fe
-    style PU fill:#e1f5fe
-```
-
----
-
-## CQ20: Which agents carried out a design evaluation process?
-
-**Pattern:** Process → has participant → Agent; Process → has output → Evaluation Record
-
-```mermaid
-graph TB
-    subgraph "Agent Layer"
-        AG[agent<br/><i>cco:ont00001017</i>]
-    end
-    
-    subgraph "Process Layer"
-        DEP[design evaluation process<br/><i>gdpo:GDPO0000055</i>]
-    end
-    
-    subgraph "Record Layer"
-        DE[design evaluation<br/><i>gdpo:GDPO0000044</i>]
-    end
-    
-    subgraph "Targets"
-        ME[material entity]
-        DP[design principle]
-    end
-    
-    DEP -->|evaluation carried out by<br/><i>gdpo:GDPO0000051</i>| AG
-    DEP -->|has output| DE
-    DE -->|is about evaluated artifact| ME
-    DE -->|against principle| DP
-    
-    style AG fill:#ffe0b2
-    style DEP fill:#f3e5f5
-    style DE fill:#fff3e0
-    style ME fill:#ffcdd2
-    style DP fill:#e1f5fe
-```
-
----
-
-## Legend
+## Color Legend
 
 | Color | Meaning |
 |-------|---------|
-| 🔵 Light Blue | Directive ICE / Principle |
-| 🟢 Light Green | Quality / Disposition / Function |
-| 🟣 Light Purple | Process |
-| 🟠 Light Orange | Basis / Agent |
-| 🟡 Cream | Evaluation / Method |
-| 🔴 Light Red | Material Entity (Artifact) |
+| Blue (#e1f5fe) | Information Content Entities (ICE) |
+| Orange (#fff3e0) | Processes (Occurrents) |
+| Green (#e8f5e9) | Evaluation Records |
+| Pink (#fce4ec) | Material Entities / Agents |
+| Purple (#f3e5f5) | Temporal Regions |
+| Yellow (#fff8e1) | Score Components |
+| Gray (#eeeeee) | Legacy / Deprecated |
 
 ---
 
-## Complete Architecture Overview
+## Version History
 
-```mermaid
-graph TB
-    subgraph "Normative Layer<br/>(Directive ICEs)"
-        RTS[Rams Ten Principles Specification]
-        DP[Design Principles<br/><i>10 classes + 10 individuals</i>]
-        DPP[Design Process Prescriptions]
-        EMS[Evaluation Method Specifications]
-    end
-    
-    subgraph "Descriptive Layer<br/>(BFO Continuants)"
-        ME[Material Entity<br/><i>Designed Artifact</i>]
-        QDF[Qualities, Dispositions, Functions<br/><i>inhering in artifact</i>]
-        HB[Honesty Bases<br/><i>structural grounds</i>]
-    end
-    
-    subgraph "Process Layer<br/>(BFO Occurrents)"
-        LSP[Lifecycle Stage Processes<br/><i>sourcing, manufacturing,<br/>distribution, use, end-of-life</i>]
-        DEsP[Design Evaluation Process]
-    end
-    
-    subgraph "Record Layer<br/>(ICEs)"
-        DE[Design Evaluations<br/><i>with scores, dates, methods</i>]
-        DCCE[Communication Content<br/><i>manuals, labels, ads</i>]
-    end
-    
-    RTS -->|has principle component| DP
-    DP -->|has prescription component| DPP
-    DP -->|is about| QDF
-    DPP -->|prescribes| LSP
-    DPP -->|applies during lifecycle stage| LSP
-    
-    QDF -->|inheres in| ME
-    HB -->|continuant part of| ME
-    QDF -->|has basis| HB
-    QDF -->|realized in| LSP
-    
-    EMS -->|prescribes| DEsP
-    EMS -->|operationalizes principle| DP
-    DEsP -->|has output| DE
-    DEsP -->|has participant| ME
-    
-    DE -->|is about evaluated artifact| ME
-    DE -->|against principle| DP
-    DE -->|is about using method| EMS
-    DE -->|is about communication content| DCCE
-    
-    style RTS fill:#bbdefb
-    style DP fill:#e1f5fe
-    style DPP fill:#e1f5fe
-    style EMS fill:#e8eaf6
-    style ME fill:#ffcdd2
-    style QDF fill:#c8e6c9
-    style HB fill:#ffe0b2
-    style LSP fill:#f3e5f5
-    style DEsP fill:#f3e5f5
-    style DE fill:#fff3e0
-    style DCCE fill:#e8eaf6
-```
+| Version | Patterns Added/Changed |
+|---------|------------------------|
+| v1.4.7 | Evaluation Record Pattern |
+| v1.5.1 | Lifecycle Stage Pattern |
+| v3.0.0 | Prescription Component Pattern |
+| v4.0.0 | Reified Score Pattern, Honesty Evaluation Patterns, Process–Record Linkage |
+| v4.0.2 | Temporal Region Indexing Pattern, Aims-At Pattern (range removal) |
