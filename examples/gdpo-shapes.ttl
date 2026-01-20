@@ -9,8 +9,8 @@
 
 # =============================================================================
 # GDPO SHACL Validation Shapes
-# Version: 4.0.2
-# Date: 2026-01-17
+# Version: 4.0.3
+# Date: 2026-01-20
 # 
 # These shapes validate GDPO instance data (ABox) for structural correctness,
 # completeness, and constraint compliance.

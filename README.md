@@ -261,6 +261,8 @@ principle of aesthetics
 
 ## SPARQL Queries
 
+The queries below are simplified examples. For the complete set of representative SPARQL templates from the manuscript (Appendix A2), see [`sparql-templates.md`](sparql-templates.md).
+
 ### CQ1: Which design processes does the principle of innovativeness prescribe?
 
 ```sparql
@@ -414,9 +416,12 @@ GDPO includes SHACL shapes for validation. See `gdpo-shapes.ttl` for:
 
 | File | Description |
 |------|-------------|
-| `GoodDesignPrinciplesOntology20260116v4_0_2.ttl` | Current release (v4.0.3) |
+| `GoodDesignPrinciplesOntology20260116v4_0_3.ttl` | Current release (v4.0.3) |
 | `gdpo-shapes.ttl` | SHACL validation shapes |
-| `gdpo-example-abox.ttl` | Example instance data |
+| `gdpo-example-abox.ttl` | Example instance data (Appendix A1) |
+| `sparql-templates.md` | SPARQL query templates (Appendix A2) |
+| `competency-questions.md` | Full competency question inventory |
+| `design-pattern-diagrams.md` | Design pattern documentation with Mermaid diagrams |
 | `CHANGELOG.md` | Version history |
 | `README.md` | This file |
 
@@ -443,7 +448,7 @@ All assertions use BFO 2020 relations and CCO classes for agents and artifacts, 
 
 If you use GDPO in academic work, please cite:
 
-> Coleman, T. W. (2026). The Good Design Principles Ontology (GDPO): A BFO 2020–conformant ontology of Rams' principles, prescriptions, and evaluation records. *Applied Ontology* [forthcoming].
+> Coleman, T. W. (2026). Principles Are Not Properties: A BFO-Grounded Ontology for Normative Design Guidance and Evaluation Traceability. *Unpublished manuscript*.
 
 ---
 
