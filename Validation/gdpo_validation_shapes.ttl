@@ -1,0 +1,112 @@
+@prefix ex:    <http://example.org/gdpo-extended-validation/shapes/> .
+@prefix gdpo:  <https://www.ramsprinciplesofgooddesign.com/> .
+@prefix bfo:   <http://purl.obolibrary.org/obo/> .
+@prefix cco:   <https://www.commoncoreontologies.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+#####################################################################
+# SHACL shapes (companion validation graph)
+# Note: the runner script evaluates these constraints via equivalent SPARQL checks
+#       (pyshacl is intentionally not required as a dependency).
+#####################################################################
+
+ex:AimsAtTargetProxyShape a sh:NodeShape ;
+  sh:targetObjectsOf gdpo:GDPO0000454 ;
+  sh:name "aims-at target proxies are punned + well-typed universals"@en ;
+
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Target proxy must be declared owl:Class."@en ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS { $this a owl:Class . }
+      }
+    """
+  ] ;
+
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "Target proxy must be declared owl:NamedIndividual (OWL2 punning)."@en ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS { $this a owl:NamedIndividual . }
+      }
+    """
+  ] ;
+
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "As a class, target must be a subclass of quality, function, disposition, or relational quality (BFO)."@en ;
+    sh:select """
+      SELECT $this WHERE {
+        FILTER NOT EXISTS {
+          $this rdfs:subClassOf* ?sup .
+          VALUES ?sup { bfo:BFO_0000019 bfo:BFO_0000034 bfo:BFO_0000016 bfo:BFO_0000145 }
+        }
+      }
+    """
+  ] .
+
+ex:EvaluationRecordCompletenessShape a sh:NodeShape ;
+  sh:targetClass gdpo:GDPO0000044 ;
+  sh:name "design evaluation record completeness"@en ;
+
+  sh:property [
+    sh:path gdpo:GDPO0000045 ;            # is about evaluated artifact
+    sh:minCount 1 ;
+    sh:class bfo:BFO_0000040 ;
+  ] ;
+
+  sh:property [
+    sh:path gdpo:GDPO0000046 ;            # against principle
+    sh:minCount 1 ;
+    sh:class gdpo:GDPO0000003 ;
+  ] ;
+
+  sh:property [
+    sh:path gdpo:GDPO0000468 ;            # assessed during temporal region
+    sh:minCount 1 ;
+    sh:class bfo:BFO_0000008 ;
+  ] .
+
+ex:ScoreComponentCompletenessShape a sh:NodeShape ;
+  sh:targetClass gdpo:GDPO0000456 ;
+  sh:name "design evaluation score component completeness"@en ;
+
+  sh:property [
+    sh:path gdpo:GDPO0000458 ;            # score for principle
+    sh:minCount 1 ;
+    sh:class gdpo:GDPO0000003 ;
+  ] ;
+
+  sh:property [
+    sh:path gdpo:GDPO0000459 ;            # score value
+    sh:minCount 1 ;
+    sh:datatype xsd:decimal ;
+  ] ;
+
+  sh:property [
+    sh:path gdpo:GDPO0000460 ;            # has score scale
+    sh:minCount 1 ;
+    sh:class gdpo:GDPO0000461 ;
+  ] .
+
+ex:MethodSpecHygieneShape a sh:NodeShape ;
+  sh:targetClass gdpo:GDPO0000052 ;
+  sh:name "method specification operationalizes principle TOKENS (not classes)"@en ;
+
+  sh:sparql [
+    a sh:SPARQLConstraint ;
+    sh:message "operationalizes principle objects should be individuals (i.e., not only owl:Class with no design principle typing)."@en ;
+    sh:select """
+      SELECT $this WHERE {
+        $this gdpo:GDPO0000054 ?p .
+        ?p a owl:Class .
+        FILTER NOT EXISTS { ?p a gdpo:GDPO0000003 . }
+      }
+    """
+  ] .

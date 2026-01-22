@@ -1,0 +1,92 @@
+# GDPO validation SPARQL patterns (reference)
+# These queries are written against the merged graph:
+#   - GoodDesignPrinciplesOntology20260116v4.0.3.ttl  (GDPO ontology)
+#   - gdpo_validation.ttl                              (toy ABox)
+# and (optionally) the inferred graph emitted by run_validation.py.
+
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX gdpo: <https://www.ramsprinciplesofgooddesign.com/>
+PREFIX bfo:  <http://purl.obolibrary.org/obo/>
+PREFIX cco:  <https://www.commoncoreontologies.org/>
+PREFIX ex:   <http://example.org/gdpo-validation/>
+
+######################################################################
+# Q1. List Rams principle category classes and their aims-at targets
+#     (from the owl:equivalentClass / owl:hasValue pattern)
+######################################################################
+SELECT DISTINCT ?principleClass ?principleLabel ?target ?targetLabel WHERE {
+  VALUES ?principleClass {
+    gdpo:GDPO0000020 gdpo:GDPO0000021 gdpo:GDPO0000022 gdpo:GDPO0000023 gdpo:GDPO0000024
+    gdpo:GDPO0000025 gdpo:GDPO0000026 gdpo:GDPO0000027 gdpo:GDPO0000028 gdpo:GDPO0000029
+  }
+
+  ?principleClass owl:equivalentClass ?eq .
+  ?eq owl:intersectionOf/rdf:rest*/rdf:first ?eqPart .
+  ?eqPart owl:onProperty gdpo:GDPO0000454 ;
+          owl:hasValue ?target .
+
+  OPTIONAL { ?principleClass rdfs:label ?principleLabel . }
+  OPTIONAL { ?target rdfs:label ?targetLabel . }
+}
+ORDER BY ?principleLabel
+
+######################################################################
+# Q2. Validate punning: each aims-at target proxy is both owl:Class and owl:NamedIndividual
+######################################################################
+SELECT DISTINCT ?target ?targetLabel ?hasClass ?hasIndividual WHERE {
+  VALUES ?target {
+    gdpo:GDPO0000004 gdpo:GDPO0000005 gdpo:GDPO0000006 gdpo:GDPO0000007 gdpo:GDPO0000008
+    gdpo:GDPO0000009 gdpo:GDPO0000010 gdpo:GDPO0000011 gdpo:GDPO0000012 gdpo:GDPO0000013
+  }
+  OPTIONAL { ?target rdfs:label ?targetLabel . }
+  BIND(EXISTS { ?target a owl:Class } AS ?hasClass)
+  BIND(EXISTS { ?target a owl:NamedIndividual } AS ?hasIndividual)
+}
+
+######################################################################
+# Q3. Toy ABox: method-derived evaluation relevance (no OWL reasoner needed if materialized)
+######################################################################
+SELECT DISTINCT ?eval ?criterion ?method ?methodDerived ?time WHERE {
+  VALUES ?eval { ex:Eval_ManualHonesty_001 }
+
+  ?eval a gdpo:GDPO0000044 ;
+        gdpo:GDPO0000046 ?criterion ;
+        gdpo:GDPO0000048 ?method ;
+        gdpo:GDPO0000468 ?time .
+
+  OPTIONAL { ?eval gdpo:GDPO0000048/gdpo:GDPO0000054 ?methodDerived . }
+  OPTIONAL { ?eval gdpo:GDPO0000059 ?methodDerived . }  # if inferred/materialized
+}
+
+######################################################################
+# Q4. Defined-class specialization: communicative honesty evaluations
+#     (after inference, run_validation.py adds rdf:type gdpo:GDPO0000452)
+######################################################################
+SELECT DISTINCT ?eval ?time ?artifact ?content WHERE {
+  ?eval a gdpo:GDPO0000452 ;  # design communicative honesty evaluation
+        gdpo:GDPO0000468 ?time ;
+        gdpo:GDPO0000045 ?artifact ;
+        gdpo:GDPO0000450 ?content .
+}
+
+######################################################################
+# Q5. "Level-mixing" detection (what happens if an OWL range were added to aims-at)
+#     Finds targets that are both owl:Class and instance-of a BFO dependent-continuant category.
+######################################################################
+SELECT DISTINCT ?target ?targetLabel ?bfoType WHERE {
+  ?target a owl:Class ;
+          a ?bfoType .
+  FILTER(?bfoType IN (bfo:BFO_0000019, bfo:BFO_0000034, bfo:BFO_0000016))
+  OPTIONAL { ?target rdfs:label ?targetLabel . }
+}
+
+######################################################################
+# Q6. "Phantom target" detection: blank nodes used as aims-at objects
+#     (this is characteristic of existential someValuesFrom patterns)
+######################################################################
+SELECT DISTINCT ?s ?o WHERE {
+  ?s gdpo:GDPO0000454 ?o .
+  FILTER(isBlank(?o))
+}

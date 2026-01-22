@@ -404,24 +404,49 @@ SELECT ?process ?agent ?agentLabel ?artifact WHERE {
 
 ## Validation
 
+### SHACL Shapes
+
 GDPO includes SHACL shapes for validation. See `gdpo-shapes.ttl` for:
 
 * Evaluation record completeness (artifact, principle, temporal region)
 * Score component structure (value, principle, scale)
 * Aims-at target constraints (must be a class, subclass of quality/function/disposition)
 
+### Validation Artifact
+
+The `validation/` folder contains a runnable artifact demonstrating GDPO's key design patterns:
+
+* **Why `owl:hasValue` + punning**: Avoids phantom target instances from existential restrictions
+* **Why SHACL over OWL range axioms**: Avoids level-mixing on punned IRIs
+* **Property-chain traceability**: Method-to-principle and prescription-component chains
+
+**To run:**
+
+```bash
+cd validation
+pip install rdflib
+python run_extended_validation.py
+```
+
+**Expected output:**
+* `PASS` on all GDPO structural and behavioral checks
+* `FLAG` on contrast cases (demonstrating why naive alternatives fail)
+
+See `validation/README.md` for details and `validation/appendix_extended_validation_artifact.md` for the paper appendix text.
+
 ---
 
 ## Files in This Repository
 
-| File | Description |
-|------|-------------|
+| File/Folder | Description |
+|-------------|-------------|
 | `GoodDesignPrinciplesOntology20260116v4_0_3.ttl` | Current release (v4.0.3) |
 | `gdpo-shapes.ttl` | SHACL validation shapes |
 | `gdpo-example-abox.ttl` | Example instance data (Appendix A1) |
 | `sparql-templates.md` | SPARQL query templates (Appendix A2) |
 | `competency-questions.md` | Full competency question inventory |
 | `design-pattern-diagrams.md` | Design pattern documentation with Mermaid diagrams |
+| `validation/` | Runnable validation artifact (paper Appendix B) |
 | `CHANGELOG.md` | Version history |
 | `README.md` | This file |
 

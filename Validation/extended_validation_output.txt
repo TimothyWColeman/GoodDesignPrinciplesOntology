@@ -1,0 +1,46 @@
+GDPO EXTENDED VALIDATION REPORT
+==================================
+Ontology: GoodDesignPrinciplesOntology20260116v4.0.3.ttl
+Toy ABox:  gdpo_extended_validation.ttl
+
+1) Ontology structural checks
+--------------------------------
+PASS: GDPO0000454 has no rdfs:range axiom (avoids level-mixing under punning).
+PASS: property chain for GDPO0000059 is (aboutMethod o operationalizes).
+PASS: property chain for GDPO0000064 is (hasPrescriptionComponent o cco:prescribes).
+PASS: GDPO0000064 is NOT asserted subPropertyOf cco:prescribes (regularity guard holds).
+PASS: All 10 Rams principle categories have an aims-at hasValue definition.
+PASS: All aims-at targets used in Rams definitions are OWL2-punned (owl:Class + owl:NamedIndividual).
+PASS: All aims-at targets (as classes) are under quality/function/disposition (allowing relational quality).
+INFO: Ontology declares 2 owl:inverseOf pair(s).
+
+2) Closed-world data completeness checks (SHACL-like)
+-------------------------------------------------------
+PASS: All evaluation records have evaluated artifact, criterion principle, and assessment time.
+PASS: All score components have criterion principle, numeric value, and score scale.
+
+3) Token-vs-class hygiene checks
+---------------------------------
+PASS: No misuse detected for operationalizes/against/score-for (objects look like principle tokens).
+
+4) Rule-based materialization (safe closure)
+-------------------------------------------
+INFO: Materialized 10 aims-at triples from hasValue definitions (token -> target proxy).
+INFO: Materialized 1 has-evaluation-relevant-principle triples (method traceability chain).
+INFO: Materialized 1 prescribes-via-component triples (prescription-component chain).
+INFO: Materialized 1 inverse-property triples (from owl:inverseOf).
+PASS: Eval_Toy_ManualHonesty_001 classified as design communicative honesty evaluation.
+INFO: Inferred 1 communicative honesty evaluation(s) (defined-class style).
+
+5) Disjointness violation detection
+----------------------------------
+PASS: No disjointness violations detected in loaded graphs.
+
+6) Contrast demonstrations (expected 'FLAG' outcomes)
+-------------------------------------------------------
+FLAG: With an added rdfs:range on aims-at, 10 target proxies become rdf:type quality (level-mixing risk).
+      Example: GDPO0000004 is inferred rdf:type BFO_0000019 under the range rule.
+INFO: Range-contrast added 10 rdf:type triple(s) via the range rule.
+FLAG: Existential (someValuesFrom) demo created 1 blank-node 'phantom target' instance(s).
+      (Added 2 triple(s) to satisfy existentials.)
+

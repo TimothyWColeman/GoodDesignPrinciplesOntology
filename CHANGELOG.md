@@ -6,13 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
-## [4.0.3] - 2026-01-17
+## [4.0.3] - 2026-01-22
+
+### Added
+- **Validation artifact**: New `validation/` folder containing a runnable Python script and toy ABox that demonstrates GDPO's key design patterns:
+  - `owl:hasValue` + OWL2 punning for principle targets (avoids phantom instances)
+  - SHACL-based target validation (avoids level-mixing from OWL range axioms)
+  - Property-chain materialization for method-to-principle traceability
+  - Defined-class inference for communicative honesty evaluations
+- Includes contrast cases showing why naive alternatives (`someValuesFrom`, `rdfs:range`) fail.
+- Appendix text for paper inclusion (`appendix_extended_validation_artifact.md`).
 
 ### Changed
 - **`is concretized by` (GDPO0000464)**: Renamed to `has material bearer` and restructured as a subproperty of BFO's `generically depends on` for better alignment with BFO 2020 generically dependent continuant modeling.
 
 ### Notes
-- This change clarifies that the relation links an ICE to its material bearer (the entity that bears a concretization of the information content), consistent with BFO's treatment of generic dependence.
+- The validation artifact requires `rdflib` (`pip install rdflib`).
+- Run with `python run_extended_validation.py` from the `validation/` folder.
 
 ---
 

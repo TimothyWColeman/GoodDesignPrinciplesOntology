@@ -1,0 +1,33 @@
+@prefix ex:    <http://example.org/gdpo-extended-validation/> .
+@prefix gdpo:  <https://www.ramsprinciplesofgooddesign.com/> .
+@prefix bfo:   <http://purl.obolibrary.org/obo/> .
+@prefix cco:   <https://www.commoncoreontologies.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+#####################################################################
+# Optional negative tests (load with --negative)
+#####################################################################
+
+### Hygiene violation: operationalizes points to a PRINCIPLE CLASS (not a token individual)
+ex:BadMethod_operationalizesClass_v1 a gdpo:GDPO0000052 ;
+  rdfs:label "Bad method (operationalizes principle class)"@en ;
+  gdpo:GDPO0000054 gdpo:GDPO0000025 .
+
+### Disjointness violation: one ICE typed as both design principle and principle specification
+ex:BadICE_PrincipleAndSpecification_001 a gdpo:GDPO0000003 , gdpo:GDPO0000035 ;
+  rdfs:label "Bad ICE: both principle and specification"@en .
+
+### Completeness violation: evaluation record missing assessed during temporal region
+ex:BadEvalRecord_missingTime_001 a gdpo:GDPO0000044 ;
+  rdfs:label "Bad evaluation record (missing assessed during temporal region)"@en ;
+  gdpo:GDPO0000045 ex:ToyArtifact_001 ;
+  gdpo:GDPO0000046 gdpo:GDPO0000071 .
+
+### Completeness violation: score component missing has score scale
+ex:BadScore_missingScale_001 a gdpo:GDPO0000456 ;
+  rdfs:label "Bad score component (missing scale)"@en ;
+  gdpo:GDPO0000458 gdpo:GDPO0000071 ;
+  gdpo:GDPO0000459 "0.10"^^xsd:decimal .
