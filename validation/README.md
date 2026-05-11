@@ -14,6 +14,7 @@ Run these checks from the repository root:
 
 ```bash
 python3 -c "import rdflib; rdflib.Graph().parse('ontology/gdpo-4.0.3.ttl', format='turtle')"
+python3 -c "import rdflib; rdflib.Graph().parse('examples/gdpo-example-abox.ttl', format='turtle')"
 xmllint --noout ontology/catalog-v001.xml
 ```
 

@@ -465,6 +465,10 @@ Current repository layout:
 | `ontology/catalog-v001.xml` | XML catalog pinning imports to BFO 2020 and stable CCO 2.0 |
 | `ontology/gdpo-4.0.3.properties` | Ontology metadata/properties file |
 | `paper/` | Manuscript files for *Principles Are Not Properties* |
+| `docs/design-patterns.md` | Design-pattern explanation for readers and reviewers |
+| `docs/competency-questions.md` | Competency questions mapped to ontology elements |
+| `queries/sparql-templates.md` | Reusable SPARQL query templates |
+| `examples/gdpo-example-abox.ttl` | Minimal paper-aligned ABox example |
 | `validation/` | Baseline validation checks and manuscript-alignment notes |
 | `legacy/` | Historical ontology files retained for provenance only |
 | `CHANGELOG.md` | Release history and breaking changes |
