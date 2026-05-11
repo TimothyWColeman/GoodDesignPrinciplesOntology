@@ -1,0 +1,21 @@
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Local editor and OS metadata
+.idea/
+.vscode/
+Thumbs.db
+
+# Generated validation and reasoner outputs
+*.log
+*.out
+*.tmp
+*_inferred.ttl
+*_negative.ttl
+extended_validation_output.txt
+
+# Python cache files used by local validation scripts
+__pycache__/
+*.py[cod]
