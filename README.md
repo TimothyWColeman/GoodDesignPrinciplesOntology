@@ -466,7 +466,7 @@ Current repository layout:
 | `ontology/gdpo-4.0.3.ttl` | Current ontology release |
 | `ontology/catalog-v001.xml` | XML catalog pinning imports to BFO 2020 and stable CCO 2.0 |
 | `ontology/gdpo-4.0.3.properties` | Ontology metadata/properties file |
-| `paper/` | Manuscript files for *Principles Are Not Properties* |
+| `paper/` | Current manuscript file for *Principles Are Not Properties* |
 | `docs/reviewer-guide.md` | Short reviewer path through the repository |
 | `docs/imports-and-versioning.md` | Import pinning and version policy notes |
 | `docs/design-patterns.md` | Design-pattern explanation for readers and reviewers |

@@ -14,6 +14,7 @@ Legacy layout:
 
 | Path | Contents |
 |------|----------|
+| `paper/` | Earlier manuscript drafts retained for provenance |
 | `root-snapshots/` | Older root-level ontology snapshots from the previous repository state |
 | `releases/` | Historical release folders copied from the previous repository |
 
