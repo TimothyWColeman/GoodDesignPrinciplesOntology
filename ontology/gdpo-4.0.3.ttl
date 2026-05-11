@@ -18,14 +18,15 @@
                                                                                        <https://www.commoncoreontologies.org/2024-11-06/ArtifactOntology> ;
                                                                            dcterms:creator "Timothy W. Coleman"@en ;
                                                                            dcterms:description "An ontology that represents Dieter Rams’ Ten Principles of Good Design as directive information content entities and links them to artifact-side qualities, functions, and dispositions, using Basic Formal Ontology (BFO 2020) and aligned with the Common Core Ontologies (CCO)."@en ;
-                                                                           dcterms:modified "2026-01-17"^^xsd:date ;
+                                                                           dcterms:modified "2026-05-11"^^xsd:date ;
                                                                            dcterms:title "Good Design Principles Ontology"@en ;
-                                                                           rdfs:comment """The Good Design Principles Ontology (GDPO) extends BFO 2020 and aligns with CCO to provide a realist representation of Rams’ Ten Principles.
+                                                                           rdfs:comment "Patch 1.1: removed punned artifact-side target individuals and replaced principle target owl:hasValue restrictions with universal owl:allValuesFrom class-expression restrictions."@en ,
+                                                                                        """The Good Design Principles Ontology (GDPO) extends BFO 2020 and aligns with CCO to provide a realist representation of Rams’ Ten Principles.
 
 Key modeling commitments (v4.0):
 - Principle categories are represented as classes under ‘design principle’ (directive information content entity).
 - The ten canonical Rams statements are represented as named individuals (ICEs) with provenance and canonical statement text.
-- Artifact-side targets are modeled as mind-independent truthmakers: qualities, functions, and dispositions inhering in material entities.
+- Artifact-associated targets are modeled through class expressions involving qualities, functions, dispositions, material bases, relevant processes, and artifact-associated communication content, while preserving the distinction between directive information content and the artifact-side or communication-side entities it concerns.
 - Realizable entities and prescriptions are constrained using universal (‘only’) restrictions (e.g., realized_in only …; prescribes only …) to avoid unwarranted existential commitments.
 - Lifecycle applicability is modeled using lifecycle stage process types (sourcing, manufacturing, distribution, use/maintenance, end-of-life); stage ordering is not asserted via TBox existentials.
 - Evaluation results (conformance/nonconformance) are represented in evaluation records rather than baked into the essence of use/comprehension/interaction processes.
@@ -34,7 +35,7 @@ Intended use: principled annotation and comparison of artifacts and practices ag
                                                                            rdfs:label "Good Design Principles Ontology (GDPO)"@en ;
                                                                            rdfs:seeAlso gdpo: ;
                                                                            owl:priorVersion gdpo:GoodDesignPrinciplesOntology20260116v1.5.3.4 ;
-                                                                           owl:versionInfo "Version 4.0.3 (move \"is_concretized_by\" to \"has material bearer\" under generically depends on)"@en ;
+                                                                           owl:versionInfo "Version 4.0.3: replaces punned target individuals and owl:hasValue target restrictions with owl:allValuesFrom class-expression restrictions; treats has material bearer as a lightweight material-bearer provenance relation without asserting it as a subproperty of BFO generically depends on; imports the stable CCO 2.0 release rather than the CCO development branch."@en ;
                                                                            skos:scopeNote """Scope: GDPO covers Rams’ ten principles as normative (directive) information content entities and their intended artifact- and process-side targets. It provides core classes and relations for linking principles to design qualities/functions/dispositions and for representing evaluation processes and evaluation records.
 
 Out of scope: ‘dishonesty’ as a positive disposition to mislead; negative inferences from absence of honesty are not licensed. Claims and marketing content are treated as information content entities evaluated for honesty rather than as dispositions of artifacts."""@en .
@@ -43,8 +44,16 @@ Out of scope: ‘dishonesty’ as a positive disposition to mislead; negative in
 #    Annotation properties
 #################################################################
 
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
 ###  http://purl.org/dc/terms/modified
 dcterms:modified rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#editorialNote
+skos:editorialNote rdf:type owl:AnnotationProperty .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000453
@@ -65,6 +74,22 @@ xsd:date rdf:type rdfs:Datatype .
 #################################################################
 #    Object Properties
 #################################################################
+
+###  https://www.commoncoreontologies.org/ont00001801
+cco:ont00001801 rdf:type owl:ObjectProperty .
+
+
+###  https://www.commoncoreontologies.org/ont00001808
+cco:ont00001808 rdf:type owl:ObjectProperty .
+
+
+###  https://www.commoncoreontologies.org/ont00001942
+cco:ont00001942 rdf:type owl:ObjectProperty .
+
+
+###  https://www.commoncoreontologies.org/ont00001986
+cco:ont00001986 rdf:type owl:ObjectProperty .
+
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000045
 gdpo:GDPO0000045 rdf:type owl:ObjectProperty ;
@@ -199,10 +224,10 @@ gdpo:GDPO0000454 rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf cco:ont00001808 ;
                  rdfs:domain cco:ont00000965 ;
                  rdfs:label "aims at artifact-side target"@en ;
-                 skos:definition "Relates a prescriptive information content entity (e.g., a design principle) to an artifact-side target universal (a quality, function, or disposition type) that the directive is intended to cultivate, maintain, or promote in designed artifacts."@en ;
-                 skos:editorialNote "Values are intended to denote target universals (OWL classes), not particular instances. OWL range restrictions to BFO categories are intentionally omitted to avoid treating punned targets as instances of those categories; validate the intended constraint (target is a class and a subclass of quality/function/disposition) via SHACL or QA. Use this to represent the normative/directive relation (\"aims at\") rather than merely topical aboutness; aim-implies-about is preserved via subPropertyOf cco:is_about."@en ;
+                 skos:definition "Relates a prescriptive information content entity, such as a design principle, to an artifact-associated design-evaluation target that the directive concerns. In GDPO, this property is primarily used in universal restrictions whose owl:allValuesFrom fillers are OWL class expressions representing artifact-borne qualities, functions, dispositions, material bases, relevant processes, or artifact-associated communication content."@en ;
+                 skos:editorialNote "The object property itself relates individuals to individuals. In the TBox target-expression pattern, principle categories are constrained by universal restrictions of the form 'aims at artifact-side target only TargetClassExpression'. The owl:allValuesFrom filler is an OWL class expression; no punned class-as-individual target, dummy target individual, or owl:hasValue target restriction is introduced. No OWL range is declared because different target expressions may involve qualities, functions, dispositions, material entities, processes, or information content entities."@en ;
                  skos:prefLabel "aims at artifact-side target"@en ;
-                 skos:scopeNote "Use for linking Rams principle categories to their intended artifact-side targets without collapsing prescriptive aim into generic aboutness."@en .
+                 skos:scopeNote "Use for the artifact-associated target space of design evaluation, broadly construed to include artifact-borne qualities, functions, dispositions, material bases, relevant processes, and artifact-associated communication content where a principle concerns presentation, documentation, labeling, advertising, or interface messaging."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000457
@@ -258,12 +283,11 @@ gdpo:GDPO0000463 rdf:type owl:ObjectProperty ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000464
 gdpo:GDPO0000464 rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf <http://purl.obolibrary.org/obo/BFO_0000084> ;
                  rdfs:domain cco:ont00000958 ;
                  rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> ;
                  rdfs:label "has material bearer"@en ;
-                 skos:definition "Relates an information content entity (e.g., a principle statement or evaluation record) to a material entity that bears a concretization of that information content (e.g., a document, webpage, label, or stored digital file)."@en ;
-                 skos:editorialNote "Use at the instance level to ground the existence of generically dependent continuants in concrete bearers. Avoid adding existential restrictions in the TBox if you do not want reasoners to introduce anonymous bearers."@en ;
+                 skos:definition "A lightweight provenance relation that records a material entity associated with an information content entity, such as a document, webpage, stored file, label, or evaluation report that bears a concretization of that information content."@en ;
+                 skos:editorialNote "Use at the instance level for material-bearer provenance only. This relation is not intended to replace the fuller concretization pattern in which a generically dependent continuant is concretized by a specifically dependent continuant that inheres in a material bearer; no subproperty axiom to BFO generically depends on is asserted."@en ;
                  skos:prefLabel "has material bearer"@en .
 
 
@@ -340,6 +364,18 @@ gdpo:GDPO0000459 rdf:type owl:DatatypeProperty ;
 #    Classes
 #################################################################
 
+###  https://www.commoncoreontologies.org/ont00000958
+cco:ont00000958 rdf:type owl:Class .
+
+
+###  https://www.commoncoreontologies.org/ont00000965
+cco:ont00000965 rdf:type owl:Class .
+
+
+###  https://www.commoncoreontologies.org/ont00001017
+cco:ont00001017 rdf:type owl:Class .
+
+
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000003
 gdpo:GDPO0000003 rdf:type owl:Class ;
                  rdfs:subClassOf cco:ont00000965 ,
@@ -348,23 +384,31 @@ gdpo:GDPO0000003 rdf:type owl:Class ;
                                    owl:allValuesFrom gdpo:GDPO0000061
                                  ] ;
                  owl:disjointWith gdpo:GDPO0000035 ;
-                 rdfs:comment "Modeling note: In GDPO v1.5.3, what a design principle prescribes is represented via reified design process prescriptions (design process prescription) linked by has prescription component. These prescription components may carry temporal/conditional qualifiers (e.g., applies during lifecycle stage)."@en ;
+                 rdfs:comment "Modeling note: In GDPO, what a design principle prescribes is represented via reified design process prescriptions (design process prescription) linked by has prescription component. These prescription components may carry temporal/conditional qualifiers (e.g., applies during lifecycle stage)."@en ;
                  rdfs:label "design principle"@en ;
                  skos:altLabel "design guideline"@en ,
                                "design norm"@en ;
                  skos:definition "A directive information content entity that prescribes constraints or aims for artifacts or design processes."@en ;
-                 skos:editorialNote "In GDPO v1.5.3, represent what a principle prescribes via reified design process prescription components (design process prescription) linked by has prescription component. The prescription component bears cco:prescribes assertions to process types and may carry temporal/conditional qualifiers (e.g., applies during lifecycle stage). Use principle statement individuals to capture the canonical Rams texts and provenance."@en ;
+                 skos:editorialNote "In GDPO, represent what a principle prescribes via reified design process prescription components (design process prescription) linked by has prescription component. The prescription component bears cco:prescribes assertions to process types and may carry temporal/conditional qualifiers (e.g., applies during lifecycle stage). Use principle statement individuals to capture the canonical Rams texts and provenance."@en ;
                  skos:prefLabel "design principle"@en ;
-                 skos:scopeNote "Represents a directive information content entity that normatively prescribes properties, constraints, or aims for designed artifacts or for design processes, based on Dieter Rams’ ten principles."@en .
+                 skos:scopeNote "Represents a directive information content entity that normatively prescribes constraints or aims concerning artifact-side qualities, functions, dispositions, material bases, processes, or communication content, based on Dieter Rams’ ten principles."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000004
 gdpo:GDPO0000004 rdf:type owl:Class ;
-                 rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000145> ,
+                 rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
                                    owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
-                                 ] .
+                                 ] ;
+                 rdfs:comment "Modeling note: This class denotes the bearer-dependent quality itself (a truthmaker in the artifact), not a numeric degree or score. Numeric assessments of innovativeness should be represented as information content entities (e.g., evaluation records) that are about this quality and carry measurement values."@en ;
+                 rdfs:label "design innovativeness"@en ;
+                 skos:altLabel "innovation quality"@en ,
+                               "novelty quality"@en ;
+                 skos:definition "A quality that inheres in a material entity, typically a designed artifact, and consists in that entity bearing design-relevant features that are novel or improved relative to a specified comparison class of predecessor artifacts within a specified historical context."@en ;
+                 skos:editorialNote "Disambiguate value-creating novelty from novelty-for-its-own-sake. Specify the comparison class (prior model, market category, internal baseline) via an annotation or object property such as innovates_over. Distinguish design innovativeness (quality) from design innovation process (process) and from patentability (legal status)."@en ;
+                 skos:prefLabel "design innovativeness"@en ;
+                 skos:scopeNote "This quality is assessed comparatively against an explicit baseline (e.g., prior version, competing products, market category norms, or an internal reference design). “Non-trivial” indicates a change above a context-appropriate threshold and typically concerns improvements in function, usability, efficiency, sustainability, manufacturability, safety, reliability, or user experience."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000005
@@ -380,7 +424,16 @@ gdpo:GDPO0000005 rdf:type owl:Class ;
                                                         ]
                                                       ) ;
                                    rdf:type owl:Class
-                                 ] .
+                                 ] ;
+                 rdfs:label "design usefulness"@en ;
+                 skos:altLabel "functional utility"@en ,
+                               "utility function"@en ;
+                 skos:definition "A function that inheres in a material entity (typically a designed artifact) and is realized in design use processes in which the bearer contributes to the achievement of intended practical ends in typical contexts of use."@en ;
+                 skos:editorialNote """Design usefulness is not merely the presence of a function but the degree to which that function effectively serves intended practical ends for target users. Evaluations of usefulness should assess functional adequacy relative to user goals and contexts, not simply whether a function exists.
+
+Pair with role assertions when usefulness is context- or user-role–dependent (e.g., medical role vs. hobbyist role). Tie evaluations to use scenario individuals with has intended use, evaluated in context, and realized in to link to successful use processes."""@en ;
+                 skos:prefLabel "design usefulness"@en ;
+                 skos:scopeNote "A function specifying the end-directed capacity of an artifact to fulfill intended practical purposes for target users in expected contexts of use."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000006
@@ -389,7 +442,13 @@ gdpo:GDPO0000006 rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
                                    owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
-                                 ] .
+                                 ] ;
+                 rdfs:label "design aesthetic quality"@en ;
+                 skos:altLabel "design aesthetic"@en ;
+                 skos:definition "A design-related perceptual-form quality that inheres in a material entity (typically a designed artifact) and consists in those perceptual features (e.g., proportion, harmony, finish) that are apt to elicit aesthetic appreciation by intended users or observers."@en ;
+                 skos:editorialNote "Model sub-qualities if needed (proportion, visual harmony, material finish). For assessments, record assessor, method (e.g., design review rubric), and cultural style references to handle variability across design languages."@en ;
+                 skos:prefLabel "design aesthetic quality"@en ;
+                 skos:scopeNote "A quality of an artifact’s form and presentation contributing to perceived visual, tactile, or auditory appeal, harmony, and coherence, independent of its practical function."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000007
@@ -405,7 +464,16 @@ gdpo:GDPO0000007 rdf:type owl:Class ;
                                                         ]
                                                       ) ;
                                    rdf:type owl:Class
-                                 ] .
+                                 ] ;
+                 rdfs:label "design understandability"@en ;
+                 skos:altLabel "cognitive accessibility"@en ,
+                               "learnability"@en ;
+                 skos:definition "A disposition that inheres in a material entity (typically a designed artifact) and, when realized in design comprehension processes, tends to enable users to correctly apprehend the bearer's structure, operation, and intended use from available cues (e.g., form, labels, affordances)."@en ;
+                 skos:editorialNote """Retain both understandability and usefulness as distinct classes to prevent collapsing cognitive accessibility into functional adequacy. In evaluations, score separately and document trade-offs.
+
+As a disposition, link to cognitive processes of typical users via is realized in comprehension episodes. Encode factors such as clear affordances, legible mapping, and feedback loops as contributing properties rather than conflating them with the disposition itself."""@en ;
+                 skos:prefLabel "design understandability"@en ;
+                 skos:scopeNote "Understandability concerns cognitive uptake; usefulness concerns functional ends."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000008
@@ -414,7 +482,14 @@ gdpo:GDPO0000008 rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
                                    owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
-                                 ] .
+                 ] ;
+                 rdfs:label "design unobtrusiveness quality"@en ;
+                 skos:altLabel "design subtlety"@en ,
+                               "visual restraint"@en ;
+                 skos:definition "A design-related perceptual-salience quality that inheres in a material entity (typically a designed artifact) and consists in the bearer presenting necessary cues for use while remaining low in perceptual salience relative to its surrounding environment and user activities."@en ;
+                 skos:editorialNote "Keep design unobtrusiveness distinct from design minimalism: an unobtrusive design need not be austere when brand, safety, accessibility, or contextual signaling requires perceptual salience. If modeling environmental fit or visual salience explicitly, represent those as artifact-side qualities or relations rather than conflating them with minimalism."@en ;
+                 skos:prefLabel "design unobtrusiveness quality"@en ;
+                 skos:scopeNote "A quality whereby an artifact’s form and behavior refrain from dominating attention, visual field, or environment, supporting use without calling attention to itself."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000009
@@ -439,7 +514,15 @@ gdpo:GDPO0000009 rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000218> ;
                                    owl:someValuesFrom gdpo:GDPO0000056
-                                 ] .
+                                 ] ;
+                 rdfs:label "design honesty"@en ;
+                 skos:altLabel "design authenticity"@en ,
+                               "design integrity"@en ;
+                 skos:definition "A disposition that inheres in a material entity (typically a designed artifact) and, when realized in user interaction and related lifecycle processes, tends to avoid misleading users about the bearer's materials, functions, or performance (i.e., the artifact's perceptible cues do not misrepresent what is actually the case)."@en ;
+                 skos:editorialNote """Keep ‘design honesty’ general (realized in relevant processes). Constrain concrete facets in subclasses: material honesty (manufacturing/use), functional honesty (interaction), communicative honesty (communication).
+
+Clarify scope across three areas: material honesty (appearance tracks materials), functional honesty (controls reflect real capabilities), and communicative honesty (marketing claims match performance). Link violations to misrepresentation events rather than to the quality class itself."""@en ;
+                 skos:scopeNote "Parent class for product-borne honesty dispositions (functional and material). Communicative honesty is handled via communicative honesty evaluations of communication artifacts."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000010
@@ -455,7 +538,14 @@ gdpo:GDPO0000010 rdf:type owl:Class ;
                                                         ]
                                                       ) ;
                                    rdf:type owl:Class
-                                 ] .
+                                 ] ;
+                 rdfs:label "design durability"@en ;
+                 skos:altLabel "design robustness"@en ,
+                               "longevity"@en ;
+                 skos:definition "A disposition that inheres in a material entity (typically a designed artifact) and, when realized across the bearer's expected life, tends to preserve the bearer's structural and functional integrity under anticipated loads and environmental conditions."@en ;
+                 skos:editorialNote "Keep as a disposition. Tie to test protocols or standards via conforms to standard and to measured endurance results via realized in durability test process. Capture warranty or design life as annotations separate from the disposition."@en ;
+                 skos:prefLabel "design durability"@en ;
+                 skos:scopeNote "A disposition of an artifact to maintain integrity and function over expected life under defined loads, stresses, and environmental conditions."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000011
@@ -464,7 +554,12 @@ gdpo:GDPO0000011 rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
                                    owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
-                                 ] .
+                                 ] ;
+                 rdfs:label "design thoroughness quality"@en ;
+                 skos:definition "A design-related completeness-and-detail quality that inheres in a material entity (typically a designed artifact) and consists in the bearer's being designed with attention to detail and completeness across relevant aspects (e.g., components, interface, packaging, documentation, accessories)."@en ;
+                 skos:editorialNote "Treat thoroughness as a quality of the designed “system” rather than only the core artifact. Use has part/has component across the ecosystem to support reasoning that thoroughness extends “down to the last detail.”"@en ;
+                 skos:prefLabel "design thoroughness quality"@en ;
+                 skos:scopeNote "A quality of completeness and attention to detail evident in surface finish, tolerances, affordances, edge cases, and fit-and-finish across the product and its ecosystem (packaging, documentation, accessories)."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000012
@@ -473,7 +568,14 @@ gdpo:GDPO0000012 rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
                                    owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
-                                 ] .
+                                 ] ;
+                 rdfs:label "design environmental friendliness"@en ;
+                 skos:altLabel "eco-friendliness"@en ,
+                               "sustainability quality"@en ;
+                 skos:definition "An aggregate design-related quality that inheres in a material entity (typically a designed artifact) and consists in the bearer's life-cycle processes (e.g., sourcing, manufacturing, distribution, use/maintenance, end-of-life handling) having low adverse environmental impacts relative to a specified baseline."@en ;
+                 skos:editorialNote "Model lifecycle stages as processes and represent verified outcomes as measurement data and or ratings (e.g., recycled content %, energy use class, repairability index) produced by assessment/measurement activities. Distinguish claims (ICE) from verified performance (measurement data, evaluation records); record certification bodies and standards, methods used."@en ;
+                 skos:prefLabel "design environmental friendliness"@en ;
+                 skos:scopeNote "A quality that reflects the degree to which a design (and/or the artifact produced according to that design) is environmentally preferable when assessed across lifecycle stages such as sourcing, manufacturing, distribution, use, and end‑of‑life. This is typically determined from lifecycle indicators and/or lifecycle assessment results rather than being a disposition that is realized in processes."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000013
@@ -482,7 +584,14 @@ gdpo:GDPO0000013 rdf:type owl:Class ;
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
                                    owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
-                                 ] .
+                                 ] ;
+                 rdfs:label "design minimalism quality"@en ;
+                 skos:altLabel "design simplicity"@en ,
+                               "essentialism"@en ;
+                 skos:definition "A design-related parsimony quality that inheres in a material entity (typically a designed artifact) and consists in achieving intended purposes with no superfluous elements beyond what is necessary for those purposes."@en ;
+                 skos:editorialNote "Differentiate minimalism from impoverished function. Use accompanies to indicate when minimalism co-occurs with understandability and unobtrusiveness without making them equivalent. Where complexity is necessary (e.g., safety cues), note justified exceptions in annotations."@en ;
+                 skos:prefLabel "design minimalism quality"@en ;
+                 skos:scopeNote "A quality characterized by reduction to essential elements in form and function, eliminating superfluous ornamentation and unnecessary complexity in support of “less, but better.”"@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000014
@@ -607,14 +716,6 @@ gdpo:GDPO0000019 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000020
 gdpo:GDPO0000020 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000004
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -626,6 +727,10 @@ gdpo:GDPO0000020 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000004
                                  ] ;
                  rdfs:label "principle of innovativeness"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design innovativeness."@en ;
@@ -637,14 +742,6 @@ gdpo:GDPO0000020 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000021
 gdpo:GDPO0000021 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000005
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -660,6 +757,10 @@ gdpo:GDPO0000021 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000005
                                  ] ;
                  rdfs:label "principle of usefulness"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design usefulness."@en ;
@@ -671,14 +772,6 @@ gdpo:GDPO0000021 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000022
 gdpo:GDPO0000022 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000006
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -690,6 +783,10 @@ gdpo:GDPO0000022 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000006
                                  ] ;
                  rdfs:label "principle of aesthetics"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design aesthetic quality."@en ;
@@ -701,14 +798,6 @@ gdpo:GDPO0000022 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000023
 gdpo:GDPO0000023 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000007
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -724,6 +813,10 @@ gdpo:GDPO0000023 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000007
                                  ] ;
                  rdfs:label "principle of understandability"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design understandability."@en ;
@@ -735,14 +828,6 @@ gdpo:GDPO0000023 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000024
 gdpo:GDPO0000024 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000008
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -758,6 +843,10 @@ gdpo:GDPO0000024 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000008
                                  ] ;
                  rdfs:label "principle of unobtrusiveness"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design unobtrusiveness quality."@en ;
@@ -769,14 +858,6 @@ gdpo:GDPO0000024 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000025
 gdpo:GDPO0000025 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000009
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -802,19 +883,62 @@ gdpo:GDPO0000025 rdf:type owl:Class ;
                                                                              ]
                                                                              [ rdf:type owl:Restriction ;
                                                                                owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000038
-                                                                             ]
-                                                                             [ rdf:type owl:Restriction ;
-                                                                               owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000039
+                                                                               owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                                   owl:unionOf ( gdpo:GDPO0000038
+                                                                                                                 gdpo:GDPO0000039
+                                                                                                               )
+                                                                                                 ]
                                                                              ]
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( [ owl:intersectionOf ( gdpo:GDPO0000041
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                              owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                            ]
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000218> ;
+                                                                                              owl:someValuesFrom gdpo:GDPO0000057
+                                                                                            ]
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                              owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                                                  owl:unionOf ( gdpo:GDPO0000037
+                                                                                                                                gdpo:GDPO0000039
+                                                                                                                              )
+                                                                                                                ]
+                                                                                            ]
+                                                                                          ) ;
+                                                                       rdf:type owl:Class
+                                                                     ]
+                                                                     [ owl:intersectionOf ( gdpo:GDPO0000042
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000197> ;
+                                                                                              owl:someValuesFrom <http://purl.obolibrary.org/obo/BFO_0000040>
+                                                                                            ]
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000218> ;
+                                                                                              owl:someValuesFrom gdpo:GDPO0000058
+                                                                                            ]
+                                                                                            [ rdf:type owl:Restriction ;
+                                                                                              owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000054> ;
+                                                                                              owl:allValuesFrom gdpo:GDPO0000017
+                                                                                            ]
+                                                                                          ) ;
+                                                                       rdf:type owl:Class
+                                                                     ]
+                                                                   )
+                                                     ]
                                  ] ;
                  rdfs:label "principle of honesty"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design honesty."@en ;
                  skos:editorialNote "Distinguish material honesty (true to materials), functional honesty (controls reflect real capabilities), and communicative honesty (marketing matches performance)."@en ,
+                                    "Modeling note: The target restriction for principle of honesty embeds the expanded honesty target expression, decomposing material honesty and functional honesty in terms of bearers, bases, and realization processes, in alignment with Appendix A2.1 of the paper."@en ,
                                     "Modeling note: What this principle prescribes is represented via design process prescription components (see has prescription component), rather than being constitutive of the principle class identity."@en ;
                  skos:prefLabel "principle of honesty"@en ;
                  skos:scopeNote "Communicative honesty is captured via evaluation records of communication artifacts (manuals, labels, advertisements), not as a product-borne disposition."@en .
@@ -822,14 +946,6 @@ gdpo:GDPO0000025 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000026
 gdpo:GDPO0000026 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000010
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -845,6 +961,10 @@ gdpo:GDPO0000026 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000010
                                  ] ;
                  rdfs:label "principle of durability"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design durability."@en ;
@@ -856,14 +976,6 @@ gdpo:GDPO0000026 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000027
 gdpo:GDPO0000027 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000011
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -875,6 +987,10 @@ gdpo:GDPO0000027 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000011
                                  ] ;
                  rdfs:label "principle of thoroughness"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design thoroughness quality."@en ;
@@ -886,14 +1002,6 @@ gdpo:GDPO0000027 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000028
 gdpo:GDPO0000028 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000012
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -904,27 +1012,22 @@ gdpo:GDPO0000028 rdf:type owl:Class ;
                                                                              ]
                                                                              [ rdf:type owl:Restriction ;
                                                                                owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000036
-                                                                             ]
-                                                                             [ rdf:type owl:Restriction ;
-                                                                               owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000037
-                                                                             ]
-                                                                             [ rdf:type owl:Restriction ;
-                                                                               owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000038
-                                                                             ]
-                                                                             [ rdf:type owl:Restriction ;
-                                                                               owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000039
-                                                                             ]
-                                                                             [ rdf:type owl:Restriction ;
-                                                                               owl:onProperty gdpo:GDPO0000063 ;
-                                                                               owl:allValuesFrom gdpo:GDPO0000040
+                                                                               owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                                                   owl:unionOf ( gdpo:GDPO0000036
+                                                                                                                 gdpo:GDPO0000037
+                                                                                                                 gdpo:GDPO0000038
+                                                                                                                 gdpo:GDPO0000039
+                                                                                                                 gdpo:GDPO0000040
+                                                                                                               )
+                                                                                                 ]
                                                                              ]
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000012
                                  ] ;
                  rdfs:label "principle of environmental friendliness"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design environmental friendliness."@en ;
@@ -936,14 +1039,6 @@ gdpo:GDPO0000028 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000029
 gdpo:GDPO0000029 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000003
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000454 ;
-                                                              owl:hasValue gdpo:GDPO0000013
-                                                            ]
-                                                          ) ;
-                                       rdf:type owl:Class
-                                     ] ;
                  rdfs:subClassOf gdpo:GDPO0000003 ,
                                  [ rdf:type owl:Restriction ;
                                    owl:onProperty gdpo:GDPO0000062 ;
@@ -955,6 +1050,10 @@ gdpo:GDPO0000029 rdf:type owl:Class ;
                                                                            ) ;
                                                         rdf:type owl:Class
                                                       ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty gdpo:GDPO0000454 ;
+                                   owl:allValuesFrom gdpo:GDPO0000013
                                  ] ;
                  rdfs:label "principle of minimalism"@en ;
                  skos:definition "A design principle that aims at the artifact-side target design minimalism quality."@en ;
@@ -1095,7 +1194,7 @@ gdpo:GDPO0000034 rdf:type owl:Class ;
                                                      ]
                                  ] ;
                  dcterms:creator "Dieter Rams"@en ;
-                 rdfs:comment "Modeling note: In v1.5.3, the compositional structure of this specification is represented using the GDPO-specific relation has principle component. This avoids treating ICE composition as BFO continuant parthood for GDCs."@en ;
+                 rdfs:comment "Modeling note: In GDPO, the compositional structure of this specification is represented using the GDPO-specific relation has principle component. This avoids treating ICE composition as BFO continuant parthood for GDCs."@en ;
                  rdfs:label "rams ten principles specification"@en ;
                  skos:definition "A principle specification that includes, as principle components, each of the ten principles articulated by Dieter Rams (innovativeness, usefulness, aesthetics, understandability, unobtrusiveness, honesty, durability, thoroughness, environmental friendliness, and minimalism)."@en ;
                  skos:editorialNote "Treat this as a directive information content entity authored by Dieter Rams in the 1970s. Represent its compositional structure using the GDPO-specific relation has principle component, preferably by asserting a specification individual (e.g., RamsTenPrinciplesSpecification) that has principle component each of the ten named Rams principle statement individuals. This avoids committing to BFO continuant parthood for GDC/ICE composition. Do not treat this class as logically equivalent to the conjunction of the ten principles for purposes of conformance: Rams’ framework supports graded and context-dependent conformity."@en ;
@@ -1374,11 +1473,7 @@ gdpo:GDPO0000449 rdf:type owl:Class ;
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000452
 gdpo:GDPO0000452 rdf:type owl:Class ;
-                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000044
-                                                            [ rdf:type owl:Restriction ;
-                                                              owl:onProperty gdpo:GDPO0000046 ;
-                                                              owl:someValuesFrom gdpo:GDPO0000025
-                                                            ]
+                 owl:equivalentClass [ owl:intersectionOf ( gdpo:GDPO0000455
                                                             [ rdf:type owl:Restriction ;
                                                               owl:onProperty gdpo:GDPO0000450 ;
                                                               owl:someValuesFrom gdpo:GDPO0000446
@@ -1386,11 +1481,11 @@ gdpo:GDPO0000452 rdf:type owl:Class ;
                                                           ) ;
                                        rdf:type owl:Class
                                      ] ;
-                 rdfs:subClassOf gdpo:GDPO0000044 ;
+                 rdfs:subClassOf gdpo:GDPO0000455 ;
                  rdfs:label "design communicative honesty evaluation"@en ;
                  skos:altLabel "communicative honesty evaluation"@en ;
-                 skos:definition "A design evaluation that assesses whether a communication artifact honestly represents a designed artifact's actual properties and performance."@en ;
-                 skos:editorialNote "Replaces the deprecated disposition model. Link to the product via 'is about' and to manuals, labels, ads via 'is about communication content'."@en ;
+                 skos:definition "A design honesty evaluation that assesses whether design communication content, such as manual content, label content, or advertisement content, honestly represents a designed artifact's actual materials, functions, capabilities, or performance."@en ;
+                 skos:editorialNote "This class specializes design honesty evaluation by adding an explicit communication-content subject matter condition. It should be used when the honesty assessment concerns manuals, labels, advertisements, disclosures, or other communicated claims about the artifact."@en ;
                  skos:prefLabel "design communicative honesty evaluation"@en .
 
 
@@ -1405,11 +1500,12 @@ gdpo:GDPO0000455 rdf:type owl:Class ;
                                        rdf:type owl:Class
                                      ] ;
                  rdfs:subClassOf gdpo:GDPO0000044 ;
-                 rdfs:label "design interaction honesty evaluation"@en ;
-                 skos:definition "A design evaluation record that assesses an artifact's honesty as manifested in interaction (e.g., whether controls, affordances, and perceptible cues align with actual functions and capabilities), as an evaluation against the principle of honesty."@en ;
-                 skos:editorialNote "This class is intended as the interaction-focused counterpart to design communicative honesty evaluation. A single evaluation record may be both an interaction honesty evaluation and a communicative honesty evaluation if it assesses both artifact behavior and communication content. Use is about communication content only when the evaluation explicitly assesses manuals/labels/ads."@en ;
-                 skos:prefLabel "design interaction honesty evaluation"@en ;
-                 skos:scopeNote "Use for evaluations of artifact-borne honesty (functional/material) grounded in interaction or artifact presentation, not primarily in marketing claims."@en .
+                 rdfs:label "design honesty evaluation"@en ;
+                 skos:altLabel "honesty evaluation"@en ;
+                 skos:definition "A design evaluation record that assesses a designed artifact or associated design communication content against the principle of honesty."@en ;
+                 skos:editorialNote "This class captures honesty evaluations generally. It should not be interpreted as interaction-specific unless an additional interaction-process or interaction-evidence condition is asserted. More specific subclasses, such as design communicative honesty evaluation, may specialize honesty evaluations by evaluation modality or subject matter."@en ;
+                 skos:prefLabel "design honesty evaluation"@en ;
+                 skos:scopeNote "Use for evaluation records in which the principle of honesty is an explicit evaluative criterion. For evaluations specifically concerning manuals, labels, advertisements, or other communication content, use design communicative honesty evaluation."@en .
 
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000456
@@ -1434,46 +1530,6 @@ gdpo:GDPO0000461 rdf:type owl:Class ;
 #################################################################
 #    Individuals
 #################################################################
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000004
-gdpo:GDPO0000004 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000005
-gdpo:GDPO0000005 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000006
-gdpo:GDPO0000006 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000007
-gdpo:GDPO0000007 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000008
-gdpo:GDPO0000008 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000009
-gdpo:GDPO0000009 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000010
-gdpo:GDPO0000010 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000011
-gdpo:GDPO0000011 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000012
-gdpo:GDPO0000012 rdf:type owl:NamedIndividual .
-
-
-###  https://www.ramsprinciplesofgooddesign.com/GDPO0000013
-gdpo:GDPO0000013 rdf:type owl:NamedIndividual .
-
 
 ###  https://www.ramsprinciplesofgooddesign.com/GDPO0000065
 gdpo:GDPO0000065 rdf:type owl:NamedIndividual ,
@@ -1662,103 +1718,6 @@ gdpo:GDPO0000085 rdf:type owl:NamedIndividual ,
                           gdpo:GDPO0000061 ;
                  rdfs:label "prescription component for minimalism 001"@en ;
                  skos:definition "A named design process prescription component linked to the canonical Rams statement 'Good design is as little design as possible'."@en .
-
-
-#################################################################
-#    Annotations
-#################################################################
-
-gdpo:GDPO0000004 rdfs:comment "Modeling note: This class denotes the bearer-dependent quality itself (a truthmaker in the artifact), not a numeric degree or score. Numeric assessments of innovativeness should be represented as information content entities (e.g., evaluation records) that are about this quality and carry measurement values."@en ;
-                 rdfs:label "design innovativeness"@en ;
-                 skos:altLabel "innovation quality"@en ,
-                               "novelty quality"@en ;
-                 skos:definition "A relational quality that inheres in a material entity (typically a designed artifact) and consists in that entity bearing design-relevant features that are novel or improved relative to a specified comparison class of predecessor artifacts within a specified historical context."@en ;
-                 skos:editorialNote "Disambiguate value-creating novelty from novelty-for-its-own-sake. Specify the comparison class (prior model, market category, internal baseline) via an annotation or object property such as innovates_over. Distinguish design innovativeness (quality) from design innovation process (process) and from patentability (legal status)."@en ;
-                 skos:prefLabel "design innovativeness"@en ;
-                 skos:scopeNote "This quality is assessed comparatively against an explicit baseline (e.g., prior version, competing products, market category norms, or an internal reference design). “Non-trivial” indicates a change above a context-appropriate threshold and typically concerns improvements in function, usability, efficiency, sustainability, manufacturability, safety, reliability, or user experience."@en .
-
-
-gdpo:GDPO0000005 rdfs:label "design usefulness"@en ;
-                 skos:altLabel "functional utility"@en ,
-                               "utility function"@en ;
-                 skos:definition "A function that inheres in a material entity (typically a designed artifact) and is realized in design use processes in which the bearer contributes to the achievement of intended practical ends in typical contexts of use."@en ;
-                 skos:editorialNote """Design usefulness is not merely the presence of a function but the degree to which that function effectively serves intended practical ends for target users. Evaluations of usefulness should assess functional adequacy relative to user goals and contexts, not simply whether a function exists.
-
-Pair with role assertions when usefulness is context- or user-role–dependent (e.g., medical role vs. hobbyist role). Tie evaluations to use scenario individuals with has intended use, evaluated in context, and realized in to link to successful use processes."""@en ;
-                 skos:prefLabel "design usefulness"@en ;
-                 skos:scopeNote "A function specifying the end-directed capacity of an artifact to fulfill intended practical purposes for target users in expected contexts of use."@en .
-
-
-gdpo:GDPO0000006 rdfs:label "design aesthetic quality"@en ;
-                 skos:altLabel "design aesthetic"@en ;
-                 skos:definition "A design-related perceptual-form quality that inheres in a material entity (typically a designed artifact) and consists in those perceptual features (e.g., proportion, harmony, finish) that are apt to elicit aesthetic appreciation by intended users or observers."@en ;
-                 skos:editorialNote "Model sub-qualities if needed (proportion, visual harmony, material finish). For assessments, record assessor, method (e.g., design review rubric), and cultural style references to handle variability across design languages."@en ;
-                 skos:prefLabel "design aesthetic quality"@en ;
-                 skos:scopeNote "A quality of an artifact’s form and presentation contributing to perceived visual, tactile, or auditory appeal, harmony, and coherence, independent of its practical function."@en .
-
-
-gdpo:GDPO0000007 rdfs:label "design understandability"@en ;
-                 skos:altLabel "cognitive accessibility"@en ,
-                               "learnability"@en ;
-                 skos:definition "A disposition that inheres in a material entity (typically a designed artifact) and, when realized in design comprehension processes, tends to enable users to correctly apprehend the bearer's structure, operation, and intended use from available cues (e.g., form, labels, affordances)."@en ;
-                 skos:editorialNote """Retain both understandability and usefulness as distinct classes to prevent collapsing cognitive accessibility into functional adequacy. In evaluations, score separately and document trade-offs.
-
-As a disposition, link to cognitive processes of typical users via is realized in comprehension episodes. Encode factors such as clear affordances, legible mapping, and feedback loops as contributing properties rather than conflating them with the disposition itself."""@en ;
-                 skos:prefLabel "design understandability"@en ;
-                 skos:scopeNote "Understandability concerns cognitive uptake; usefulness concerns functional ends."@en .
-
-
-gdpo:GDPO0000008 rdfs:label "design unobtrusiveness quality"@en ;
-                 rdfs:seeAlso "Need To: Keep as a quality distinct from minimalism. Document common confusions: unobtrusive does not imply austere when brand or safety signaling is required. Capture environmental fit via fits environment or minimizes visual salience relative to context, if you maintain such properties."@en ;
-                 skos:altLabel "design subtlety"@en ,
-                               "visual restraint"@en ;
-                 skos:definition "A design-related perceptual-salience quality that inheres in a material entity (typically a designed artifact) and consists in the bearer presenting necessary cues for use while remaining low in perceptual salience relative to its surrounding environment and user activities."@en ;
-                 skos:prefLabel "design unobtrusiveness quality"@en ;
-                 skos:scopeNote "A quality whereby an artifact’s form and behavior refrain from dominating attention, visual field, or environment, supporting use without calling attention to itself."@en .
-
-
-gdpo:GDPO0000009 rdfs:label "design honesty"@en ;
-                 skos:altLabel "design authenticity"@en ,
-                               "design integrity"@en ;
-                 skos:definition "A disposition that inheres in a material entity (typically a designed artifact) and, when realized in user interaction and related lifecycle processes, tends to avoid misleading users about the bearer's materials, functions, or performance (i.e., the artifact's perceptible cues do not misrepresent what is actually the case)."@en ;
-                 skos:editorialNote """Keep ‘design honesty’ general (realized in relevant processes). Constrain concrete facets in subclasses: material honesty (manufacturing/use), functional honesty (interaction), communicative honesty (communication).
-
-Clarify scope across three areas: material honesty (appearance tracks materials), functional honesty (controls reflect real capabilities), and communicative honesty (marketing claims match performance). Link violations to misrepresentation events rather than to the quality class itself."""@en ;
-                 skos:scopeNote "Parent class for product-borne honesty dispositions (functional and material). Communicative honesty is handled via communicative honesty evaluations of communication artifacts."@en .
-
-
-gdpo:GDPO0000010 rdfs:label "design durability"@en ;
-                 skos:altLabel "design robustness"@en ,
-                               "longevity"@en ;
-                 skos:definition "A disposition that inheres in a material entity (typically a designed artifact) and, when realized across the bearer's expected life, tends to preserve the bearer's structural and functional integrity under anticipated loads and environmental conditions."@en ;
-                 skos:editorialNote "Keep as a disposition. Tie to test protocols or standards via conforms to standard and to measured endurance results via realized in durability test process. Capture warranty or design life as annotations separate from the disposition."@en ;
-                 skos:prefLabel "design durability"@en ;
-                 skos:scopeNote "A disposition of an artifact to maintain integrity and function over expected life under defined loads, stresses, and environmental conditions."@en .
-
-
-gdpo:GDPO0000011 rdfs:label "design thoroughness quality"@en ;
-                 skos:definition "A design-related completeness-and-detail quality that inheres in a material entity (typically a designed artifact) and consists in the bearer's being designed with attention to detail and completeness across relevant aspects (e.g., components, interface, packaging, documentation, accessories)."@en ;
-                 skos:editorialNote "Treat thoroughness as a quality of the designed “system” rather than only the core artifact. Use has part/has component across the ecosystem to support reasoning that thoroughness extends “down to the last detail.”"@en ;
-                 skos:prefLabel "design thoroughness quality"@en ;
-                 skos:scopeNote "A quality of completeness and attention to detail evident in surface finish, tolerances, affordances, edge cases, and fit-and-finish across the product and its ecosystem (packaging, documentation, accessories)."@en .
-
-
-gdpo:GDPO0000012 rdfs:label "design environmental friendliness"@en ;
-                 skos:altLabel "eco-friendliness"@en ,
-                               "sustainability quality"@en ;
-                 skos:definition "An aggregate design-related quality that inheres in a material entity (typically a designed artifact) and consists in the bearer's life-cycle processes (e.g., sourcing, manufacturing, distribution, use/maintenance, end-of-life handling) having low adverse environmental impacts relative to a specified baseline."@en ;
-                 skos:editorialNote "Model lifecycle stages as processes and represent verified outcomes as measurement data and or ratings (e.g., recycled content %, energy use class, repairability index) produced by assessment/measurement activities. Distinguish claims (ICE) from verified performance (measurement data, evaluation records); record certification bodies and standards, methods used."@en ;
-                 skos:prefLabel "design environmental friendliness"@en ;
-                 skos:scopeNote "A quality that reflects the degree to which a design (and/or the artifact produced according to that design) is environmentally preferable when assessed across lifecycle stages such as sourcing, manufacturing, distribution, use, and end‑of‑life. This is typically determined from lifecycle indicators and/or lifecycle assessment results rather than being a disposition that is realized in processes."@en .
-
-
-gdpo:GDPO0000013 rdfs:label "design minimalism quality"@en ;
-                 skos:altLabel "design simplicity"@en ,
-                               "essentialism"@en ;
-                 skos:definition "A design-related parsimony quality that inheres in a material entity (typically a designed artifact) and consists in achieving intended purposes with no superfluous elements beyond what is necessary for those purposes."@en ;
-                 skos:editorialNote "Differentiate minimalism from impoverished function. Use accompanies to indicate when minimalism co-occurs with understandability and unobtrusiveness without making them equivalent. Where complexity is necessary (e.g., safety cues), note justified exceptions in annotations."@en ;
-                 skos:prefLabel "design minimalism quality"@en ;
-                 skos:scopeNote "A quality characterized by reduction to essential elements in form and function, eliminating superfluous ornamentation and unnecessary complexity in support of “less, but better.”"@en .
 
 
 #################################################################

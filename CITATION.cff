@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use the Good Design Principles Ontology, please cite this repository and the accompanying manuscript."
+title: "Good Design Principles Ontology"
+version: "4.0.3"
+date-released: "2026-05-11"
+type: software
+authors:
+  - family-names: Coleman
+    given-names: Timothy W.
+repository-code: "https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology"
+url: "https://github.com/TimothyWColeman/GoodDesignPrinciplesOntology"
+abstract: "An applied ontology representing Dieter Rams' Ten Principles of Good Design as directive information content entities, prescription components, artifact-side target expressions, evaluation methods, and evidence-bearing evaluation records using BFO 2020 and CCO 2.0."
+keywords:
+  - ontology
+  - BFO
+  - Common Core Ontologies
+  - design evaluation
+  - design principles
+  - normative design guidance
+  - OWL
+license: "CC-BY-4.0"
+preferred-citation:
+  type: article
+  title: "Principles Are Not Properties: A BFO-Grounded Ontology for Normative Design Guidance and Evaluation Traceability"
+  authors:
+    - family-names: Coleman
+      given-names: Timothy W.
+  year: 2026
