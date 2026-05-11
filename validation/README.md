@@ -13,9 +13,7 @@ This folder records the baseline validation checks for the current GDPO release.
 Run these checks from the repository root:
 
 ```bash
-python3 -c "import rdflib; rdflib.Graph().parse('ontology/gdpo-4.0.3.ttl', format='turtle')"
-python3 -c "import rdflib; rdflib.Graph().parse('examples/gdpo-example-abox.ttl', format='turtle')"
-xmllint --noout ontology/catalog-v001.xml
+python3 validation/validate_gdpo.py
 ```
 
 The current release should satisfy the following manuscript-alignment checks:
@@ -30,3 +28,6 @@ The current release should satisfy the following manuscript-alignment checks:
 ## Notes
 
 These checks are intentionally lightweight. Future releases can add SHACL shapes, ROBOT reports, SPARQL regression queries, and reasoner profiles once the manuscript examples and competency-question artifacts are finalized.
+
+The GitHub Actions workflow in `.github/workflows/validate.yml` runs the same
+script on pushes and pull requests to `main`.
