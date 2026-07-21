@@ -29,7 +29,11 @@ The current release should satisfy the following manuscript-alignment checks:
 
 ## Notes
 
-These checks are intentionally lightweight. Future releases can add SHACL shapes, ROBOT reports, broader SPARQL regression suites, and full DL reasoner profiles once the manuscript examples and competency-question artifacts are finalized.
+These checks are intentionally lightweight. The article-specific SK4 fixture,
+seven SPARQL templates, deterministic results, and two OWL-RL entailment tests
+are maintained in `../supplement/manuscript-validation/`. Future releases can
+add SHACL shapes, ROBOT reports, broader regression suites, and full DL reasoner
+profiles.
 
 The GitHub Actions workflow in `.github/workflows/validate.yml` runs the same
 script on pushes and pull requests to `main`.

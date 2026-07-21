@@ -26,3 +26,6 @@ jobs:
 
       - name: Run GDPO validation checks
         run: python validation/validate_gdpo.py
+
+      - name: Run manuscript supplement checks
+        run: python supplement/manuscript-validation/run_validation.py

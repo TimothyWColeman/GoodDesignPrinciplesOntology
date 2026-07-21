@@ -444,6 +444,9 @@ The current validation baseline is:
 * parse `ontology/gdpo-4.0.3.ttl` as Turtle
 * load `ontology/catalog-v001.xml` as a well-formed XML catalog
 * verify there are no `owl:hasValue` target restrictions
+* classify the communicative-honesty example under OWL-RL
+* run the paper-aligned SK4 fixture, seven SPARQL templates, and two reported
+  entailment checks from `supplement/manuscript-validation/`
 * verify no GDPO entity is both an `owl:Class` and an `owl:NamedIndividual`
 * verify named prescription component individuals do not use process-type classes as ABox object-property values
 * verify CCO imports resolve to the stable CCO 2.0 release tag
@@ -474,6 +477,7 @@ Current repository layout:
 | `queries/sparql-templates.md` | Reusable SPARQL query templates |
 | `examples/gdpo-example-abox.ttl` | Minimal paper-aligned ABox example |
 | `validation/` | Baseline validation checks and manuscript-alignment notes |
+| `supplement/manuscript-validation/` | Reproducible article fixture, queries, entailment checks, and expected output |
 | `legacy/` | Historical ontology files retained for provenance only |
 | `CHANGELOG.md` | Release history and breaking changes |
 | `CITATION.cff` | Repository citation metadata |
