@@ -7,6 +7,7 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from owlrl import DeductiveClosure, OWLRL_Semantics
 from rdflib import Graph, Namespace, OWL, RDF, URIRef
 
 
@@ -17,6 +18,11 @@ CATALOG = ROOT / "ontology" / "catalog-v001.xml"
 
 GDPO = Namespace("https://www.ramsprinciplesofgooddesign.com/")
 CCO = Namespace("https://www.commoncoreontologies.org/")
+EXAMPLE_NS = Namespace("https://example.org/gdpo-example/")
+
+COMMUNICATIVE_HONESTY_RECORD = EXAMPLE_NS[
+    "example-radio-communicative-honesty-evaluation-record"
+]
 
 EXPECTED_IMPORTS = {
     URIRef("http://purl.obolibrary.org/obo/bfo/2020/bfo.owl"),
@@ -56,9 +62,57 @@ def check_ontology_parse() -> Graph:
     return graph
 
 
-def check_example_parse() -> None:
-    parse_graph(EXAMPLE)
+def check_example_parse() -> Graph:
+    graph = parse_graph(EXAMPLE)
     pass_check(f"parsed {EXAMPLE.relative_to(ROOT)}")
+    return graph
+
+
+def check_communicative_honesty_inference(
+    ontology_graph: Graph, example_graph: Graph
+) -> None:
+    generic_record = GDPO["GDPO0000044"]
+    advertisement_content = GDPO["GDPO0000449"]
+    honesty_evaluation = GDPO["GDPO0000455"]
+    communicative_honesty_evaluation = GDPO["GDPO0000452"]
+
+    wrong_type = (COMMUNICATIVE_HONESTY_RECORD, RDF.type, advertisement_content)
+    if wrong_type in example_graph:
+        fail("communicative-honesty evaluation record is typed as advertisement content")
+    if (COMMUNICATIVE_HONESTY_RECORD, RDF.type, generic_record) not in example_graph:
+        fail("communicative-honesty example lacks its generic evaluation-record type")
+    if (
+        COMMUNICATIVE_HONESTY_RECORD,
+        RDF.type,
+        communicative_honesty_evaluation,
+    ) in example_graph:
+        fail("communicative-honesty type should be inferred, not asserted in the example")
+
+    combined = Graph()
+    for triple in ontology_graph:
+        combined.add(triple)
+    for triple in example_graph:
+        combined.add(triple)
+    DeductiveClosure(OWLRL_Semantics).expand(combined)
+
+    expected_types = {
+        generic_record,
+        honesty_evaluation,
+        communicative_honesty_evaluation,
+    }
+    missing = {
+        class_iri
+        for class_iri in expected_types
+        if (COMMUNICATIVE_HONESTY_RECORD, RDF.type, class_iri) not in combined
+    }
+    if missing:
+        fail(
+            "communicative-honesty inference missing type(s): "
+            + ", ".join(sorted(map(str, missing)))
+        )
+    pass_check(
+        "communicative-honesty record infers generic, honesty, and communicative types"
+    )
 
 
 def check_catalog_xml() -> ET.ElementTree:
@@ -128,13 +182,14 @@ def check_named_prescription_components_are_lightweight(graph: Graph) -> None:
 
 def main() -> None:
     ontology_graph = check_ontology_parse()
-    check_example_parse()
+    example_graph = check_example_parse()
     catalog_tree = check_catalog_xml()
     check_imports(ontology_graph)
     check_catalog_pins(catalog_tree)
     check_no_has_value(ontology_graph)
     check_no_gdpo_class_individual_punning(ontology_graph)
     check_named_prescription_components_are_lightweight(ontology_graph)
+    check_communicative_honesty_inference(ontology_graph, example_graph)
     print("All GDPO validation checks passed.")
 
 

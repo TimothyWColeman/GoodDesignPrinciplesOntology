@@ -2,6 +2,12 @@
 
 All notable changes to the Good Design Principles Ontology are documented here.
 
+## [Unreleased]
+
+### Fixed
+
+- Corrected the example communicative-honesty evaluation record's asserted type and added an OWL-RL regression check for its inferred honesty-evaluation classifications.
+
 ## [4.0.3] - 2026-05-11
 
 ### Changed
