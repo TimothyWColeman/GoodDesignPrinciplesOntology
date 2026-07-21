@@ -18,6 +18,7 @@ Core files:
 - example ABox: `../examples/gdpo-example-abox.ttl`
 - SPARQL templates: `../queries/sparql-templates.md`
 - validation notes: `../validation/README.md`
+- manuscript supplement: `../supplement/manuscript-validation/`
 
 ## What Changed in v4.0.3
 
@@ -50,9 +51,9 @@ Reviewers should expect the ontology to maintain these commitments:
 From the repository root:
 
 ```bash
-python3 -c "import rdflib; rdflib.Graph().parse('ontology/gdpo-4.0.3.ttl', format='turtle')"
-python3 -c "import rdflib; rdflib.Graph().parse('examples/gdpo-example-abox.ttl', format='turtle')"
-xmllint --noout ontology/catalog-v001.xml
+python3 -m pip install -r validation/requirements.txt
+python3 validation/validate_gdpo.py
+python3 supplement/manuscript-validation/run_validation.py
 ```
 
 ## Suggested Reading Order
@@ -62,4 +63,5 @@ xmllint --noout ontology/catalog-v001.xml
 3. `docs/competency-questions.md`
 4. `queries/sparql-templates.md`
 5. `examples/gdpo-example-abox.ttl`
-6. `ontology/gdpo-4.0.3.ttl`
+6. `supplement/manuscript-validation/README.md`
+7. `ontology/gdpo-4.0.3.ttl`

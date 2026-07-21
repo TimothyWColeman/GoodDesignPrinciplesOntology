@@ -1,0 +1,23 @@
+GDPO manuscript supplement validation
+RDFLib: 7.2.1
+OWL-RL: 7.1.4
+Ontology: ontology/gdpo-4.0.3.ttl
+Fixture: supplement/manuscript-validation/fixture.ttl
+owl:hasValue triples in ontology: 0
+GDPO class/named-individual overlap: 0
+Query rows:
+  A2.1 target expressions: 10
+  A2.2 artifact evaluations: 3
+  A2.3 artifact comparison (additional): 2
+  A2.4 communicative honesty: 1
+  A2.5 disposition realization: 1
+  A2.6 method operationalizations: 3
+  A2.7 lifecycle applicability: 7
+Durability evaluation relevance:
+  https://www.ramsprinciplesofgooddesign.com/GDPO0000072
+  https://www.ramsprinciplesofgooddesign.com/GDPO0000074
+Manual-honesty evaluation types:
+  https://www.ramsprinciplesofgooddesign.com/GDPO0000044
+  https://www.ramsprinciplesofgooddesign.com/GDPO0000452
+  https://www.ramsprinciplesofgooddesign.com/GDPO0000455
+PASS: all expected query and entailment checks succeeded

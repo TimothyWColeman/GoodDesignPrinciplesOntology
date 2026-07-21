@@ -22,7 +22,10 @@ jobs:
           python-version: "3.11"
 
       - name: Install validation dependencies
-        run: python -m pip install rdflib
+        run: python -m pip install -r validation/requirements.txt
 
       - name: Run GDPO validation checks
         run: python validation/validate_gdpo.py
+
+      - name: Run manuscript supplement checks
+        run: python supplement/manuscript-validation/run_validation.py

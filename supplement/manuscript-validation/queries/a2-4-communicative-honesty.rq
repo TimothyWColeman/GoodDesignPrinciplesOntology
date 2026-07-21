@@ -1,0 +1,10 @@
+PREFIX gdpo: <https://www.ramsprinciplesofgooddesign.com/>
+
+SELECT DISTINCT ?evaluation ?artifact ?content ?principleToken WHERE {
+  ?evaluation a gdpo:GDPO0000044 ;
+              gdpo:GDPO0000045 ?artifact ;
+              gdpo:GDPO0000046 ?principleToken ;
+              gdpo:GDPO0000450 ?content .
+  ?principleToken a gdpo:GDPO0000025 .
+}
+ORDER BY ?evaluation

@@ -58,7 +58,7 @@ ex:example-radio-label-content
     rdfs:label "Example radio label content"@en .
 
 ex:example-radio-communicative-honesty-evaluation-record
-    rdf:type gdpo:GDPO0000449 ;
+    rdf:type gdpo:GDPO0000044 ;
     gdpo:GDPO0000045 ex:example-radio ;
     gdpo:GDPO0000046 gdpo:GDPO0000071 ;
     gdpo:GDPO0000450 ex:example-radio-label-content ;

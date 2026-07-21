@@ -2,6 +2,16 @@
 
 All notable changes to the Good Design Principles Ontology are documented here.
 
+## [Unreleased]
+
+### Fixed
+
+- Corrected the example communicative-honesty evaluation record's asserted type and added an OWL-RL regression check for its inferred honesty-evaluation classifications.
+
+### Added
+
+- Added the paper-aligned SK4 validation supplement with pinned dependencies, seven executable SPARQL templates, reported entailment checks, and deterministic expected output.
+
 ## [4.0.3] - 2026-05-11
 
 ### Changed
